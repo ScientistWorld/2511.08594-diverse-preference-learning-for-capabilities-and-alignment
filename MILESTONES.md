@@ -26,4 +26,4 @@
 - The job regenerated DPO and SPL outputs, wrote `scoring/scores.json`, and passed `python validate.py --compare`.
 
 ## Stop Justification
-- Stopping at `core_claim`: the packaged environment reproduces the paper's central two-outcome mode-collapse claim with the actual SPL objective. Higher milestones would require substantially larger LLM LoRA experiments beyond this compact gym.
+- Completed at milestone `core_claim`.
