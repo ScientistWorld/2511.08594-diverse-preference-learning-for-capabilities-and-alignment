@@ -4,6 +4,11 @@
 
 ## Progress Log
 
+### [2026-06-01 08:52] - core_claim_plus
+- Managed CPU verification job `9b0d9378-ef7` completed with exit code 0.
+- The job reran `scripts/reproduce.sh`, regenerated DPO and SPL artifacts for both experiments, and ran `python validate.py --compare`.
+- Container validation passed import separation, artifact-based evaluation, and reproduced-score comparison checks.
+
 ### [2026-06-01 08:51] - core_claim_plus
 - Continuation audit confirmed `method/train_tabular_spl.py` directly optimizes the paper's DPO-style SPL objective rather than a surrogate.
 - Confirmed `eval/evaluate_tabular.py` reads saved `policy.json` and `samples.json` artifacts only and does not import from `method/`.
@@ -17,4 +22,4 @@
 - Verified `eval/` reads saved artifacts and does not import `method/`.
 
 ## Stop Justification
-- Current packaged environment is ready for managed verification at milestone `core_claim_plus`; higher LLM-level empirical claims remain out of scope for this tabular reproduction.
+- Completed at milestone `core_claim_plus`. Higher LLM-level empirical claims remain out of scope for this tabular reproduction because they require substantially larger model training and paid/API-based or heavyweight judge evaluations, while the delivered environment verifies the paper's core SPL computation and finite-action extension.

@@ -9,6 +9,7 @@
 - Continuation audit on 2026-06-01 confirmed the implementation is the paper's Eq. 5 finite-policy objective, not a surrogate model.
 - Continuation audit on 2026-06-01 re-ran `scripts/reproduce.sh` and `python validate.py --compare`; both passed locally.
 - CPU smoke job `e57fca5a-e7d` passed in the packaged container with exit code 0.
+- Managed CPU verification job `9b0d9378-ef7` passed in the packaged container with exit code 0 and reran the full two-experiment reproduction.
 - Current milestone is `core_claim_plus`; the reproduction now covers the central two-outcome claim and a multi-outcome finite Plackett-Luce extension from the paper's Appendix A.1 setting.
 
 ## Results
@@ -30,7 +31,7 @@
 ## Issues
 
 - The original 7B experiments require large model downloads and GPU training. This environment starts with the analytic core claim to provide a fast, reusable benchmark.
-- The managed job currently on disk validated the earlier one-experiment package; a fresh CPU verification is being submitted for the current two-experiment package.
+- The current two-experiment package has now been verified by managed CPU job `9b0d9378-ef7`.
 - `README.md` is a pre-existing character-device entry in the repository and was left untouched during the audit.
 
 ## Deviations from Paper
