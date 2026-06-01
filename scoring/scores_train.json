@@ -1,0 +1,68 @@
+{
+  "metadata": {
+    "slice": "train"
+  },
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "slice": "train",
+      "context_ids": [
+        "paper_80_20_example"
+      ],
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "minority_probability": 9.53675380245514e-07,
+          "majority_overweight": 1.2499988079057747,
+          "top_choice_preserved": 1.0,
+          "preference_kl": 2.272186838539122,
+          "brier_score": 0.0799992370615148,
+          "expected_calibration_error": 0.19999904632461973,
+          "population_l1_error": 0.39999809264923947
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "minority_probability": 0.2000000000000001,
+          "majority_overweight": 1.0,
+          "top_choice_preserved": 1.0,
+          "preference_kl": -8.881784197001253e-17,
+          "brier_score": 6.933347799794049e-33,
+          "expected_calibration_error": 4.163336342344337e-17,
+          "population_l1_error": 8.326672684688674e-17
+        }
+      }
+    },
+    "tabular_preference_learning": {
+      "slice": "train",
+      "context_ids": [
+        "prompt_0",
+        "prompt_1",
+        "prompt_4",
+        "prompt_6"
+      ],
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "normalized_entropy": 0.006122404217369349,
+          "effective_actions": 1.008551322311597,
+          "preference_kl": 3.9411428529824755,
+          "brier_score": 0.3453646464310166,
+          "expected_calibration_error": 0.5013736438375997,
+          "expected_population_preference": 0.4972434814035079,
+          "reference_cross_entropy": 1.3886302391848993,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 0.07287302848320482,
+          "empirical_best_of_128_success": 0.25
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "normalized_entropy": 0.8750161614425663,
+          "effective_actions": 3.365713211489375,
+          "preference_kl": 6.0774900331383866e-05,
+          "brier_score": 2.95873874996119e-05,
+          "expected_calibration_error": 0.003915990270066869,
+          "expected_population_preference": 0.3427234440418251,
+          "reference_cross_entropy": 1.3894076203171477,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 0.9999999774111825,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    }
+  }
+}
