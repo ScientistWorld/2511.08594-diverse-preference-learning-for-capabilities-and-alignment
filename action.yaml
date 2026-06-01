@@ -2,8 +2,8 @@
 # Once you set action to 'done', STOP immediately.
 # Do NOT sleep, poll, or wait. The system reads this file
 # only after your turn ends.
-action: pending
+action: done
 gpus: 0
 test: false
 milestone: core_claim_plus
-notes: ""
+notes: "Improvements: added two-outcome distribution-fit constraints, probability artifact validation, metric descriptions, and adjusted experiment weights. Notes: two-outcome split remains metric-only; empirical sample metric may be format-sensitive."
