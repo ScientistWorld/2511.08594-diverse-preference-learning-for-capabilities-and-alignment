@@ -2,7 +2,7 @@
 
 ## Research Problem
 
-This benchmark studies preference learning under heterogeneous population preferences. The core question is whether alignment from pairwise preferences can avoid majority mode collapse while preserving the correct preference ordering.
+This benchmark studies preference learning under heterogeneous population preferences. The core question is whether alignment from pairwise preferences can avoid majority mode collapse while preserving the correct preference ordering across finite two-outcome and multi-outcome settings.
 
 ## Core Contribution Scope
 
@@ -10,7 +10,7 @@ Scientists should work on preference-learning objectives or policy-optimization 
 
 ## Approach Scope
 
-In-bounds approaches may change the preference objective, regularization coefficients, optimization procedure, or policy parameterization as long as they still learn from the provided pairwise preference data and produce a probability distribution over the same two outputs.
+In-bounds approaches may change the preference objective, regularization coefficients, optimization procedure, or policy parameterization as long as they still learn from the provided pairwise preference data and produce a probability distribution over the same finite output set for each prompt.
 
 ## Out of Bounds
 

@@ -116,7 +116,7 @@ def sample_policy(contexts: list[dict], samples_per_context: int, seed: int) -> 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--benchmark", default="data/spl_tabular_benchmark.json")
+    parser.add_argument("--benchmark", default="data/two_outcome_benchmark.json")
     parser.add_argument("--output-dir", default="checkpoints/spl_tabular")
     parser.add_argument("--method-name", default="spl_alpha_0.5_beta_0.1")
     parser.add_argument("--alpha", type=float, default=0.5)

@@ -32,4 +32,9 @@ if [ "$#" -lt 1 ]; then
   set -- checkpoints/dpo_two_outcome checkpoints/spl_two_outcome
 fi
 
-python eval/evaluate_tabular.py "$@" --experiment "$EXPERIMENT" --scores-out scoring/scores.json
+MERGE_ARG=""
+if [ "${MERGE_SCORES:-0}" = "1" ]; then
+  MERGE_ARG="--merge"
+fi
+
+python eval/evaluate_tabular.py "$@" --experiment "$EXPERIMENT" --scores-out scoring/scores.json $MERGE_ARG

@@ -7,3 +7,12 @@ Tests whether a preference learner avoids collapsing a minority-supported option
 - **Primary metric**: `minority_probability` (higher is better, up to the 0.2 population target)
 - **Constraint metrics**: `majority_overweight` (lower is better) and `top_choice_preserved` (higher is better)
 - **How to run**: `bash scripts/reproduce.sh`, or run `bash scripts/evaluate.sh checkpoints/dpo_two_outcome checkpoints/spl_two_outcome` after producing artifacts.
+
+## Extension: tabular_preference_learning
+
+Tests the generalized multi-outcome preference representation claim from the paper's finite Plackett-Luce analysis and its implication for repeated sampling.
+
+- **Primary metric**: `preference_kl` from population preferences to learned policy (lower is better)
+- **Benefit metrics**: `best_of_128_success_probability`, `empirical_best_of_128_success`, `normalized_entropy`, and `effective_actions` (higher is better)
+- **Constraint metrics**: `argmax_population_mode_accuracy` and `expected_population_preference` (higher is better), plus `reference_cross_entropy`, `brier_score`, and `expected_calibration_error` (lower is better)
+- **How to run**: `bash scripts/reproduce.sh`, or generate `data/spl_tabular_benchmark.json` and run `EXPERIMENT=tabular_preference_learning bash scripts/evaluate.sh checkpoints/dpo_tabular checkpoints/spl_tabular`.

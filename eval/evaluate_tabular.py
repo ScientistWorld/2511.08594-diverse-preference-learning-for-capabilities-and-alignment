@@ -128,6 +128,7 @@ def main() -> None:
     parser.add_argument("run_dirs", nargs="+", help="One or more artifact directories")
     parser.add_argument("--scores-out", default="scoring/scores.json")
     parser.add_argument("--experiment", default="tabular_preference_learning")
+    parser.add_argument("--merge", action="store_true", help="Merge this experiment into an existing scores file")
     args = parser.parse_args()
 
     results = {}
@@ -135,9 +136,14 @@ def main() -> None:
         method_name, result = evaluate_run(Path(run_dir_text), args.experiment)
         results[method_name] = result
 
-    scores = {"experiments": {args.experiment: {"results": results}}}
     output = Path(args.scores_out)
     output.parent.mkdir(parents=True, exist_ok=True)
+    if args.merge and output.exists():
+        scores = json.loads(output.read_text())
+        scores.setdefault("experiments", {})
+    else:
+        scores = {"experiments": {}}
+    scores["experiments"][args.experiment] = {"results": results}
     output.write_text(json.dumps(scores, indent=2) + "\n")
     print(json.dumps(scores, indent=2))
 

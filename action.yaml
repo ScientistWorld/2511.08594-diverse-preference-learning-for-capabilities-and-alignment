@@ -4,5 +4,5 @@
 action: done
 gpus: 0
 test: false
-milestone: core_claim
-notes: "Core SPL claim reproduced and validated: DPO mode collapse vs SPL proportional representation on the paper's two-outcome setting."
+milestone: core_claim_plus
+notes: "Core SPL claim reproduced and extended to a multi-outcome finite Plackett-Luce setting; validate.py --compare passes."

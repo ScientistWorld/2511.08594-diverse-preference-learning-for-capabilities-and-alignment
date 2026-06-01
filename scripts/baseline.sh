@@ -43,4 +43,6 @@ python baseline/run_dpo.py \
   --samples-per-context "$SAMPLES_PER_CONTEXT" \
   --seed "$SEED"
 
-bash scripts/evaluate.sh "$OUTPUT_DIR"
+if [ "${RUN_EVAL:-1}" = "1" ]; then
+  bash scripts/evaluate.sh "$OUTPUT_DIR"
+fi

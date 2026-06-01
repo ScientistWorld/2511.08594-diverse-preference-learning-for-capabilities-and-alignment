@@ -10,7 +10,7 @@ import sys
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--benchmark", default="data/spl_tabular_benchmark.json")
+    parser.add_argument("--benchmark", default="data/two_outcome_benchmark.json")
     parser.add_argument("--output-dir", default="checkpoints/dpo_tabular")
     parser.add_argument("--beta", type=float, default=0.1)
     parser.add_argument("--steps", type=int, default=3000)

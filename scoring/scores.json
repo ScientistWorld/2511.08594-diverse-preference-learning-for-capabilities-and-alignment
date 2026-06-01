@@ -13,6 +13,34 @@
           "top_choice_preserved": 1.0
         }
       }
+    },
+    "tabular_preference_learning": {
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "normalized_entropy": 0.023993035058803843,
+          "effective_actions": 1.0351604017315172,
+          "preference_kl": 3.8962151361987303,
+          "brier_score": 0.3301182089534658,
+          "expected_calibration_error": 0.486961246289547,
+          "expected_population_preference": 0.5052855088043218,
+          "reference_cross_entropy": 1.3861923208706026,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 0.15058883795417802,
+          "empirical_best_of_128_success": 0.25
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "normalized_entropy": 0.8581623897371844,
+          "effective_actions": 3.2956855343210796,
+          "preference_kl": 0.0001382635371026926,
+          "brier_score": 7.597702049617455e-05,
+          "expected_calibration_error": 0.006284208918977822,
+          "expected_population_preference": 0.35548492573060403,
+          "reference_cross_entropy": 1.3833728179575846,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 0.9999939151982019,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
     }
   }
 }

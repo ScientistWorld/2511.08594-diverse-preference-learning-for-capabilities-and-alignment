@@ -31,6 +31,7 @@ STEPS="$STEPS" \
 LR="$LR" \
 SAMPLES_PER_CONTEXT="$SAMPLES_PER_CONTEXT" \
 SEED="$SEED" \
+RUN_EVAL=0 \
 bash scripts/baseline.sh dpo
 
 BENCHMARK="$BENCHMARK" \
@@ -41,6 +42,32 @@ STEPS="$STEPS" \
 LR="$LR" \
 SAMPLES_PER_CONTEXT="$SAMPLES_PER_CONTEXT" \
 SEED="$SEED" \
+RUN_EVAL=0 \
+bash scripts/method.sh
+
+python data/spl_benchmark.py --output data/spl_tabular_benchmark.json
+
+BENCHMARK="data/spl_tabular_benchmark.json" \
+OUTPUT_DIR="checkpoints/dpo_tabular" \
+BETA="${BETA:-0.1}" \
+STEPS="$STEPS" \
+LR="$LR" \
+SAMPLES_PER_CONTEXT="$SAMPLES_PER_CONTEXT" \
+SEED="$SEED" \
+RUN_EVAL=0 \
+bash scripts/baseline.sh dpo
+
+BENCHMARK="data/spl_tabular_benchmark.json" \
+OUTPUT_DIR="checkpoints/spl_tabular" \
+ALPHA="${ALPHA:-1.0}" \
+BETA="${BETA:-0.1}" \
+STEPS="$STEPS" \
+LR="$LR" \
+SAMPLES_PER_CONTEXT="$SAMPLES_PER_CONTEXT" \
+SEED="$SEED" \
+RUN_EVAL=0 \
 bash scripts/method.sh
 
 bash scripts/evaluate.sh checkpoints/dpo_two_outcome checkpoints/spl_two_outcome
+EXPERIMENT="tabular_preference_learning" MERGE_SCORES=1 \
+  bash scripts/evaluate.sh checkpoints/dpo_tabular checkpoints/spl_tabular
