@@ -1,4 +1,4 @@
 action: submit
 gpus: 0
 test: false
-notes: "Run evaluate_train.sh and evaluate_test.sh against saved checkpoint artifacts; populate train/test scores."
+notes: "Rerun train/test scoring after clamping numerical KL values to the nonnegative domain."

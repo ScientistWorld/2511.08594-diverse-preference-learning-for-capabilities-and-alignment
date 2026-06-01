@@ -30,7 +30,8 @@ def entropy(probs: list[float]) -> float:
 
 
 def kl_divergence(p: list[float], q: list[float]) -> float:
-    return sum(pi * (math.log(max(pi, 1e-12)) - math.log(max(qi, 1e-12))) for pi, qi in zip(p, q))
+    value = sum(pi * (math.log(max(pi, 1e-12)) - math.log(max(qi, 1e-12))) for pi, qi in zip(p, q))
+    return max(value, 0.0)
 
 
 def brier(policy: list[float], target: list[float]) -> float:
