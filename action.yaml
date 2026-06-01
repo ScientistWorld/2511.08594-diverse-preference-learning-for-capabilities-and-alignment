@@ -1,5 +1,5 @@
-action: done
+action: submit
 gpus: 0
-test: false
+test: true
 milestone: core_claim_plus
-notes: "Final verification passed; workspace is ready as a finite-action research gym at core_claim_plus."
+notes: "CPU container verification for the expanded SPL finite-action reproduction, including two-outcome, multi-outcome, and calibration experiments."
