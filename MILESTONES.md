@@ -4,6 +4,11 @@
 
 ## Progress Log
 
+### [2026-06-01 09:23] - core_claim_plus
+- Added a finite multiple-choice calibration benchmark that uses the same pairwise SPL/DPO objective and artifact format.
+- Local `scripts/reproduce.sh`, split evaluators, and `python validate.py --compare` pass for the expanded three-experiment package.
+- Submitting a managed CPU verification job before claiming `secondary_claims`.
+
 ### [2026-06-01 09:10] - core_claim_plus
 - Added a deterministic multi-context two-outcome split benchmark that keeps the paper's original 80/20 example as the first reported context while adding real held-out two-action contexts for anti-shortcut train/test scoring.
 - Updated the standard evaluator to report the same two-outcome distribution-fit constraints used by the split evaluators.

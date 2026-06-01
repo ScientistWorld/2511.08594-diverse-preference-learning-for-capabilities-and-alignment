@@ -16,3 +16,12 @@ Tests the generalized multi-outcome preference representation claim from the pap
 - **Benefit metrics**: `best_of_128_success_probability`, `empirical_best_of_128_success`, `normalized_entropy`, and `effective_actions` (higher is better)
 - **Constraint metrics**: `argmax_population_mode_accuracy` and `expected_population_preference` (higher is better), plus `reference_cross_entropy`, `brier_score`, and `expected_calibration_error` (lower is better)
 - **How to run**: `bash scripts/reproduce.sh`, or generate `data/spl_tabular_benchmark.json` and run `EXPERIMENT=tabular_preference_learning bash scripts/evaluate.sh checkpoints/dpo_tabular checkpoints/spl_tabular`.
+
+## Secondary: calibration_multiple_choice
+
+Tests whether a preference learner produces calibrated multiple-choice probabilities rather than overconfident majority choices.
+
+- **Primary metric**: `expected_calibration_error` (lower is better)
+- **Benefit metrics**: `preference_kl`, `brier_score`, `normalized_entropy`, and `effective_actions`
+- **Constraint metric**: `argmax_population_mode_accuracy` must remain high so calibration cannot be improved by inverting answer preferences.
+- **How to run**: `bash scripts/reproduce.sh`, or generate `data/calibration_benchmark.json` and run `EXPERIMENT=calibration_multiple_choice bash scripts/evaluate.sh checkpoints/dpo_calibration checkpoints/spl_calibration`.

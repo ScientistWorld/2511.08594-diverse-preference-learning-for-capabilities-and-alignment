@@ -1,5 +1,5 @@
-action: done
+action: submit
 gpus: 0
-test: false
+test: true
 milestone: core_claim_plus
-notes: "Packaging audit passed: no external downloads are required, tracked synthetic data is available, and no committed code references shared paths."
+notes: "Verify the expanded three-experiment SPL reproduction, including the new finite multiple-choice calibration benchmark, in the packaged CPU container."

@@ -49,6 +49,34 @@
           "empirical_best_of_128_success": 1.0
         }
       }
+    },
+    "calibration_multiple_choice": {
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "normalized_entropy": 0.040071548935187405,
+          "effective_actions": 1.0641769619105075,
+          "preference_kl": 3.868911988647141,
+          "brier_score": 0.3065386719815088,
+          "expected_calibration_error": 0.4674471246062889,
+          "expected_population_preference": 0.5154656982138268,
+          "reference_cross_entropy": 1.3862943611198906,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "normalized_entropy": 0.8449491272244065,
+          "effective_actions": 3.2339847147002416,
+          "preference_kl": 6.856399105607966e-05,
+          "brier_score": 3.610505092891356e-05,
+          "expected_calibration_error": 0.0041085835902970845,
+          "expected_population_preference": 0.36596083942740043,
+          "reference_cross_entropy": 1.3862943611198906,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
     }
   }
 }

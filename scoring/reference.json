@@ -2,7 +2,7 @@
   "experiments": {
     "two_outcome_mode_collapse": {
       "description": "Two-outcome social-choice setting from Proposition 3.1/3.2 and the paper's 80% vs 20% example with beta=0.1.",
-      "weight": 0.55,
+      "weight": 0.45,
       "primary_metric": "minority_probability",
       "metrics": {
         "minority_probability": {
@@ -58,7 +58,7 @@
     },
     "tabular_preference_learning": {
       "description": "Multi-outcome finite Plackett-Luce setting derived from Proposition A.1, testing SPL's generalized preference representation and best-of-N diversity implication.",
-      "weight": 0.45,
+      "weight": 0.35,
       "primary_metric": "preference_kl",
       "metrics": {
         "preference_kl": {
@@ -137,6 +137,91 @@
           "argmax_population_mode_accuracy": 1.0,
           "expected_population_preference": 0.355485,
           "reference_cross_entropy": 1.383373,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "description": "Finite multiple-choice calibration setting derived from the paper's calibration claim: policies should match heterogeneous answer probabilities without losing the top answer.",
+      "weight": 0.20,
+      "primary_metric": "expected_calibration_error",
+      "metrics": {
+        "expected_calibration_error": {
+          "higher_is_better": false,
+          "coefficient": -1.0,
+          "description": "Finite-action calibration gap between predicted probability mass and population answer mass."
+        },
+        "brier_score": {
+          "higher_is_better": false,
+          "coefficient": -0.6,
+          "description": "Squared distributional error between learned probabilities and population answer preferences."
+        },
+        "preference_kl": {
+          "higher_is_better": false,
+          "coefficient": -0.8,
+          "description": "KL divergence from the population answer distribution to the learned policy."
+        },
+        "argmax_population_mode_accuracy": {
+          "higher_is_better": true,
+          "coefficient": 0.5,
+          "description": "Whether the learned most likely answer remains the population's most likely answer."
+        },
+        "normalized_entropy": {
+          "higher_is_better": true,
+          "coefficient": 0.3,
+          "description": "Entropy normalized by answer-space size, rewarding non-collapsed calibrated uncertainty."
+        },
+        "effective_actions": {
+          "higher_is_better": true,
+          "coefficient": 0.1,
+          "description": "Exponentiated entropy of the learned answer distribution."
+        },
+        "expected_population_preference": {
+          "higher_is_better": true,
+          "coefficient": 0.1,
+          "description": "Expected population answer support of a sample drawn from the learned policy."
+        },
+        "reference_cross_entropy": {
+          "higher_is_better": false,
+          "coefficient": -0.1,
+          "description": "Cross-entropy of the learned policy under the fixed reference policy."
+        },
+        "best_of_128_success_probability": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Reported for schema consistency with finite-policy artifacts; all calibration prompts mark the population mode as the correct answer."
+        },
+        "empirical_best_of_128_success": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Reported for schema consistency with finite-policy sample artifacts; not an optimization target for calibration."
+        }
+      },
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "type": "baseline",
+          "expected_calibration_error": 0.467447,
+          "brier_score": 0.306539,
+          "preference_kl": 3.868912,
+          "argmax_population_mode_accuracy": 1.0,
+          "normalized_entropy": 0.040072,
+          "effective_actions": 1.064177,
+          "expected_population_preference": 0.515466,
+          "reference_cross_entropy": 1.386294,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "type": "proposed",
+          "expected_calibration_error": 0.004109,
+          "brier_score": 0.000036,
+          "preference_kl": 0.000069,
+          "argmax_population_mode_accuracy": 1.0,
+          "normalized_entropy": 0.844949,
+          "effective_actions": 3.233985,
+          "expected_population_preference": 0.365961,
+          "reference_cross_entropy": 1.386294,
+          "best_of_128_success_probability": 1.0,
           "empirical_best_of_128_success": 1.0
         }
       }

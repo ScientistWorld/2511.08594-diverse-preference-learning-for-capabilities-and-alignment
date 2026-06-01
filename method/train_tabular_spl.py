@@ -149,6 +149,7 @@ def main() -> None:
         "steps": args.steps,
         "lr": args.lr,
         "benchmark": args.benchmark,
+        "benchmark_name": benchmark.get("name", Path(args.benchmark).stem),
     }
     policy = {"metadata": metadata, "contexts": trained_contexts}
     samples = {

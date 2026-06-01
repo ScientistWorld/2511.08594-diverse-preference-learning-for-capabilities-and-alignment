@@ -65,6 +65,42 @@
           "empirical_best_of_128_success": 1.0
         }
       }
+    },
+    "calibration_multiple_choice": {
+      "slice": "train",
+      "context_ids": [
+        "calibration_prompt_0",
+        "calibration_prompt_1",
+        "calibration_prompt_4",
+        "calibration_prompt_6",
+        "calibration_prompt_8"
+      ],
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "normalized_entropy": 0.012277991963936903,
+          "effective_actions": 1.0176097160663073,
+          "preference_kl": 4.22310727731565,
+          "brier_score": 0.2742657421530242,
+          "expected_calibration_error": 0.44088646807459553,
+          "expected_population_preference": 0.5554748216455744,
+          "reference_cross_entropy": 1.3862943611198906,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "normalized_entropy": 0.8153610455967287,
+          "effective_actions": 3.1026023849808233,
+          "preference_kl": 4.836210281016442e-05,
+          "brier_score": 1.8765694303928756e-05,
+          "expected_calibration_error": 0.00259223098940415,
+          "expected_population_preference": 0.39167084053445306,
+          "reference_cross_entropy": 1.3862943611198906,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
     }
   }
 }

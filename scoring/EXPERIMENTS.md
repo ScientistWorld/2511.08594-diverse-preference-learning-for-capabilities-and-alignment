@@ -7,3 +7,7 @@ Tests whether a learned preference policy represents a heterogeneous population 
 ## tabular_preference_learning
 
 Tests whether the same preference-learning setup extends beyond two choices to several prompts with four possible outputs each. The experiment measures distributional fit, repeated-sampling success on minority-supported useful outputs, and whether the population's top option remains top-ranked.
+
+## calibration_multiple_choice
+
+Tests whether learned probabilities over multiple-choice answers reflect graded population uncertainty while keeping the most supported answer as the top prediction. The experiment measures calibration error and distributional fit alongside a top-answer preservation constraint.

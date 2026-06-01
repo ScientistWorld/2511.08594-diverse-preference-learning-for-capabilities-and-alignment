@@ -70,6 +70,31 @@ SEED="$SEED" \
 RUN_EVAL=0 \
 bash scripts/method.sh
 
+python data/calibration_benchmark.py --output data/calibration_benchmark.json
+
+BENCHMARK="data/calibration_benchmark.json" \
+OUTPUT_DIR="checkpoints/dpo_calibration" \
+BETA="${BETA:-0.1}" \
+STEPS="$STEPS" \
+LR="$LR" \
+SAMPLES_PER_CONTEXT="$SAMPLES_PER_CONTEXT" \
+SEED="$SEED" \
+RUN_EVAL=0 \
+bash scripts/baseline.sh dpo
+
+BENCHMARK="data/calibration_benchmark.json" \
+OUTPUT_DIR="checkpoints/spl_calibration" \
+ALPHA="${ALPHA:-1.0}" \
+BETA="${BETA:-0.1}" \
+STEPS="$STEPS" \
+LR="$LR" \
+SAMPLES_PER_CONTEXT="$SAMPLES_PER_CONTEXT" \
+SEED="$SEED" \
+RUN_EVAL=0 \
+bash scripts/method.sh
+
 bash scripts/evaluate.sh checkpoints/dpo_two_outcome checkpoints/spl_two_outcome
 EXPERIMENT="tabular_preference_learning" MERGE_SCORES=1 \
   bash scripts/evaluate.sh checkpoints/dpo_tabular checkpoints/spl_tabular
+EXPERIMENT="calibration_multiple_choice" MERGE_SCORES=1 \
+  bash scripts/evaluate.sh checkpoints/dpo_calibration checkpoints/spl_calibration

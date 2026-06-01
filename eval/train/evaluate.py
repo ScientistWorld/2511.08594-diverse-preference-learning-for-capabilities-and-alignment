@@ -17,13 +17,21 @@ from pathlib import Path
 SLICE = "train"
 TWO_OUTCOME_EXPERIMENT = "two_outcome_mode_collapse"
 TABULAR_EXPERIMENT = "tabular_preference_learning"
-EXPERIMENTS = (TWO_OUTCOME_EXPERIMENT, TABULAR_EXPERIMENT)
+CALIBRATION_EXPERIMENT = "calibration_multiple_choice"
+EXPERIMENTS = (TWO_OUTCOME_EXPERIMENT, TABULAR_EXPERIMENT, CALIBRATION_EXPERIMENT)
 
 # A stratified 4/4 split over the paper reproduction's tabular evaluation
 # contexts. The visible train slice has a similar mix of majority strength and
 # best-of-N solution rarity to the held-out test slice.
 TABULAR_CONTEXT_IDS = {"prompt_0", "prompt_1", "prompt_4", "prompt_6"}
 TWO_OUTCOME_CONTEXT_IDS = {"paper_80_20_example", "train_70_30_example", "train_85_15_example"}
+CALIBRATION_CONTEXT_IDS = {
+    "calibration_prompt_0",
+    "calibration_prompt_1",
+    "calibration_prompt_4",
+    "calibration_prompt_6",
+    "calibration_prompt_8",
+}
 
 
 def entropy(probs: list[float]) -> float:
@@ -79,6 +87,9 @@ def load_run(run_dir: Path) -> tuple[str, dict, dict]:
 
 
 def infer_experiment(policy: dict) -> str:
+    benchmark_name = policy.get("metadata", {}).get("benchmark_name")
+    if benchmark_name == "calibration_multiple_choice_benchmark":
+        return CALIBRATION_EXPERIMENT
     contexts = policy.get("contexts", [])
     if contexts and all(len(context.get("actions", [])) == 2 for context in contexts):
         return TWO_OUTCOME_EXPERIMENT
@@ -94,6 +105,12 @@ def context_ids_for(policy: dict, experiment: str) -> set[str]:
         if missing:
             raise ValueError(f"missing {SLICE} contexts for {TWO_OUTCOME_EXPERIMENT}: {missing}")
         return set(TWO_OUTCOME_CONTEXT_IDS)
+    if experiment == CALIBRATION_EXPERIMENT:
+        present = {context["id"] for context in policy["contexts"]}
+        missing = sorted(CALIBRATION_CONTEXT_IDS - present)
+        if missing:
+            raise ValueError(f"missing {SLICE} contexts for {CALIBRATION_EXPERIMENT}: {missing}")
+        return set(CALIBRATION_CONTEXT_IDS)
     present = {context["id"] for context in policy["contexts"]}
     missing = sorted(TABULAR_CONTEXT_IDS - present)
     if missing:
