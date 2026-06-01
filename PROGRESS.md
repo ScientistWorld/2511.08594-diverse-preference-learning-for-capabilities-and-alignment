@@ -8,6 +8,7 @@
 - `eval/evaluate_tabular.py` scores saved artifacts only and does not import from `method/`.
 - Continuation audit on 2026-06-01 re-ran `scripts/reproduce.sh` and `python validate.py --compare`; both passed locally.
 - CPU smoke job `e57fca5a-e7d` passed in the packaged container with exit code 0.
+- Current milestone is `core_claim`; the tabular reproduction demonstrates the central SPL claim from the paper's Proposition 3.1/3.2 setting.
 
 ## Results
 
