@@ -6,7 +6,7 @@
 - `baseline/run_dpo.py` runs standard DPO as the `alpha == beta` special case.
 - `method/train_tabular_spl.py` runs the paper's SPL DPO-style objective with separate `alpha` and `beta`.
 - `eval/evaluate_tabular.py` scores saved artifacts only and does not import from `method/`.
-- `python validate.py --compare` passes locally.
+- Continuation audit on 2026-06-01 re-ran `scripts/reproduce.sh` and `python validate.py --compare`; both passed locally.
 
 ## Results
 
@@ -22,6 +22,7 @@
 ## Issues
 
 - The original 7B experiments require large model downloads and GPU training. This environment starts with the analytic core claim to provide a fast, reusable benchmark.
+- `README.md` is a pre-existing character-device entry in the repository and was left untouched during the audit.
 
 ## Deviations from Paper
 

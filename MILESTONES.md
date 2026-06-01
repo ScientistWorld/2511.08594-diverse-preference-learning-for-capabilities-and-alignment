@@ -17,4 +17,8 @@
 - DPO assigned the minority option approximately `9.54e-7` probability, matching the paper's mode-collapse prediction.
 - SPL with `alpha=1.0` and `beta=0.1` assigned the minority option `0.20` probability while preserving the majority option as top choice.
 
+### [2026-06-01 08:37] - core_claim
+- Continuation audit verified that the implementation uses the paper's SPL pairwise objective, with DPO represented as the `alpha == beta` special case.
+- Re-ran `scripts/reproduce.sh` and `python validate.py --compare`; regenerated scores match the two-outcome reference and pass separation checks.
+
 ## Stop Justification
