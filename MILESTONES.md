@@ -22,4 +22,4 @@
 - Verified `eval/` reads saved artifacts and does not import `method/`.
 
 ## Stop Justification
-- Completed at milestone `core_claim_plus`. Higher LLM-level empirical claims remain out of scope for this tabular reproduction because they require substantially larger model training and paid/API-based or heavyweight judge evaluations, while the delivered environment verifies the paper's core SPL computation and finite-action extension.
+- Completed at milestone `core_claim_plus`.
