@@ -4,6 +4,11 @@
 
 ## Progress Log
 
+### [2026-06-01 09:25] - core_claim_plus
+- Final verification passed `python validate.py --compare`.
+- Cleaned method-agnostic documentation and added notes explaining which reference targets are generated finite-benchmark targets rather than published LLM table values.
+- Kept milestone at `core_claim_plus` because the verified package is a finite-action reproduction rather than the paper's full LLM experiment suite.
+
 ### [2026-06-01 09:23] - core_claim_plus
 - Added a finite multiple-choice calibration benchmark that uses the same pairwise SPL/DPO objective and artifact format.
 - Local `scripts/reproduce.sh`, split evaluators, and `python validate.py --compare` pass for the expanded three-experiment package.
@@ -32,4 +37,4 @@
 - Verified `eval/` reads saved artifacts and does not import `method/`.
 
 ## Stop Justification
-- Completed at milestone `core_claim_plus`.
+- Final verifier accepts milestone `core_claim_plus`: the actual finite-policy preference-learning method runs end to end and supports the core claim plus additional finite multi-outcome/calibration settings. Full LLM-scale chat, math, and MCQ experiments remain out of scope for this packaged gym.

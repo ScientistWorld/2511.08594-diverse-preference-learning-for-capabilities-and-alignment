@@ -10,7 +10,7 @@
 
 ## Baselines and Targets
 
-The paper's analytic 80/20 example reports that standard preference learning with `beta=0.1` assigns approximately 99.9999% probability to the majority option and 0.0001% to the minority option. The target distribution for the calibrated setting assigns 80% to the majority option and 20% to the minority option while preserving the majority as the top choice.
+The included baseline artifact for the 80/20 task assigns nearly all probability to the majority option and almost none to the minority option. The target behavior for a calibrated learner assigns 80% to the majority option and 20% to the minority option while preserving the majority as the top choice.
 
 ## Evaluation Protocol
 

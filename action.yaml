@@ -1,5 +1,5 @@
-action: submit
+action: done
 gpus: 0
-test: true
+test: false
 milestone: core_claim_plus
-notes: "Verify the expanded three-experiment SPL reproduction, including the new finite multiple-choice calibration benchmark, in the packaged CPU container."
+notes: "Final verification passed; workspace is ready as a finite-action research gym at core_claim_plus."

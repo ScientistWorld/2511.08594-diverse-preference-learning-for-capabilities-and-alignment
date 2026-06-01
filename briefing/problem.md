@@ -4,7 +4,7 @@
 
 Preference-tuned language models often become too concentrated on a small set of high-probability responses. The benchmark problem is to learn from heterogeneous pairwise preferences while preserving a calibrated distribution over valid alternatives instead of collapsing all probability mass onto the plurality choice.
 
-For the minimal core-claim reproduction, the task is a finite two-outcome social-choice setting matching the paper's analytic example: 80% of a population prefers one completion and 20% prefers another. A successful learner should keep the majority-preferred completion as the most likely output while still assigning probability to the minority-preferred completion in proportion to its support.
+For the minimal core-claim reproduction, the task is a finite two-outcome social-choice setting: 80% of a population prefers one completion and 20% prefers another. A successful learner should keep the majority-preferred completion as the most likely output while still assigning probability to the minority-preferred completion in proportion to its support.
 
 ## Why It Matters
 

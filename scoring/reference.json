@@ -1,7 +1,8 @@
 {
   "experiments": {
     "two_outcome_mode_collapse": {
-      "description": "Two-outcome social-choice setting from Proposition 3.1/3.2 and the paper's 80% vs 20% example with beta=0.1.",
+      "description": "Two-outcome social-choice setting with 80% vs 20% population support.",
+      "notes": "This is the paper's analytic finite example rather than a large LLM benchmark table.",
       "weight": 0.45,
       "primary_metric": "minority_probability",
       "metrics": {
@@ -57,7 +58,8 @@
       }
     },
     "tabular_preference_learning": {
-      "description": "Multi-outcome finite Plackett-Luce setting derived from Proposition A.1, testing SPL's generalized preference representation and best-of-N diversity implication.",
+      "description": "Multi-outcome finite pairwise-preference setting testing generalized preference representation and best-of-N diversity implication.",
+      "notes": "Generated finite benchmark used as a scaled substitute for the paper's full LLM best-of-N experiments; values are artifact-derived targets for this gym, not published LLM table values.",
       "weight": 0.35,
       "primary_metric": "preference_kl",
       "metrics": {
@@ -142,7 +144,8 @@
       }
     },
     "calibration_multiple_choice": {
-      "description": "Finite multiple-choice calibration setting derived from the paper's calibration claim: policies should match heterogeneous answer probabilities without losing the top answer.",
+      "description": "Finite multiple-choice calibration setting: policies should match heterogeneous answer probabilities without losing the top answer.",
+      "notes": "Generated finite benchmark used as a scaled substitute for the paper's full multiple-choice logit calibration experiments; values are artifact-derived targets for this gym, not published LLM table values.",
       "weight": 0.20,
       "primary_metric": "expected_calibration_error",
       "metrics": {

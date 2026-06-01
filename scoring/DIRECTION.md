@@ -6,7 +6,7 @@ This benchmark studies preference learning under heterogeneous population prefer
 
 ## Core Contribution Scope
 
-Scientists should work on preference-learning objectives or policy-optimization procedures that control the learned distribution over outputs. Improvements should address how the learner balances reward/preference fit, entropy, and reference-policy anchoring.
+Scientists should work on preference-learning objectives or policy-optimization procedures that control the learned distribution over outputs. Improvements should address distributional fit, retained diversity, and preservation of the valid output ordering.
 
 ## Approach Scope
 
