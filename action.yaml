@@ -5,4 +5,4 @@ action: submit
 gpus: 0
 test: true
 milestone: core_claim
-notes: "CPU smoke job: run tabular SPL/DPO reproduction and validate scores against the paper's two-outcome mode-collapse reference."
+notes: "Continuation audit passed locally; submit CPU smoke job to rerun tabular SPL/DPO reproduction and validation in the packaged environment."
