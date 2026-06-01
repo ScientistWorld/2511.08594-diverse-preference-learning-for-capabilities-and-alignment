@@ -1,0 +1,40 @@
+{
+  "name": "two_outcome_mode_collapse_benchmark",
+  "seed": 7,
+  "pair_comparisons": 100,
+  "description": "Paper's two-outcome social-choice example: 80% prefer the majority completion and 20% prefer the minority completion.",
+  "contexts": [
+    {
+      "id": "paper_80_20_example",
+      "prompt": "A population prefers completion A with probability 0.8 and completion B with probability 0.2.",
+      "actions": [
+        {
+          "id": "majority",
+          "text": "Majority-preferred completion.",
+          "population_preference": 0.8,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": false
+        },
+        {
+          "id": "minority",
+          "text": "Minority-preferred completion.",
+          "population_preference": 0.2,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": true
+        }
+      ],
+      "comparisons": [
+        {
+          "winner": "majority",
+          "loser": "minority",
+          "count": 80
+        },
+        {
+          "winner": "minority",
+          "loser": "majority",
+          "count": 20
+        }
+      ]
+    }
+  ]
+}

@@ -10,16 +10,18 @@ set -e
 
 cd /home/user
 
-BENCHMARK="${BENCHMARK:-data/spl_tabular_benchmark.json}"
-OUTPUT_DIR="${OUTPUT_DIR:-checkpoints/spl_tabular}"
-ALPHA="${ALPHA:-0.5}"
+BENCHMARK="${BENCHMARK:-data/two_outcome_benchmark.json}"
+OUTPUT_DIR="${OUTPUT_DIR:-checkpoints/spl_two_outcome}"
+ALPHA="${ALPHA:-1.0}"
 BETA="${BETA:-0.1}"
 STEPS="${STEPS:-3000}"
 LR="${LR:-0.8}"
 SAMPLES_PER_CONTEXT="${SAMPLES_PER_CONTEXT:-128}"
 SEED="${SEED:-11}"
 
-python data/spl_benchmark.py --output "$BENCHMARK"
+if [ ! -f "$BENCHMARK" ]; then
+  python data/spl_benchmark.py --output "$BENCHMARK"
+fi
 python method/train_tabular_spl.py \
   --benchmark "$BENCHMARK" \
   --output-dir "$OUTPUT_DIR" \

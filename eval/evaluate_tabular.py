@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Evaluate tabular preference-learning artifacts.
 
-This module reads policy/sample artifacts only. It intentionally has no imports
-from method/ so future agents can replace the training algorithm as long as they
-write the same artifact format.
+This module reads policy/sample artifacts only. It intentionally avoids
+solution-code imports so future agents can replace the training algorithm as
+long as they write the same artifact format.
 """
 
 from __future__ import annotations

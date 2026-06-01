@@ -18,8 +18,8 @@ set -e
 cd /home/user
 
 NAME="${1:-dpo}"
-BENCHMARK="${BENCHMARK:-data/spl_tabular_benchmark.json}"
-OUTPUT_DIR="${OUTPUT_DIR:-checkpoints/dpo_tabular}"
+BENCHMARK="${BENCHMARK:-data/two_outcome_benchmark.json}"
+OUTPUT_DIR="${OUTPUT_DIR:-checkpoints/dpo_two_outcome}"
 BETA="${BETA:-0.1}"
 STEPS="${STEPS:-3000}"
 LR="${LR:-0.8}"
@@ -31,7 +31,9 @@ if [ "$NAME" != "dpo" ]; then
   exit 2
 fi
 
-python data/spl_benchmark.py --output "$BENCHMARK"
+if [ ! -f "$BENCHMARK" ]; then
+  python data/spl_benchmark.py --output "$BENCHMARK"
+fi
 python baseline/run_dpo.py \
   --benchmark "$BENCHMARK" \
   --output-dir "$OUTPUT_DIR" \

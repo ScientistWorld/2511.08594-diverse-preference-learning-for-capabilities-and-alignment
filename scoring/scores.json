@@ -1,0 +1,18 @@
+{
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "minority_probability": 9.53675380245514e-07,
+          "majority_overweight": 1.2499988079057747,
+          "top_choice_preserved": 1.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "minority_probability": 0.2000000000000001,
+          "majority_overweight": 1.0,
+          "top_choice_preserved": 1.0
+        }
+      }
+    }
+  }
+}
