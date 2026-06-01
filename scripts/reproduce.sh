@@ -18,7 +18,29 @@ set -e
 
 cd /home/user
 
-# TODO: implement full reproduction pipeline
-# e.g.:
-#   bash scripts/baseline.sh
-#   bash scripts/method.sh
+BENCHMARK="${BENCHMARK:-data/two_outcome_benchmark.json}"
+STEPS="${STEPS:-6000}"
+LR="${LR:-0.8}"
+SAMPLES_PER_CONTEXT="${SAMPLES_PER_CONTEXT:-128}"
+SEED="${SEED:-11}"
+
+BENCHMARK="$BENCHMARK" \
+OUTPUT_DIR="checkpoints/dpo_two_outcome" \
+BETA="${BETA:-0.1}" \
+STEPS="$STEPS" \
+LR="$LR" \
+SAMPLES_PER_CONTEXT="$SAMPLES_PER_CONTEXT" \
+SEED="$SEED" \
+bash scripts/baseline.sh dpo
+
+BENCHMARK="$BENCHMARK" \
+OUTPUT_DIR="checkpoints/spl_two_outcome" \
+ALPHA="${ALPHA:-1.0}" \
+BETA="${BETA:-0.1}" \
+STEPS="$STEPS" \
+LR="$LR" \
+SAMPLES_PER_CONTEXT="$SAMPLES_PER_CONTEXT" \
+SEED="$SEED" \
+bash scripts/method.sh
+
+bash scripts/evaluate.sh checkpoints/dpo_two_outcome checkpoints/spl_two_outcome

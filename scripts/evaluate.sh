@@ -15,8 +15,8 @@
 # This file is read by the system for automated comparison.
 #
 # Example usage:
-#   ./evaluate.sh <method_and_run_name>                             # evaluate with defaults
-#   ./evaluate.sh <method_and_run_name> checkpoints/epoch_10.pt     # evaluate a specific checkpoint
+#   bash scripts/evaluate.sh checkpoints/spl_tabular
+#   bash scripts/evaluate.sh checkpoints/dpo_tabular checkpoints/spl_tabular
 #
 # Called from run.sh after training, or independently.
 
@@ -26,5 +26,10 @@ cd /home/user
 
 mkdir -p scoring
 
-# TODO: implement evaluation using code in eval/
-# Must write scoring/scores.json at the end
+EXPERIMENT="${EXPERIMENT:-two_outcome_mode_collapse}"
+
+if [ "$#" -lt 1 ]; then
+  set -- checkpoints/dpo_two_outcome checkpoints/spl_two_outcome
+fi
+
+python eval/evaluate_tabular.py "$@" --experiment "$EXPERIMENT" --scores-out scoring/scores.json

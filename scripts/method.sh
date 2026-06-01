@@ -10,5 +10,25 @@ set -e
 
 cd /home/user
 
-# TODO: run the paper's method
-# TODO: call scripts/evaluate.sh to score
+BENCHMARK="${BENCHMARK:-data/spl_tabular_benchmark.json}"
+OUTPUT_DIR="${OUTPUT_DIR:-checkpoints/spl_tabular}"
+ALPHA="${ALPHA:-0.5}"
+BETA="${BETA:-0.1}"
+STEPS="${STEPS:-3000}"
+LR="${LR:-0.8}"
+SAMPLES_PER_CONTEXT="${SAMPLES_PER_CONTEXT:-128}"
+SEED="${SEED:-11}"
+
+python data/spl_benchmark.py --output "$BENCHMARK"
+python method/train_tabular_spl.py \
+  --benchmark "$BENCHMARK" \
+  --output-dir "$OUTPUT_DIR" \
+  --method-name "spl_alpha_${ALPHA}_beta_${BETA}" \
+  --alpha "$ALPHA" \
+  --beta "$BETA" \
+  --steps "$STEPS" \
+  --lr "$LR" \
+  --samples-per-context "$SAMPLES_PER_CONTEXT" \
+  --seed "$SEED"
+
+bash scripts/evaluate.sh "$OUTPUT_DIR"

@@ -17,4 +17,28 @@ set -e
 
 cd /home/user
 
-# TODO: run baseline
+NAME="${1:-dpo}"
+BENCHMARK="${BENCHMARK:-data/spl_tabular_benchmark.json}"
+OUTPUT_DIR="${OUTPUT_DIR:-checkpoints/dpo_tabular}"
+BETA="${BETA:-0.1}"
+STEPS="${STEPS:-3000}"
+LR="${LR:-0.8}"
+SAMPLES_PER_CONTEXT="${SAMPLES_PER_CONTEXT:-128}"
+SEED="${SEED:-11}"
+
+if [ "$NAME" != "dpo" ]; then
+  echo "Unknown baseline '$NAME'. Available: dpo" >&2
+  exit 2
+fi
+
+python data/spl_benchmark.py --output "$BENCHMARK"
+python baseline/run_dpo.py \
+  --benchmark "$BENCHMARK" \
+  --output-dir "$OUTPUT_DIR" \
+  --beta "$BETA" \
+  --steps "$STEPS" \
+  --lr "$LR" \
+  --samples-per-context "$SAMPLES_PER_CONTEXT" \
+  --seed "$SEED"
+
+bash scripts/evaluate.sh "$OUTPUT_DIR"
