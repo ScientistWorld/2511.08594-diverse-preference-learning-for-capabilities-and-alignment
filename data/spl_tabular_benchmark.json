@@ -115,21 +115,21 @@
           "id": "a1",
           "text": "completion_1_1",
           "population_preference": 0.26,
-          "reference_probability": 0.2499169961131087,
+          "reference_probability": 0.24991699611310872,
           "is_best_of_n_solution": true
         },
         {
           "id": "a2",
           "text": "completion_1_2",
           "population_preference": 0.18,
-          "reference_probability": 0.22587935193503103,
+          "reference_probability": 0.22587935193503106,
           "is_best_of_n_solution": false
         },
         {
           "id": "a3",
           "text": "completion_1_3",
           "population_preference": 0.08,
-          "reference_probability": 0.2609906729310114,
+          "reference_probability": 0.26099067293101147,
           "is_best_of_n_solution": false
         }
       ],
@@ -204,7 +204,7 @@
           "id": "a0",
           "text": "completion_2_0",
           "population_preference": 0.42,
-          "reference_probability": 0.2399346968345346,
+          "reference_probability": 0.23993469683453458,
           "is_best_of_n_solution": false
         },
         {
@@ -218,14 +218,14 @@
           "id": "a2",
           "text": "completion_2_2",
           "population_preference": 0.18,
-          "reference_probability": 0.2426392224119825,
+          "reference_probability": 0.24263922241198246,
           "is_best_of_n_solution": true
         },
         {
           "id": "a3",
           "text": "completion_2_3",
           "population_preference": 0.1,
-          "reference_probability": 0.2443824329941246,
+          "reference_probability": 0.24438243299412457,
           "is_best_of_n_solution": false
         }
       ],
@@ -314,14 +314,14 @@
           "id": "a2",
           "text": "completion_3_2",
           "population_preference": 0.13,
-          "reference_probability": 0.22867255451413812,
+          "reference_probability": 0.2286725545141381,
           "is_best_of_n_solution": false
         },
         {
           "id": "a3",
           "text": "completion_3_3",
           "population_preference": 0.08,
-          "reference_probability": 0.23636192660213495,
+          "reference_probability": 0.23636192660213493,
           "is_best_of_n_solution": true
         }
       ],
@@ -588,21 +588,21 @@
           "id": "a0",
           "text": "completion_6_0",
           "population_preference": 0.5,
-          "reference_probability": 0.23408734509243703,
+          "reference_probability": 0.23408734509243706,
           "is_best_of_n_solution": false
         },
         {
           "id": "a1",
           "text": "completion_6_1",
           "population_preference": 0.21,
-          "reference_probability": 0.23200693090213273,
+          "reference_probability": 0.23200693090213276,
           "is_best_of_n_solution": false
         },
         {
           "id": "a2",
           "text": "completion_6_2",
           "population_preference": 0.17,
-          "reference_probability": 0.24699826371321418,
+          "reference_probability": 0.2469982637132142,
           "is_best_of_n_solution": false
         },
         {
