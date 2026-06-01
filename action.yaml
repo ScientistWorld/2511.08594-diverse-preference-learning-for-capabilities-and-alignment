@@ -2,4 +2,4 @@ action: done
 gpus: 0
 test: false
 milestone: core_claim_plus
-notes: "Full SPL reproduction regenerated and validated. Core 80/20 score is preserved, main scores include two-outcome distribution constraints, and train/test primary metrics now differ on real held-out two-outcome and tabular contexts."
+notes: "Packaging audit passed: no external downloads are required, tracked synthetic data is available, and no committed code references shared paths."
