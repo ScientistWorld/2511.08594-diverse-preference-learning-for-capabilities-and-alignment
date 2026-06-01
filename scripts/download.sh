@@ -20,7 +20,7 @@ set -e
 
 cd /home/user
 
-echo "No external downloads are required for the tabular SPL reproduction."
+echo "No external downloads are required for the finite preference-learning reproduction."
 test -f data/two_outcome_benchmark.json
-python data/spl_benchmark.py --output data/spl_tabular_benchmark.json
+python data/multi_outcome_benchmark.py --output data/multi_outcome_benchmark.json
 python data/calibration_benchmark.py --output data/calibration_benchmark.json

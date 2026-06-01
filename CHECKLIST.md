@@ -39,7 +39,7 @@ Check off items as you complete them. Order doesn't matter — work however make
 - [x] `method_runs` — executes end-to-end without errors
 - [x] `core_claim` — minimum experiment supports central claim
 - [x] `core_claim_plus` — additional settings
-- [ ] `secondary_claims` — pending managed verification of calibration extension
+- [ ] `secondary_claims` — not claimed; full LLM-scale secondary experiments remain out of scope
 - [ ] `majority`
 - [ ] `near_complete`
 - [ ] `full`

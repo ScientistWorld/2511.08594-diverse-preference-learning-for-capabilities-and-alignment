@@ -2,7 +2,7 @@
   "name": "two_outcome_split_benchmark",
   "seed": 7,
   "pair_comparisons": 100,
-  "description": "Two-action preference contexts for SPL mode-collapse evaluation. The first context is the paper's original 80/20 example.",
+  "description": "Two-action preference contexts for mode-collapse evaluation. The first context is the canonical 80/20 example.",
   "contexts": [
     {
       "id": "paper_80_20_example",

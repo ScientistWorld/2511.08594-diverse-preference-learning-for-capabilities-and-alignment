@@ -2,19 +2,19 @@
 
 ## Initial Assessment
 
-The workspace claimed `core_claim_plus`. The implementation is a finite-action reproduction of the paper's preference-learning objective, with DPO as a baseline special case, artifact-based evaluation, train/test split evaluators, and three scored experiments. The claimed milestone is justified for the scaled finite setting.
+The workspace claimed `core_claim_plus`. The implementation is a finite-action reproduction of the paper's preference-learning objective, with a baseline special case, artifact-based evaluation, train/test split evaluators, and three scored experiments. The claimed milestone is justified for the scaled finite setting.
 
 ## Issues Found
 
-- Minor: method-agnostic documentation mentioned paper-specific framing and one hyperparameter detail in `briefing/problem.md`, `briefing/evaluation.md`, and `scoring/TARGETS.md`.
-- Minor: generated finite-benchmark reference targets were not explicitly labeled as scaled substitutes rather than published LLM table values.
+- Minor: problem-facing data and evaluator descriptions still contained paper-method terms and an old method-specific benchmark filename.
 - Cosmetic: root contains pre-existing system/device entries (`README.md`, `manifest.json`) and ignored runtime artifacts; these were not introduced by this verification and were left untouched.
 
 ## Fixes Applied
 
-- Reworded method-agnostic documentation to describe the problem and evaluation without leaking the paper's objective details.
-- Added `notes` fields to generated benchmark entries in `scoring/reference.json`.
-- Re-ran `python validate.py --compare`; all checks passed.
+- Renamed the problem-facing finite multi-outcome benchmark from method-specific filenames to `data/multi_outcome_benchmark.py` and `data/multi_outcome_benchmark.json`.
+- Reworded data, evaluation, and script descriptions so `briefing/problem.md`, `briefing/evaluation.md`, `scoring/EXPERIMENTS.md`, `data/`, and `eval/` remain method-agnostic.
+- Re-ran `bash scripts/reproduce.sh`, `bash scripts/evaluate_train.sh`, `bash scripts/evaluate_test.sh`, and `python validate.py --compare`; all checks passed.
+- Confirmed there are no `shared/` references in committed code, `eval/` and `data/` do not import from `method/`, and `scripts/download.sh` has no external URLs to verify because all benchmark data is generated locally.
 
 ## Final Judgment
 

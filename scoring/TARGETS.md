@@ -15,7 +15,7 @@ Tests generalized multi-outcome preference representation and its implication fo
 - **Primary metric**: `preference_kl` from population preferences to learned policy (lower is better)
 - **Benefit metrics**: `best_of_128_success_probability`, `empirical_best_of_128_success`, `normalized_entropy`, and `effective_actions` (higher is better)
 - **Constraint metrics**: `argmax_population_mode_accuracy` and `expected_population_preference` (higher is better), plus `reference_cross_entropy`, `brier_score`, and `expected_calibration_error` (lower is better)
-- **How to run**: `bash scripts/reproduce.sh`, or generate `data/spl_tabular_benchmark.json` and run `EXPERIMENT=tabular_preference_learning bash scripts/evaluate.sh <artifact-dir> [...]`.
+- **How to run**: `bash scripts/reproduce.sh`, or generate `data/multi_outcome_benchmark.json` and run `EXPERIMENT=tabular_preference_learning bash scripts/evaluate.sh <artifact-dir> [...]`.
 
 ## Secondary: calibration_multiple_choice
 

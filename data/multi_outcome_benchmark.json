@@ -1,8 +1,8 @@
 {
-  "name": "tabular_spl_preference_benchmark",
+  "name": "multi_outcome_preference_benchmark",
   "seed": 7,
   "pair_comparisons": 48,
-  "description": "Finite Plackett-Luce preference benchmark for testing whether SPL avoids DPO-style majority mode collapse while preserving quality.",
+  "description": "Finite Plackett-Luce preference benchmark for testing whether a preference learner avoids majority mode collapse while preserving quality.",
   "contexts": [
     {
       "id": "prompt_0",

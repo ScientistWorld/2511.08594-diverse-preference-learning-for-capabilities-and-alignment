@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Generate a finite preference-learning benchmark for SPL.
+"""Generate a finite multi-outcome preference-learning benchmark.
 
 The benchmark is deliberately tabular: each prompt has a small set of possible
 completions, a reference policy, and a population preference distribution.
-Pairwise preferences are generated from a Plackett-Luce model so the paper's
-closed-form SPL analysis applies directly.
+Pairwise preferences are generated from a Plackett-Luce model so the target
+population distribution is well defined for any preference-learning method.
 """
 
 from __future__ import annotations
@@ -45,10 +45,9 @@ def build_benchmark(seed: int = 7, pair_comparisons: int = 48) -> dict:
         [0.44, 0.28, 0.16, 0.12],
     ]
 
-    # Some prompts mark a minority strategy as the one that solves a repeated
-    # sampling task. This mirrors the paper's hard best-of-N setting: a collapsed
-    # policy can have high one-shot majority quality while rarely exploring the
-    # strategy needed to solve the instance.
+    # Some prompts mark a minority-supported strategy as useful in a repeated
+    # sampling task. A collapsed policy can have high one-shot majority quality
+    # while rarely exploring the strategy needed to solve the instance.
     best_of_n_correct = [2, 1, 2, 3, 2, 1, 3, 1]
 
     for idx, prefs in enumerate(base_preferences):
@@ -82,12 +81,12 @@ def build_benchmark(seed: int = 7, pair_comparisons: int = 48) -> dict:
         )
 
     return {
-        "name": "tabular_spl_preference_benchmark",
+        "name": "multi_outcome_preference_benchmark",
         "seed": seed,
         "pair_comparisons": pair_comparisons,
         "description": (
-            "Finite Plackett-Luce preference benchmark for testing whether SPL "
-            "avoids DPO-style majority mode collapse while preserving quality."
+            "Finite Plackett-Luce preference benchmark for testing whether a "
+            "preference learner avoids majority mode collapse while preserving quality."
         ),
         "contexts": contexts,
     }
@@ -95,7 +94,7 @@ def build_benchmark(seed: int = 7, pair_comparisons: int = 48) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", default="data/spl_tabular_benchmark.json")
+    parser.add_argument("--output", default="data/multi_outcome_benchmark.json")
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--pair-comparisons", type=int, default=48)
     args = parser.parse_args()

@@ -20,7 +20,7 @@ SAMPLES_PER_CONTEXT="${SAMPLES_PER_CONTEXT:-128}"
 SEED="${SEED:-11}"
 
 if [ ! -f "$BENCHMARK" ]; then
-  python data/spl_benchmark.py --output "$BENCHMARK"
+  python data/multi_outcome_benchmark.py --output "$BENCHMARK"
 fi
 python method/train_tabular_spl.py \
   --benchmark "$BENCHMARK" \

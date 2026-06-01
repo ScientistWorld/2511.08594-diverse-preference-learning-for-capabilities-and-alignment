@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run the actual tabular SPL reproduction, validate the core scoring file, then
+# Run the finite preference-learning reproduction, validate the core scoring file, then
 # refresh the visible train and held-out test split scores from the new artifacts.
 
 set -euo pipefail

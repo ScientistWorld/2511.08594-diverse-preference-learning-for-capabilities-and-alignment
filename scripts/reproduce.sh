@@ -47,9 +47,9 @@ SEED="$SEED" \
 RUN_EVAL=0 \
 bash scripts/method.sh
 
-python data/spl_benchmark.py --output data/spl_tabular_benchmark.json
+python data/multi_outcome_benchmark.py --output data/multi_outcome_benchmark.json
 
-BENCHMARK="data/spl_tabular_benchmark.json" \
+BENCHMARK="data/multi_outcome_benchmark.json" \
 OUTPUT_DIR="checkpoints/dpo_tabular" \
 BETA="${BETA:-0.1}" \
 STEPS="$STEPS" \
@@ -59,7 +59,7 @@ SEED="$SEED" \
 RUN_EVAL=0 \
 bash scripts/baseline.sh dpo
 
-BENCHMARK="data/spl_tabular_benchmark.json" \
+BENCHMARK="data/multi_outcome_benchmark.json" \
 OUTPUT_DIR="checkpoints/spl_tabular" \
 ALPHA="${ALPHA:-1.0}" \
 BETA="${BETA:-0.1}" \

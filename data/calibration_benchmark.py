@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Generate a finite multiple-choice calibration benchmark for SPL.
+"""Generate a finite multiple-choice calibration benchmark.
 
 Each context represents a multiple-choice item with a population distribution
 over plausible answers. Pairwise comparison counts follow the same
-Plackett-Luce construction used by the tabular benchmark, so DPO and SPL are
-still trained with the paper's pairwise objective rather than an evaluator-side
-shortcut.
+Plackett-Luce construction used by the tabular benchmark, so methods are
+trained from pairwise evidence rather than evaluator-side target labels.
 """
 
 from __future__ import annotations

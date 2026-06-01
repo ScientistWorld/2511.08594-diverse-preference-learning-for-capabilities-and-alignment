@@ -4,6 +4,11 @@
 
 ## Progress Log
 
+### [2026-06-01 09:35] - core_claim_plus
+- Final verifier reran `scripts/reproduce.sh`, both split evaluators, and `python validate.py --compare`; all checks passed.
+- Renamed the problem-facing multi-outcome benchmark files to method-agnostic names and removed stale paper-method wording from `data/`, `eval/`, and standard scripts.
+- Confirmed no `shared/` references, no `eval/` or `data/` imports from `method/`, and no external download URLs requiring verification.
+
 ### [2026-06-01 09:25] - core_claim_plus
 - Final verification passed `python validate.py --compare`.
 - Cleaned method-agnostic documentation and added notes explaining which reference targets are generated finite-benchmark targets rather than published LLM table values.

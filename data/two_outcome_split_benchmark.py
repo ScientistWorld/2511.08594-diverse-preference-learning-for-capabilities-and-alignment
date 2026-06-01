@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Generate two-action preference contexts for train/test split scoring.
 
-The first context is the paper's 80/20 example so the standard evaluator can
-continue reporting the core claim on the original setting. Additional contexts
-provide a real held-out axis for the anti-shortcut train/test split.
+The first context is the canonical 80/20 example used by the standard
+evaluator. Additional contexts provide a real held-out axis for the
+anti-shortcut train/test split.
 """
 
 from __future__ import annotations
@@ -61,8 +61,8 @@ def build_benchmark(comparisons: int = 100) -> dict:
         "seed": 7,
         "pair_comparisons": comparisons,
         "description": (
-            "Two-action preference contexts for SPL mode-collapse evaluation. "
-            "The first context is the paper's original 80/20 example."
+            "Two-action preference contexts for mode-collapse evaluation. "
+            "The first context is the canonical 80/20 example."
         ),
         "contexts": contexts,
     }

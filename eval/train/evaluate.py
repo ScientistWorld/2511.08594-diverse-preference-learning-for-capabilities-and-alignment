@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Visible train-slice evaluator for tabular SPL artifacts.
+"""Visible train-slice evaluator for finite-policy artifacts.
 
 This script reads method artifacts only. It does not import from method/ or
 regenerate training outputs, so any method that writes policy.json and optional
@@ -20,9 +20,9 @@ TABULAR_EXPERIMENT = "tabular_preference_learning"
 CALIBRATION_EXPERIMENT = "calibration_multiple_choice"
 EXPERIMENTS = (TWO_OUTCOME_EXPERIMENT, TABULAR_EXPERIMENT, CALIBRATION_EXPERIMENT)
 
-# A stratified 4/4 split over the paper reproduction's tabular evaluation
-# contexts. The visible train slice has a similar mix of majority strength and
-# best-of-N solution rarity to the held-out test slice.
+# A stratified 4/4 split over the multi-outcome evaluation contexts. The
+# visible train slice has a similar mix of majority strength and best-of-N
+# solution rarity to the held-out test slice.
 TABULAR_CONTEXT_IDS = {"prompt_0", "prompt_1", "prompt_4", "prompt_6"}
 TWO_OUTCOME_CONTEXT_IDS = {"paper_80_20_example", "train_70_30_example", "train_85_15_example"}
 CALIBRATION_CONTEXT_IDS = {

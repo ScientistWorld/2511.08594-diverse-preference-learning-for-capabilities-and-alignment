@@ -15,8 +15,8 @@
 # This file is read by the system for automated comparison.
 #
 # Example usage:
-#   bash scripts/evaluate.sh checkpoints/spl_tabular
-#   bash scripts/evaluate.sh checkpoints/dpo_tabular checkpoints/spl_tabular
+#   bash scripts/evaluate.sh checkpoints/some_method
+#   bash scripts/evaluate.sh checkpoints/method_a checkpoints/method_b
 #
 # Called from run.sh after training, or independently.
 

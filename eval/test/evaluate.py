@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Held-out test-slice evaluator for tabular SPL artifacts.
+"""Held-out test-slice evaluator for finite-policy artifacts.
 
 This script reads method artifacts only. It does not import from method/ or
 regenerate training outputs, so any method that writes policy.json and optional

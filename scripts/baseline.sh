@@ -32,7 +32,7 @@ if [ "$NAME" != "dpo" ]; then
 fi
 
 if [ ! -f "$BENCHMARK" ]; then
-  python data/spl_benchmark.py --output "$BENCHMARK"
+  python data/multi_outcome_benchmark.py --output "$BENCHMARK"
 fi
 python baseline/run_dpo.py \
   --benchmark "$BENCHMARK" \

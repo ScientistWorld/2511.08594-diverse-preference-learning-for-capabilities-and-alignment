@@ -14,4 +14,4 @@ The included baseline artifact for the 80/20 task assigns nearly all probability
 
 ## Evaluation Protocol
 
-Evaluate saved policy artifacts for the fixed two-outcome preference task in `data/two_outcome_benchmark.json`, the generated multi-outcome task in `data/spl_tabular_benchmark.json`, and the generated multiple-choice calibration task in `data/calibration_benchmark.json`. All methods receive the same pairwise preference counts, reference distributions, and population targets. Evaluation code reads only method output artifacts and must not import training code.
+Evaluate saved policy artifacts for the fixed two-outcome preference task in `data/two_outcome_benchmark.json`, the generated multi-outcome task in `data/multi_outcome_benchmark.json`, and the generated multiple-choice calibration task in `data/calibration_benchmark.json`. All methods receive the same pairwise preference counts, reference distributions, and population targets. Evaluation code reads only method output artifacts and must not import training code.
