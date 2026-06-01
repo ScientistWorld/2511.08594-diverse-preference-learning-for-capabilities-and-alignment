@@ -20,4 +20,3 @@
 
 ## Stop Justification
 - Completed at milestone `core_claim_plus`.
-- Higher milestones would require the paper's large-scale LLM LoRA experiments on HH-RLHF/Ultrafeedback and chat/math/MCQ benchmarks, which are outside this compact finite-action reproduction.
