@@ -6,26 +6,28 @@
     "two_outcome_mode_collapse": {
       "slice": "train",
       "context_ids": [
-        "paper_80_20_example"
+        "paper_80_20_example",
+        "train_70_30_example",
+        "train_85_15_example"
       ],
       "results": {
         "dpo_alpha_equals_beta": {
-          "minority_probability": 9.53675380245514e-07,
-          "majority_overweight": 1.2499988079057747,
+          "minority_probability": 6.999353481287143e-05,
+          "majority_overweight": 1.2849140740661065,
           "top_choice_preserved": 1.0,
-          "preference_kl": 2.272186838539122,
-          "brier_score": 0.0799992370615148,
-          "expected_calibration_error": 0.19999904632461973,
-          "population_l1_error": 0.39999809264923947
+          "preference_kl": 2.1275366722722793,
+          "brier_score": 0.10158283656057544,
+          "expected_calibration_error": 0.21659667313185382,
+          "population_l1_error": 0.43319334626370765
         },
         "spl_alpha_1.0_beta_0.1": {
-          "minority_probability": 0.2000000000000001,
+          "minority_probability": 0.21666666666666667,
           "majority_overweight": 1.0,
           "top_choice_preserved": 1.0,
-          "preference_kl": 0.0,
-          "brier_score": 6.933347799794049e-33,
-          "expected_calibration_error": 4.163336342344337e-17,
-          "population_l1_error": 8.326672684688674e-17
+          "preference_kl": 1.1102230246251564e-17,
+          "brier_score": 2.5679065925163146e-33,
+          "expected_calibration_error": 1.850371707708594e-17,
+          "population_l1_error": 3.700743415417188e-17
         }
       }
     },
@@ -39,9 +41,9 @@
       ],
       "results": {
         "dpo_alpha_equals_beta": {
-          "normalized_entropy": 0.006122404217369349,
+          "normalized_entropy": 0.006122404217369348,
           "effective_actions": 1.008551322311597,
-          "preference_kl": 3.9411428529824755,
+          "preference_kl": 3.941142852982476,
           "brier_score": 0.3453646464310166,
           "expected_calibration_error": 0.5013736438375997,
           "expected_population_preference": 0.4972434814035079,
@@ -52,11 +54,11 @@
         },
         "spl_alpha_1.0_beta_0.1": {
           "normalized_entropy": 0.8750161614425663,
-          "effective_actions": 3.365713211489375,
-          "preference_kl": 6.0774900331383866e-05,
-          "brier_score": 2.95873874996119e-05,
-          "expected_calibration_error": 0.003915990270066869,
-          "expected_population_preference": 0.3427234440418251,
+          "effective_actions": 3.3657132114893744,
+          "preference_kl": 6.07749003313278e-05,
+          "brier_score": 2.958738749961227e-05,
+          "expected_calibration_error": 0.003915990270066871,
+          "expected_population_preference": 0.34272344404182514,
           "reference_cross_entropy": 1.3894076203171477,
           "argmax_population_mode_accuracy": 1.0,
           "best_of_128_success_probability": 0.9999999774111825,
