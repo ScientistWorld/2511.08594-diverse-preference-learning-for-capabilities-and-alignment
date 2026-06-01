@@ -23,7 +23,7 @@ The paper studies why preference-tuned language models often lose diversity and 
 
 Preference-tuned language models often become too concentrated on a small set of high-probability responses. The benchmark problem is to learn from heterogeneous pairwise preferences while preserving a calibrated distribution over valid alternatives instead of collapsing all probability mass onto the plurality choice.
 
-For the minimal core-claim reproduction, the task is a finite two-outcome social-choice setting matching the paper's analytic example: 80% of a population prefers one completion and 20% prefers another. A successful learner should keep the majority-preferred completion as the most likely output while still assigning probability to the minority-preferred completion in proportion to its support.
+For the minimal core-claim reproduction, the task is a finite two-outcome social-choice setting: 80% of a population prefers one completion and 20% prefers another. A successful learner should keep the majority-preferred completion as the most likely output while still assigning probability to the minority-preferred completion in proportion to its support.
 
 ## Why It Matters
 
@@ -68,14 +68,16 @@ Secondary claims are that SPL improves semantic and lexical diversity in chat ge
 - `minority_probability`: learned probability assigned to the 20% minority-supported option. Higher is better up to the population target; near-zero values indicate mode collapse.
 - `majority_overweight`: learned majority-option probability divided by its 80% population support. Lower is better, with 1.0 indicating proportional representation and values above 1 indicating over-concentration.
 - `top_choice_preserved`: whether the majority-supported option remains the highest-probability output. Higher is better; this is a quality/order constraint.
+- `expected_calibration_error`: finite-action calibration gap between learned probability mass and population preference mass. Lower is better.
+- `preference_kl` and `brier_score`: distributional fit metrics between the learned policy and population preferences. Lower is better.
 
 ## Baselines and Targets
 
-The paper's analytic 80/20 example reports that standard preference learning with `beta=0.1` assigns approximately 99.9999% probability to the majority option and 0.0001% to the minority option. The target distribution for the calibrated setting assigns 80% to the majority option and 20% to the minority option while preserving the majority as the top choice.
+The included baseline artifact for the 80/20 task assigns nearly all probability to the majority option and almost none to the minority option. The target behavior for a calibrated learner assigns 80% to the majority option and 20% to the minority option while preserving the majority as the top choice.
 
 ## Evaluation Protocol
 
-Evaluate saved policy artifacts for the fixed two-outcome preference task in `data/two_outcome_benchmark.json`. All methods receive the same pairwise preference counts, reference distribution, and population target. Evaluation code reads only method output artifacts and must not import training code.
+Evaluate saved policy artifacts for the fixed two-outcome preference task in `data/two_outcome_benchmark.json`, the generated multi-outcome task in `data/spl_tabular_benchmark.json`, and the generated multiple-choice calibration task in `data/calibration_benchmark.json`. All methods receive the same pairwise preference counts, reference distributions, and population targets. Evaluation code reads only method output artifacts and must not import training code.
 
 ---
 
@@ -275,6 +277,48 @@ Evaluate saved policy artifacts for the fixed two-outcome preference task in `da
 
 <details>
 <summary>Progress Log</summary>
+
+### [2026-06-01 09:10] - core_claim_plus
+- Added a deterministic multi-context two-outcome split benchmark that keeps the paper's original 80/20 example as the first reported context while adding real held-out two-action contexts for anti-shortcut train/test scoring.
+- Updated the standard evaluator to report the same two-outcome distribution-fit constraints used by the split evaluators.
+- Submitting a full CPU reproduction run that regenerates DPO/SPL artifacts, refreshes `scores.json`, refreshes train/test scores, and runs validation.
+
+### [2026-06-01 08:52] - core_claim_plus
+- Managed CPU verification job `9b0d9378-ef7` completed with exit code 0.
+- The job reran `scripts/reproduce.sh`, regenerated DPO and SPL artifacts for both experiments, and ran `python validate.py --compare`.
+- Container validation passed import separation, artifact-based evaluation, and reproduced-score comparison checks.
+
+### [2026-06-01 08:51] - core_claim_plus
+- Continuation audit confirmed `method/train_tabular_spl.py` directly optimizes the paper's DPO-style SPL objective rather than a surrogate.
+- Confirmed `eval/evaluate_tabular.py` reads saved `policy.json` and `samples.json` artifacts only and does not import from `method/`.
+- Local `python validate.py --compare` passes for both the two-outcome core claim and the multi-outcome tabular extension.
+- Submitting a fresh CPU container verification because the only managed job log on disk predates the current two-experiment package.
+
+### [2026-06-01 08:49] - core_claim_plus
+- Implemented and packaged the paper's actual DPO-style Soft Preference Learning objective for finite policies.
+- Reproduced the paper's two-outcome 80/20 mode-collapse example with DPO as the `alpha == beta` baseline and SPL with separate `alpha` and `beta`.
+- Added and scored a finite multi-outcome Plackett-Luce extension that tests distributional representation, repeated-sampling coverage, and preference-order preservation.
+- Verified `eval/` reads saved artifacts and does not import `method/`.
+
+</details>
+
+### Iteration 8: gpt-5.5 (verifier)
+- **Milestone**: `core_claim_plus` | **Status**: done
+- **Working time**: 7m | **GPU**: 0.0h
+- **Jobs**: 4 total (4 completed, 0 failed)
+
+<details>
+<summary>Progress Log</summary>
+
+### [2026-06-01 09:25] - core_claim_plus
+- Final verification passed `python validate.py --compare`.
+- Cleaned method-agnostic documentation and added notes explaining which reference targets are generated finite-benchmark targets rather than published LLM table values.
+- Kept milestone at `core_claim_plus` because the verified package is a finite-action reproduction rather than the paper's full LLM experiment suite.
+
+### [2026-06-01 09:23] - core_claim_plus
+- Added a finite multiple-choice calibration benchmark that uses the same pairwise SPL/DPO objective and artifact format.
+- Local `scripts/reproduce.sh`, split evaluators, and `python validate.py --compare` pass for the expanded three-experiment package.
+- Submitting a managed CPU verification job before claiming `secondary_claims`.
 
 ### [2026-06-01 09:10] - core_claim_plus
 - Added a deterministic multi-context two-outcome split benchmark that keeps the paper's original 80/20 example as the first reported context while adding real held-out two-action contexts for anti-shortcut train/test scoring.

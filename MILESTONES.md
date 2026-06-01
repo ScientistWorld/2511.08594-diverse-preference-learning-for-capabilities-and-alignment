@@ -37,4 +37,4 @@
 - Verified `eval/` reads saved artifacts and does not import `method/`.
 
 ## Stop Justification
-- Final verifier accepts milestone `core_claim_plus`: the actual finite-policy preference-learning method runs end to end and supports the core claim plus additional finite multi-outcome/calibration settings. Full LLM-scale chat, math, and MCQ experiments remain out of scope for this packaged gym.
+- Completed at milestone `core_claim_plus`.
