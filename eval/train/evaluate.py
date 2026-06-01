@@ -23,6 +23,7 @@ EXPERIMENTS = (TWO_OUTCOME_EXPERIMENT, TABULAR_EXPERIMENT)
 # contexts. The visible train slice has a similar mix of majority strength and
 # best-of-N solution rarity to the held-out test slice.
 TABULAR_CONTEXT_IDS = {"prompt_0", "prompt_1", "prompt_4", "prompt_6"}
+TWO_OUTCOME_CONTEXT_IDS = {"paper_80_20_example", "train_70_30_example", "train_85_15_example"}
 
 
 def entropy(probs: list[float]) -> float:
@@ -79,14 +80,20 @@ def load_run(run_dir: Path) -> tuple[str, dict, dict]:
 
 def infer_experiment(policy: dict) -> str:
     contexts = policy.get("contexts", [])
-    if len(contexts) == 1 and len(contexts[0].get("actions", [])) == 2:
+    if contexts and all(len(context.get("actions", [])) == 2 for context in contexts):
         return TWO_OUTCOME_EXPERIMENT
     return TABULAR_EXPERIMENT
 
 
 def context_ids_for(policy: dict, experiment: str) -> set[str]:
     if experiment == TWO_OUTCOME_EXPERIMENT:
-        return {context["id"] for context in policy["contexts"]}
+        present = {context["id"] for context in policy["contexts"]}
+        if len(present) == 1:
+            return present
+        missing = sorted(TWO_OUTCOME_CONTEXT_IDS - present)
+        if missing:
+            raise ValueError(f"missing {SLICE} contexts for {TWO_OUTCOME_EXPERIMENT}: {missing}")
+        return set(TWO_OUTCOME_CONTEXT_IDS)
     present = {context["id"] for context in policy["contexts"]}
     missing = sorted(TABULAR_CONTEXT_IDS - present)
     if missing:
@@ -110,23 +117,39 @@ def evaluate_run(run_dir: Path, experiment: str) -> tuple[str, dict, list[str]]:
     contexts, selected_ids = select_contexts(policy, experiment)
 
     if experiment == TWO_OUTCOME_EXPERIMENT:
-        prompt = contexts[0]
-        actions = prompt["actions"]
-        pred = [a["policy_probability"] for a in actions]
-        target = [a["population_preference"] for a in actions]
-        validate_distribution(pred, f"{run_dir}:{prompt['id']} policy")
-        validate_distribution(target, f"{run_dir}:{prompt['id']} population")
-        majority_idx = max(range(len(target)), key=lambda idx: target[idx])
-        minority_idx = min(range(len(target)), key=lambda idx: target[idx])
-        top_idx = max(range(len(pred)), key=lambda idx: pred[idx])
+        context_metrics = []
+        for prompt in contexts:
+            actions = prompt["actions"]
+            pred = [a["policy_probability"] for a in actions]
+            target = [a["population_preference"] for a in actions]
+            validate_distribution(pred, f"{run_dir}:{prompt['id']} policy")
+            validate_distribution(target, f"{run_dir}:{prompt['id']} population")
+            majority_idx = max(range(len(target)), key=lambda idx: target[idx])
+            minority_idx = min(range(len(target)), key=lambda idx: target[idx])
+            top_idx = max(range(len(pred)), key=lambda idx: pred[idx])
+            context_metrics.append(
+                {
+                    "minority_probability": pred[minority_idx],
+                    "majority_overweight": pred[majority_idx] / target[majority_idx],
+                    "top_choice_preserved": float(top_idx == majority_idx),
+                    "preference_kl": kl_divergence(target, pred),
+                    "brier_score": brier(pred, target),
+                    "expected_calibration_error": expected_calibration_error(pred, target),
+                    "population_l1_error": l1_error(pred, target),
+                }
+            )
+
+        def avg(key: str) -> float:
+            return sum(item[key] for item in context_metrics) / len(context_metrics)
+
         result = {
-            "minority_probability": pred[minority_idx],
-            "majority_overweight": pred[majority_idx] / target[majority_idx],
-            "top_choice_preserved": float(top_idx == majority_idx),
-            "preference_kl": kl_divergence(target, pred),
-            "brier_score": brier(pred, target),
-            "expected_calibration_error": expected_calibration_error(pred, target),
-            "population_l1_error": l1_error(pred, target),
+            "minority_probability": avg("minority_probability"),
+            "majority_overweight": avg("majority_overweight"),
+            "top_choice_preserved": avg("top_choice_preserved"),
+            "preference_kl": avg("preference_kl"),
+            "brier_score": avg("brier_score"),
+            "expected_calibration_error": avg("expected_calibration_error"),
+            "population_l1_error": avg("population_l1_error"),
         }
         return method_name, result, selected_ids
 

@@ -19,11 +19,25 @@ def entropy(probs: list[float]) -> float:
 
 
 def kl_divergence(p: list[float], q: list[float]) -> float:
-    return sum(pi * (math.log(max(pi, 1e-12)) - math.log(max(qi, 1e-12))) for pi, qi in zip(p, q))
+    value = sum(pi * (math.log(max(pi, 1e-12)) - math.log(max(qi, 1e-12))) for pi, qi in zip(p, q))
+    return max(value, 0.0)
 
 
 def brier(policy: list[float], target: list[float]) -> float:
     return sum((pi - ti) ** 2 for pi, ti in zip(policy, target))
+
+
+def l1_error(policy: list[float], target: list[float]) -> float:
+    return sum(abs(pi - ti) for pi, ti in zip(policy, target))
+
+
+def validate_distribution(probs: list[float], label: str) -> None:
+    if not probs:
+        raise ValueError(f"{label} distribution is empty")
+    if any(not math.isfinite(prob) or prob < 0.0 or prob > 1.0 for prob in probs):
+        raise ValueError(f"{label} distribution contains invalid probabilities: {probs}")
+    if abs(sum(probs) - 1.0) > 1e-6:
+        raise ValueError(f"{label} distribution sums to {sum(probs)}, not 1.0")
 
 
 def expected_calibration_error(policy: list[float], target: list[float], bins: int = 10) -> float:
@@ -59,6 +73,9 @@ def evaluate_run(run_dir: Path, experiment: str) -> tuple[str, dict]:
         pred = [a["policy_probability"] for a in actions]
         target = [a["population_preference"] for a in actions]
         ref = [a["reference_probability"] for a in actions]
+        validate_distribution(pred, f"{run_dir}:{context['id']} policy")
+        validate_distribution(target, f"{run_dir}:{context['id']} population")
+        validate_distribution(ref, f"{run_dir}:{context['id']} reference")
         solution_prob = sum(
             a["policy_probability"] for a in actions if a.get("is_best_of_n_solution", False)
         )
@@ -103,6 +120,10 @@ def evaluate_run(run_dir: Path, experiment: str) -> tuple[str, dict]:
             "minority_probability": pred[minority_idx],
             "majority_overweight": pred[majority_idx] / target[majority_idx],
             "top_choice_preserved": float(top_idx == majority_idx),
+            "preference_kl": kl_divergence(target, pred),
+            "brier_score": brier(pred, target),
+            "expected_calibration_error": expected_calibration_error(pred, target),
+            "population_l1_error": l1_error(pred, target),
         }
         return method_name, result
 

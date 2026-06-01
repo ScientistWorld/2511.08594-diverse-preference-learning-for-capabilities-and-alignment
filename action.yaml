@@ -1,4 +1,5 @@
-action: done
+action: submit
 gpus: 0
 test: false
-notes: "Metric-triangulated two-outcome plus held-out tabular split; 34 train values and 34 test values. Tabular train/test differs on 8 metrics per method while method sets match; two-outcome is identical by fixed single-context design. Caveat: top-choice guardrail metrics saturate at 1.0 for both methods."
+milestone: core_claim_plus
+notes: "Run full SPL reproduction and validation, with main scores now including the two-outcome distribution-fit constraints as well as refreshed train/test split scores."

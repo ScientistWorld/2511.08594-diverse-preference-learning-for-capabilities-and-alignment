@@ -4,6 +4,11 @@
 
 ## Progress Log
 
+### [2026-06-01 09:10] - core_claim_plus
+- Added a deterministic multi-context two-outcome split benchmark that keeps the paper's original 80/20 example as the first reported context while adding real held-out two-action contexts for anti-shortcut train/test scoring.
+- Updated the standard evaluator to report the same two-outcome distribution-fit constraints used by the split evaluators.
+- Submitting a full CPU reproduction run that regenerates DPO/SPL artifacts, refreshes `scores.json`, refreshes train/test scores, and runs validation.
+
 ### [2026-06-01 08:52] - core_claim_plus
 - Managed CPU verification job `9b0d9378-ef7` completed with exit code 0.
 - The job reran `scripts/reproduce.sh`, regenerated DPO and SPL artifacts for both experiments, and ran `python validate.py --compare`.

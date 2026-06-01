@@ -18,7 +18,9 @@ set -e
 
 cd /home/user
 
-BENCHMARK="${BENCHMARK:-data/two_outcome_benchmark.json}"
+python data/two_outcome_split_benchmark.py --output data/two_outcome_split_benchmark.json
+
+BENCHMARK="${BENCHMARK:-data/two_outcome_split_benchmark.json}"
 STEPS="${STEPS:-6000}"
 LR="${LR:-0.8}"
 SAMPLES_PER_CONTEXT="${SAMPLES_PER_CONTEXT:-128}"

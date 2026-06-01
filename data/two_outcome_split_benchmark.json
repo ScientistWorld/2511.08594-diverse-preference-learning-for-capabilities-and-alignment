@@ -1,0 +1,200 @@
+{
+  "name": "two_outcome_split_benchmark",
+  "seed": 7,
+  "pair_comparisons": 100,
+  "description": "Two-action preference contexts for SPL mode-collapse evaluation. The first context is the paper's original 80/20 example.",
+  "contexts": [
+    {
+      "id": "paper_80_20_example",
+      "prompt": "A population prefers completion A with probability 0.80 and completion B with probability 0.20.",
+      "actions": [
+        {
+          "id": "majority",
+          "text": "Majority-preferred completion.",
+          "population_preference": 0.8,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": false
+        },
+        {
+          "id": "minority",
+          "text": "Minority-preferred completion.",
+          "population_preference": 0.2,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": true
+        }
+      ],
+      "comparisons": [
+        {
+          "winner": "majority",
+          "loser": "minority",
+          "count": 80
+        },
+        {
+          "winner": "minority",
+          "loser": "majority",
+          "count": 20
+        }
+      ]
+    },
+    {
+      "id": "train_70_30_example",
+      "prompt": "A population prefers completion A with probability 0.70 and completion B with probability 0.30.",
+      "actions": [
+        {
+          "id": "majority",
+          "text": "Majority-preferred completion.",
+          "population_preference": 0.7,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": false
+        },
+        {
+          "id": "minority",
+          "text": "Minority-preferred completion.",
+          "population_preference": 0.3,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": true
+        }
+      ],
+      "comparisons": [
+        {
+          "winner": "majority",
+          "loser": "minority",
+          "count": 70
+        },
+        {
+          "winner": "minority",
+          "loser": "majority",
+          "count": 30
+        }
+      ]
+    },
+    {
+      "id": "train_85_15_example",
+      "prompt": "A population prefers completion A with probability 0.85 and completion B with probability 0.15.",
+      "actions": [
+        {
+          "id": "majority",
+          "text": "Majority-preferred completion.",
+          "population_preference": 0.85,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": false
+        },
+        {
+          "id": "minority",
+          "text": "Minority-preferred completion.",
+          "population_preference": 0.15,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": true
+        }
+      ],
+      "comparisons": [
+        {
+          "winner": "majority",
+          "loser": "minority",
+          "count": 85
+        },
+        {
+          "winner": "minority",
+          "loser": "majority",
+          "count": 15
+        }
+      ]
+    },
+    {
+      "id": "test_65_35_example",
+      "prompt": "A population prefers completion A with probability 0.65 and completion B with probability 0.35.",
+      "actions": [
+        {
+          "id": "majority",
+          "text": "Majority-preferred completion.",
+          "population_preference": 0.65,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": false
+        },
+        {
+          "id": "minority",
+          "text": "Minority-preferred completion.",
+          "population_preference": 0.35,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": true
+        }
+      ],
+      "comparisons": [
+        {
+          "winner": "majority",
+          "loser": "minority",
+          "count": 65
+        },
+        {
+          "winner": "minority",
+          "loser": "majority",
+          "count": 35
+        }
+      ]
+    },
+    {
+      "id": "test_75_25_example",
+      "prompt": "A population prefers completion A with probability 0.75 and completion B with probability 0.25.",
+      "actions": [
+        {
+          "id": "majority",
+          "text": "Majority-preferred completion.",
+          "population_preference": 0.75,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": false
+        },
+        {
+          "id": "minority",
+          "text": "Minority-preferred completion.",
+          "population_preference": 0.25,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": true
+        }
+      ],
+      "comparisons": [
+        {
+          "winner": "majority",
+          "loser": "minority",
+          "count": 75
+        },
+        {
+          "winner": "minority",
+          "loser": "majority",
+          "count": 25
+        }
+      ]
+    },
+    {
+      "id": "test_90_10_example",
+      "prompt": "A population prefers completion A with probability 0.90 and completion B with probability 0.10.",
+      "actions": [
+        {
+          "id": "majority",
+          "text": "Majority-preferred completion.",
+          "population_preference": 0.9,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": false
+        },
+        {
+          "id": "minority",
+          "text": "Minority-preferred completion.",
+          "population_preference": 0.1,
+          "reference_probability": 0.5,
+          "is_best_of_n_solution": true
+        }
+      ],
+      "comparisons": [
+        {
+          "winner": "majority",
+          "loser": "minority",
+          "count": 90
+        },
+        {
+          "winner": "minority",
+          "loser": "majority",
+          "count": 10
+        }
+      ]
+    }
+  ]
+}
