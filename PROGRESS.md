@@ -7,12 +7,14 @@
 - `method/train_tabular_spl.py` runs the paper's SPL DPO-style objective with separate `alpha` and `beta`.
 - `eval/evaluate_tabular.py` scores saved artifacts only and does not import from `method/`.
 - Continuation audit on 2026-06-01 re-ran `scripts/reproduce.sh` and `python validate.py --compare`; both passed locally.
+- CPU smoke job `e57fca5a-e7d` passed in the packaged container with exit code 0.
 
 ## Results
 
 - `two_outcome_mode_collapse / dpo_alpha_equals_beta`: minority probability `9.54e-7`, majority overweight `1.25`, top choice preserved `1.0`.
 - `two_outcome_mode_collapse / spl_alpha_1.0_beta_0.1`: minority probability `0.20`, majority overweight `1.0`, top choice preserved `1.0`.
 - These match the paper's analytic prediction for the 80/20 example: DPO collapses minority support to near zero at `beta=0.1`, while SPL with `alpha=1` recovers proportional representation.
+- Managed job validation re-created these numbers through `scripts/run.sh`, `scripts/reproduce.sh`, and `scripts/evaluate.sh`.
 
 ## Remaining
 

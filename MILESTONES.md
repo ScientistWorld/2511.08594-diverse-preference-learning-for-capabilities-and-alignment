@@ -21,4 +21,9 @@
 - Continuation audit verified that the implementation uses the paper's SPL pairwise objective, with DPO represented as the `alpha == beta` special case.
 - Re-ran `scripts/reproduce.sh` and `python validate.py --compare`; regenerated scores match the two-outcome reference and pass separation checks.
 
+### [2026-06-01 08:39] - core_claim
+- CPU smoke job `e57fca5a-e7d` completed successfully in the packaged container.
+- The job regenerated DPO and SPL outputs, wrote `scoring/scores.json`, and passed `python validate.py --compare`.
+
 ## Stop Justification
+- Stopping at `core_claim`: the packaged environment reproduces the paper's central two-outcome mode-collapse claim with the actual SPL objective. Higher milestones would require substantially larger LLM LoRA experiments beyond this compact gym.

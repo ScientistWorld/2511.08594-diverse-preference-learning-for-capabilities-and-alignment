@@ -1,8 +1,8 @@
 # IMPORTANT: Once you set action to 'submit' or 'done', STOP immediately.
 # Do NOT sleep, poll, or wait for jobs. The system reads this file
 # only after your turn ends. Sleeping blocks the entire pipeline.
-action: submit
+action: done
 gpus: 0
-test: true
+test: false
 milestone: core_claim
-notes: "Continuation audit passed locally; submit CPU smoke job to rerun tabular SPL/DPO reproduction and validation in the packaged environment."
+notes: "CPU smoke job e57fca5a-e7d passed in the packaged container; core SPL two-outcome mode-collapse claim reproduced and environment validated."
