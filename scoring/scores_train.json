@@ -1,0 +1,124 @@
+{
+  "metadata": {
+    "slice": "train",
+    "methods": [
+      "dpo_alpha_equals_beta",
+      "dpo_token_temperature_1.5",
+      "spl_alpha_1.0_beta_0.1"
+    ],
+    "best_of_n": 128
+  },
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "slice": "train",
+      "num_contexts": 301,
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "preference_kl": 2.1886718346539826,
+          "minority_log_ratio_error": 11.481342282826256
+        },
+        "dpo_token_temperature_1.5": {
+          "preference_kl": 1.3078741798431954,
+          "minority_log_ratio_error": 7.489291945046595
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "preference_kl": 0.06259916334385125,
+          "minority_log_ratio_error": 0.6252195075836945
+        }
+      },
+      "failed_methods": {},
+      "diagnostics": {
+        "dpo_alpha_equals_beta": {
+          "paper_80_20_minority_probability": 9.543024302396394e-07,
+          "paper_80_20_majority_overweight": 1.249998807121962,
+          "top_choice_preserved": 0.9435215946843853
+        },
+        "dpo_token_temperature_1.5": {
+          "paper_80_20_minority_probability": 9.692047533961304e-05,
+          "paper_80_20_majority_overweight": 1.2498788494058255,
+          "top_choice_preserved": 0.9435215946843853
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "paper_80_20_minority_probability": 0.20000000000000004,
+          "paper_80_20_majority_overweight": 1.0,
+          "top_choice_preserved": 0.9435215946843853
+        }
+      }
+    },
+    "sequence_diversity_best_of_n": {
+      "slice": "train",
+      "num_contexts": 32,
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "best_of_128_success_hard": 0.15264772985715166,
+          "population_kl": 7.2859616032054895,
+          "coherence": 0.9951444597791039
+        },
+        "dpo_token_temperature_1.5": {
+          "best_of_128_success_hard": 0.2577399920570768,
+          "population_kl": 3.4361593988150716,
+          "coherence": 0.9294717154448475
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "best_of_128_success_hard": 0.41763445844049296,
+          "population_kl": 0.25946382249629274,
+          "coherence": 0.9708730316498663
+        }
+      },
+      "failed_methods": {},
+      "diagnostics": {
+        "dpo_alpha_equals_beta": {
+          "expected_population_reward": 8.06432455486324,
+          "reference_policy_reward": 1.710686047008588,
+          "sequence_entropy": 3.358421288484619
+        },
+        "dpo_token_temperature_1.5": {
+          "expected_population_reward": 6.820081300042369,
+          "reference_policy_reward": 1.710686047008588,
+          "sequence_entropy": 5.3137071108485
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "expected_population_reward": 5.588622321066799,
+          "reference_policy_reward": 1.710686047008588,
+          "sequence_entropy": 8.342942847719673
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "slice": "train",
+      "num_contexts": 600,
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "expected_calibration_error": 0.44207718787536066,
+          "brier_score": 0.9323187242562623,
+          "accuracy": 0.48234898948000043
+        },
+        "dpo_token_temperature_1.5": {
+          "expected_calibration_error": 0.4064317957366985,
+          "brier_score": 0.887487168224788,
+          "accuracy": 0.48234898948000043
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "expected_calibration_error": 0.06848399320457968,
+          "brier_score": 0.6417585836726968,
+          "accuracy": 0.48106600668083377
+        }
+      },
+      "failed_methods": {},
+      "diagnostics": {
+        "dpo_alpha_equals_beta": {
+          "mean_confidence": 0.9244261773553597,
+          "reference_policy_accuracy": 0.41389081079066664
+        },
+        "dpo_token_temperature_1.5": {
+          "mean_confidence": 0.8887807852166996,
+          "reference_policy_accuracy": 0.41389081079066664
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "mean_confidence": 0.5489567050886017,
+          "reference_policy_accuracy": 0.41389081079066664
+        }
+      }
+    }
+  }
+}
