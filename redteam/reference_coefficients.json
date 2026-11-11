@@ -1,0 +1,233 @@
+{
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "description": "Two-outcome social-choice setting with 80% vs 20% population support.",
+      "notes": "This is the paper's analytic finite example rather than a large LLM benchmark table.",
+      "weight": 0.45,
+      "primary_metric": "minority_probability",
+      "metrics": {
+        "minority_probability": {
+          "higher_is_better": true,
+          "coefficient": 1.0,
+          "description": "Mass assigned to the minority-supported outcome, which catches majority-mode collapse."
+        },
+        "majority_overweight": {
+          "higher_is_better": false,
+          "coefficient": -0.7,
+          "description": "Ratio of assigned majority mass to the population majority preference, penalizing majority over-concentration."
+        },
+        "top_choice_preserved": {
+          "higher_is_better": true,
+          "coefficient": 0.3,
+          "description": "Whether the population's majority-supported option remains the top-probability option."
+        },
+        "preference_kl": {
+          "higher_is_better": false,
+          "coefficient": -0.8,
+          "description": "KL divergence from the population preference distribution to the learned policy, penalizing over-flattened shortcuts."
+        },
+        "brier_score": {
+          "higher_is_better": false,
+          "coefficient": -0.4,
+          "description": "Squared distributional error between learned probabilities and population preferences."
+        },
+        "expected_calibration_error": {
+          "higher_is_better": false,
+          "coefficient": -0.4,
+          "description": "Finite-action calibration gap between predicted probability mass and population preference mass."
+        },
+        "population_l1_error": {
+          "higher_is_better": false,
+          "coefficient": -0.5,
+          "description": "Total absolute deviation from the target population preference distribution."
+        }
+      },
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "type": "baseline",
+          "minority_probability": 0.000001,
+          "majority_overweight": 1.249999,
+          "top_choice_preserved": 1
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "type": "proposed",
+          "minority_probability": 0.2,
+          "majority_overweight": 1.0,
+          "top_choice_preserved": 1
+        }
+      }
+    },
+    "tabular_preference_learning": {
+      "description": "Multi-outcome finite pairwise-preference setting testing generalized preference representation and best-of-N diversity implication.",
+      "notes": "Generated finite benchmark used as a scaled substitute for the paper's full LLM best-of-N experiments; values are artifact-derived targets for this gym, not published LLM table values.",
+      "weight": 0.35,
+      "primary_metric": "preference_kl",
+      "metrics": {
+        "preference_kl": {
+          "higher_is_better": false,
+          "coefficient": -1.0,
+          "description": "KL divergence from each prompt's population preference distribution to the learned policy."
+        },
+        "best_of_128_success_probability": {
+          "higher_is_better": true,
+          "coefficient": 0.7,
+          "description": "Analytic probability that repeated sampling finds the marked useful minority-supported action."
+        },
+        "normalized_entropy": {
+          "higher_is_better": true,
+          "coefficient": 0.4,
+          "description": "Entropy normalized by action-space size, rewarding retained preference diversity."
+        },
+        "effective_actions": {
+          "higher_is_better": true,
+          "coefficient": 0.2,
+          "description": "Exponentiated entropy of the learned policy, expressed as an effective number of supported actions."
+        },
+        "brier_score": {
+          "higher_is_better": false,
+          "coefficient": -0.4,
+          "description": "Squared distributional error between learned probabilities and population preferences."
+        },
+        "expected_calibration_error": {
+          "higher_is_better": false,
+          "coefficient": -0.4,
+          "description": "Finite-action calibration gap between predicted probability mass and population preference mass."
+        },
+        "argmax_population_mode_accuracy": {
+          "higher_is_better": true,
+          "coefficient": 0.4,
+          "description": "Fraction of prompts where the learned top action matches the population mode."
+        },
+        "expected_population_preference": {
+          "higher_is_better": true,
+          "coefficient": 0.2,
+          "description": "Expected population preference of a sample drawn from the learned policy."
+        },
+        "reference_cross_entropy": {
+          "higher_is_better": false,
+          "coefficient": -0.1,
+          "description": "Cross-entropy of the learned policy under the fixed reference policy, discouraging artifacts that ignore the reference support."
+        },
+        "empirical_best_of_128_success": {
+          "higher_is_better": true,
+          "coefficient": 0.2,
+          "description": "Observed repeated-sampling success in saved samples when a method supplies sample artifacts."
+        }
+      },
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "type": "baseline",
+          "preference_kl": 3.896215,
+          "best_of_128_success_probability": 0.150589,
+          "normalized_entropy": 0.023993,
+          "effective_actions": 1.03516,
+          "brier_score": 0.330118,
+          "expected_calibration_error": 0.486961,
+          "argmax_population_mode_accuracy": 1.0,
+          "expected_population_preference": 0.505286,
+          "reference_cross_entropy": 1.386192,
+          "empirical_best_of_128_success": 0.25
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "type": "proposed",
+          "preference_kl": 0.000138,
+          "best_of_128_success_probability": 0.999994,
+          "normalized_entropy": 0.858162,
+          "effective_actions": 3.295686,
+          "brier_score": 0.000076,
+          "expected_calibration_error": 0.006284,
+          "argmax_population_mode_accuracy": 1.0,
+          "expected_population_preference": 0.355485,
+          "reference_cross_entropy": 1.383373,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "description": "Finite multiple-choice calibration setting: policies should match heterogeneous answer probabilities without losing the top answer.",
+      "notes": "Generated finite benchmark used as a scaled substitute for the paper's full multiple-choice logit calibration experiments; values are artifact-derived targets for this gym, not published LLM table values.",
+      "weight": 0.20,
+      "primary_metric": "expected_calibration_error",
+      "metrics": {
+        "expected_calibration_error": {
+          "higher_is_better": false,
+          "coefficient": -1.0,
+          "description": "Finite-action calibration gap between predicted probability mass and population answer mass."
+        },
+        "brier_score": {
+          "higher_is_better": false,
+          "coefficient": -0.6,
+          "description": "Squared distributional error between learned probabilities and population answer preferences."
+        },
+        "preference_kl": {
+          "higher_is_better": false,
+          "coefficient": -0.8,
+          "description": "KL divergence from the population answer distribution to the learned policy."
+        },
+        "argmax_population_mode_accuracy": {
+          "higher_is_better": true,
+          "coefficient": 0.5,
+          "description": "Whether the learned most likely answer remains the population's most likely answer."
+        },
+        "normalized_entropy": {
+          "higher_is_better": true,
+          "coefficient": 0.3,
+          "description": "Entropy normalized by answer-space size, rewarding non-collapsed calibrated uncertainty."
+        },
+        "effective_actions": {
+          "higher_is_better": true,
+          "coefficient": 0.1,
+          "description": "Exponentiated entropy of the learned answer distribution."
+        },
+        "expected_population_preference": {
+          "higher_is_better": true,
+          "coefficient": 0.1,
+          "description": "Expected population answer support of a sample drawn from the learned policy."
+        },
+        "reference_cross_entropy": {
+          "higher_is_better": false,
+          "coefficient": -0.1,
+          "description": "Cross-entropy of the learned policy under the fixed reference policy."
+        },
+        "best_of_128_success_probability": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Reported for schema consistency with finite-policy artifacts; all calibration prompts mark the population mode as the correct answer."
+        },
+        "empirical_best_of_128_success": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Reported for schema consistency with finite-policy sample artifacts; not an optimization target for calibration."
+        }
+      },
+      "results": {
+        "dpo_alpha_equals_beta": {
+          "type": "baseline",
+          "expected_calibration_error": 0.467447,
+          "brier_score": 0.306539,
+          "preference_kl": 3.868912,
+          "argmax_population_mode_accuracy": 1.0,
+          "normalized_entropy": 0.040072,
+          "effective_actions": 1.064177,
+          "expected_population_preference": 0.515466,
+          "reference_cross_entropy": 1.386294,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "type": "proposed",
+          "expected_calibration_error": 0.004109,
+          "brier_score": 0.000036,
+          "preference_kl": 0.000069,
+          "argmax_population_mode_accuracy": 1.0,
+          "normalized_entropy": 0.844949,
+          "effective_actions": 3.233985,
+          "expected_population_preference": 0.365961,
+          "reference_cross_entropy": 1.386294,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+.cache/
+**/artifacts/
+**/training/
+**/__pycache__/
+*.pyc

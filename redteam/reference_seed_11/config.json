@@ -1,0 +1,6 @@
+{
+  "kind": "train",
+  "training": {
+    "seed": 11
+  }
+}
