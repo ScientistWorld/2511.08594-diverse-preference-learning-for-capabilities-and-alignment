@@ -1,27 +1,33 @@
 # Evaluation Targets
 
-## Primary: two_outcome_mode_collapse
+Every target below is an entry of `scoring/scores_test.json` (hidden test prompts) and
+`scoring/scores_train.json` (visible train prompts). Run `bash scripts/reproduce.sh` for the
+reference runs, then `bash scripts/evaluate_train.sh` (and, for the hidden slice,
+`bash scripts/evaluate_test.sh`).
 
-Tests whether a preference learner avoids collapsing a minority-supported option to near-zero probability in the fixed 80/20 two-outcome setting.
+## Primary: sequence_diversity_best_of_n (weight 0.5)
 
-- **Primary metric**: `minority_probability` (higher is better, up to the 0.2 population target)
-- **Constraint metrics**: `majority_overweight` (lower is better) and `top_choice_preserved` (higher is better)
-- **How to run**: `bash scripts/reproduce.sh`, or run `bash scripts/evaluate.sh <artifact-dir> [...]` after producing policy artifacts.
+- **Primary metric**: `best_of_128_success_hard` (higher is better).
+- **Benefit / fit metric**: `population_kl` (lower is better).
+- **Constraint metric (scored)**: `coherence` (higher is better).
+- **Constraint gate**: expected population reward >= reference policy's (else the run fails).
 
-## Extension: tabular_preference_learning
+## Core claim: two_outcome_mode_collapse (weight 0.25)
 
-Tests generalized multi-outcome preference representation and its implication for repeated sampling.
+- **Primary metric**: `preference_kl` (lower is better).
+- **Benefit metric**: `minority_log_ratio_error` (lower is better).
+- **Constraint gate**: majority completion stays most probable on >= 75% of prompts.
+- The visible train prompt `two_outcome_paper_80_20` is the paper's analytic 80/20 example; its
+  minority probability and majority overweight are reported under train `diagnostics`.
 
-- **Primary metric**: `preference_kl` from population preferences to learned policy (lower is better)
-- **Benefit metrics**: `best_of_128_success_probability`, `empirical_best_of_128_success`, `normalized_entropy`, and `effective_actions` (higher is better)
-- **Constraint metrics**: `argmax_population_mode_accuracy` and `expected_population_preference` (higher is better), plus `reference_cross_entropy`, `brier_score`, and `expected_calibration_error` (lower is better)
-- **How to run**: `bash scripts/reproduce.sh`, or generate `data/multi_outcome_benchmark.json` and run `EXPERIMENT=tabular_preference_learning bash scripts/evaluate.sh <artifact-dir> [...]`.
+## Secondary: calibration_multiple_choice (weight 0.25)
 
-## Secondary: calibration_multiple_choice
+- **Primary metric**: `expected_calibration_error` (lower is better).
+- **Benefit metric**: `brier_score` (lower is better).
+- **Constraint metric (scored)**: `accuracy` (higher is better).
+- **Constraint gate**: accuracy >= reference-policy accuracy - 0.02.
 
-Tests whether a preference learner produces calibrated multiple-choice probabilities rather than overconfident majority choices.
+## Ablation / baseline targets
 
-- **Primary metric**: `expected_calibration_error` (lower is better)
-- **Benefit metrics**: `preference_kl`, `brier_score`, `normalized_entropy`, and `effective_actions`
-- **Constraint metric**: `argmax_population_mode_accuracy` must remain high so calibration cannot be improved by inverting answer preferences.
-- **How to run**: `bash scripts/reproduce.sh`, or generate `data/calibration_benchmark.json` and run `EXPERIMENT=calibration_multiple_choice bash scripts/evaluate.sh <artifact-dir> [...]`.
+`dpo_alpha_equals_beta` (standard preference learning) and `dpo_token_temperature_1.5` are scored
+by the same scripts and must stay clearly below the reference method.

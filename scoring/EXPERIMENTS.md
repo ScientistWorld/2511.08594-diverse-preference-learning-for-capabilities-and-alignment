@@ -1,13 +1,31 @@
 # Experiment Overview
 
-## two_outcome_mode_collapse
+All three experiments are scored on held-out test prompts whose answers are visible only to the
+hidden evaluator. A run that fails any experiment (invalid output or a failed task gate) gets the
+worst value in every experiment.
 
-Tests whether a learned preference policy represents a heterogeneous population rather than collapsing to the majority-supported option. The experiment measures both the probability retained for a minority-supported output and whether the model still preserves the population's top-ranked output, so improvements cannot come from simply flattening or inverting the distribution.
+## two_outcome_mode_collapse (weight 0.25)
 
-## tabular_preference_learning
+Establishes whether preference learning *represents* a split population or *amplifies* its
+majority. Each prompt has two completions and a population that prefers one of them 55-95% of
+the time; only a few dozen noisy comparisons are observed. The measurement is how far the learned
+split is from the population split (KL and the log-factor by which the minority is
+under- or over-represented), with the constraint that the majority completion stays on top.
 
-Tests whether the same preference-learning setup extends beyond two choices to several prompts with four possible outputs each. The experiment measures distributional fit, repeated-sampling success on minority-supported useful outputs, and whether the population's top option remains top-ranked.
+## sequence_diversity_best_of_n (weight 0.5)
 
-## calibration_multiple_choice
+Establishes whether diversity can be kept at the level of whole generations without losing
+coherence, and whether that diversity pays off in repeated-sampling problem solving. Completions
+are token sequences from a space far too large to enumerate, most tokens are incoherent, and
+preferences are expressed over whole sequences. The measurement is (i) the chance that 128 samples
+contain a verified solution for hard problems whose solutions are valid but not the most popular
+completions, (ii) sequence-level distribution fit to the population, and (iii) coherence, with the
+constraint that generations are at least as preferred by the population as the pre-alignment
+model's.
 
-Tests whether learned probabilities over multiple-choice answers reflect graded population uncertainty while keeping the most supported answer as the top prediction. The experiment measures calibration error and distributional fit alongside a top-answer preservation constraint.
+## calibration_multiple_choice (weight 0.25)
+
+Establishes whether learned answer probabilities are calibrated with respect to which answer is
+actually correct, rather than overconfident. The measurement is calibration error and Brier score
+against the hidden correct answer, plus accuracy, with the constraint that accuracy does not drop
+below the pre-alignment model's.

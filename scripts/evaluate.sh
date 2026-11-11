@@ -1,40 +1,24 @@
 #!/bin/bash
-# Evaluation script — the standard way to evaluate work in this environment.
+# Standard evaluation entry point.
 #
-# This script must be SELF-CONTAINED using only code in eval/.
-# Do NOT import from method/ — evaluate.sh must work even when the
-# paper's method code is hidden from a scientist agent.
+# Scores method directories (default: every checkpoints/* directory) on the
+# visible train contexts with eval/train/evaluate.py and writes
+# scoring/scores.json.  Uses only code in eval/ (never method/).
 #
-# Design it so that anyone following the same output format can run
-# this script to evaluate their results.
+# Artifact contract (per method directory):
+#   two_outcome.json   {"contexts": {<id>: {"initial": [p0, p1]}}}
+#   calibration.json   {"contexts": {<id>: {"initial": [p0, p1, p2, p3]}}}
+#   sequence.json      {"contexts": {<id>: {"initial": [V probs],
+#                                           "transitions": [L-1 x V x V row-stochastic]}}}
+# Every context of data/*_contexts.json (train AND test split) must be present.
 #
-# OUTPUT CONTRACT: This script MUST write scoring/scores.json containing
-# a JSON dict nested by experiment, e.g.:
-#   {"imagenet_classification": {"top1_accuracy": 82.1, "top5_accuracy": 94.8}}
-# Experiment and metric names must match the keys in scoring/reference.json.
-# This file is read by the system for automated comparison.
-#
-# Example usage:
-#   bash scripts/evaluate.sh checkpoints/some_method
-#   bash scripts/evaluate.sh checkpoints/method_a checkpoints/method_b
-#
-# Called from run.sh after training, or independently.
+# Usage:
+#   bash scripts/evaluate.sh                      # all checkpoints/*
+#   bash scripts/evaluate.sh checkpoints/my_run   # explicit directories
 
-set -e
+set -euo pipefail
 
 cd /home/user
 
 mkdir -p scoring
-
-EXPERIMENT="${EXPERIMENT:-two_outcome_mode_collapse}"
-
-if [ "$#" -lt 1 ]; then
-  set -- checkpoints/dpo_two_outcome checkpoints/spl_two_outcome
-fi
-
-MERGE_ARG=""
-if [ "${MERGE_SCORES:-0}" = "1" ]; then
-  MERGE_ARG="--merge"
-fi
-
-python eval/evaluate_tabular.py "$@" --experiment "$EXPERIMENT" --scores-out scoring/scores.json $MERGE_ARG
+python3 eval/train/evaluate.py "$@" --scores-out scoring/scores.json

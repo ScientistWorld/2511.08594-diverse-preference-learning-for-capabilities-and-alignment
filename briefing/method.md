@@ -2,22 +2,36 @@
 
 ## Key Contribution
 
-The paper introduces Soft Preference Learning (SPL), a preference-learning objective designed to reduce diversity loss caused by standard KL-regularized alignment methods such as RLHF and DPO.
+Soft Preference Learning (SPL) decouples the two roles of the KL regulariser in RLHF/DPO: the
+cross-entropy to the reference policy (prior strength, coefficient `beta`) and the entropy of the
+learned policy (diversity, coefficient `alpha`).
 
 ## Approach
 
-Standard RLHF and DPO couple two roles inside the KL penalty: keeping the trained policy close to a reference model and controlling the entropy of the trained policy. The paper argues that this coupling causes majority-preferred outputs to be overweighted, producing mode collapse and poor representation of minority preferences or alternative reasoning paths.
+DPO-style SPL objective (paper Eq. 5), maximised over the policy:
 
-SPL separates these terms. Its RL-style objective optimizes expected reward plus an entropy bonus with coefficient `alpha`, while separately applying a cross-entropy penalty toward the reference policy with coefficient `beta`. The paper also gives a DPO-style pairwise objective:
+`E_{(y_w > y_l)} [ log sigmoid( alpha * log pi(y_w)/pi(y_l) - beta * log pi_ref(y_w)/pi_ref(y_l) ) ]`
 
-`log sigmoid(alpha * log(pi(y|x) / pi(y'|x)) - beta * log(pi_ref(y|x) / pi_ref(y'|x)))`
+Its optimum is `pi(y) ∝ pi_ref(y)^(beta/alpha) * exp(r(y)/alpha)` (Prop. A.2); standard DPO is
+`alpha = beta`, whose optimum `pi_ref * p^(1/beta)` raises population preferences to the 10th power
+at `beta = 0.1` (Prop. 3.1). `alpha = 1` gives proportional representation (Cor. 3.1);
+`alpha/beta` acts as a sequence-level (global) temperature on top of the DPO policy, unlike
+token-level temperature, which rescales every next-token distribution.
 
-where `y` is preferred to `y'`. Standard DPO is recovered when `alpha = beta`; increasing `alpha / beta` acts like a sequence-level, or global, temperature that flattens probabilities over complete responses rather than token-by-token.
+## This gym's implementation (`method/spl.py`)
+
+- Policy per prompt: tabular first-order chain (softmax logits per row), initialised at the
+  reference policy; the length-1 case for two-outcome and multiple-choice prompts.
+- Full-batch gradient descent on the mean SPL loss over the comparisons: 3000 steps at lr 1.0
+  (categorical prompts), 1500 steps at lr 5.0 (sequence prompts). Deterministic.
+- Reference run: `alpha = 1.0`, `beta = 0.1` (global temperature 10). DPO baseline:
+  `alpha = beta = 0.1` (`baseline/run_dpo.py`); token-temperature baseline:
+  `baseline/token_temperature.py`.
+- Optional variant knobs (off in the reference): `--label-smoothing`,
+  `--label-smoothing-sequence`, `--shared-token-bias`.
 
 ## Main Claims
 
-The primary claim is that SPL improves the diversity-quality tradeoff of aligned language models: it can produce more varied outputs and improve hard best-of-N problem solving without the rapid coherence degradation seen with token-level temperature scaling.
-
-For the core mathematical reasoning result, SPL improves hard-split best-of-N accuracy on GSM8K and MATH when many samples are allowed. In Table 1, the strongest SPL setting outperforms DPO and temperature-scaled DPO at best-of-128 on both hard splits.
-
-Secondary claims are that SPL improves semantic and lexical diversity in chat generation, better represents diverse societal viewpoints, and improves multiple-choice logit calibration while maintaining similar accuracy.
+SPL avoids majority mode collapse, keeps generation diversity with less quality loss than
+token-level temperature, improves best-of-N accuracy on hard problems, and improves calibration
+relative to DPO.

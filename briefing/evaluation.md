@@ -1,17 +1,70 @@
 # Evaluation
 
-## Metrics
+## Protocol
 
-- `minority_probability`: learned probability assigned to the 20% minority-supported option. Higher is better up to the population target; near-zero values indicate mode collapse.
-- `majority_overweight`: learned majority-option probability divided by its 80% population support. Lower is better, with 1.0 indicating proportional representation and values above 1 indicating over-concentration.
-- `top_choice_preserved`: whether the majority-supported option remains the highest-probability output. Higher is better; this is a quality/order constraint.
-- `expected_calibration_error`: finite-action calibration gap between learned probability mass and population preference mass. Lower is better.
-- `preference_kl` and `brier_score`: distributional fit metrics between the learned policy and population preferences. Lower is better.
+A method writes one directory per run under `checkpoints/<run_name>/` containing three files:
 
-## Baselines and Targets
+| file | content |
+|---|---|
+| `two_outcome.json` | `{"contexts": {<id>: {"initial": [p0, p1]}}}` |
+| `calibration.json` | `{"contexts": {<id>: {"initial": [p0, p1, p2, p3]}}}` |
+| `sequence.json` | `{"contexts": {<id>: {"initial": [21 probs], "transitions": [6 x 21 x 21 row-stochastic]}}}` |
 
-The included baseline artifact for the 80/20 task assigns nearly all probability to the majority option and almost none to the minority option. The target behavior for a calibrated learner assigns 80% to the majority option and 20% to the minority option while preserving the majority as the top choice.
+`initial` is the distribution of the first token, `transitions[i][a]` the distribution of token
+`i+1` given token `i` = `a`. Every prompt id in `data/*_contexts.json` (train and test split) must be
+present. Only these probability tables are read; any other field is ignored. Ground truth
+(population preferences, rewards, verifier sets, correct-answer distributions), the reference
+policies used for gates, and all thresholds are owned by the evaluator.
 
-## Evaluation Protocol
+- `bash scripts/evaluate_train.sh` scores every `checkpoints/*` directory on the visible train
+  prompts and writes `scoring/scores_train.json` (same code path as `scripts/evaluate.sh` ->
+  `scoring/scores.json`).
+- `bash scripts/evaluate_test.sh` (no arguments) scores every `checkpoints/*` directory on the
+  hidden test prompts and writes `scoring/scores_test.json`. The hidden test only reads the saved
+  artifacts; it never trains.
 
-Evaluate saved policy artifacts for the fixed two-outcome preference task in `data/two_outcome_benchmark.json`, the generated multi-outcome task in `data/multi_outcome_benchmark.json`, and the generated multiple-choice calibration task in `data/calibration_benchmark.json`. All methods receive the same pairwise preference counts, reference distributions, and population targets. Evaluation code reads only method output artifacts and must not import training code.
+All numbers are computed exactly from the probability tables (dynamic programming for
+sequences); there is no sampling noise and the evaluation is deterministic.
+
+## Metrics (scored)
+
+**two_outcome_mode_collapse**
+- `preference_kl` (lower): mean KL(population split || policy), capped at 20 per prompt.
+- `minority_log_ratio_error` (lower): mean |log(policy minority mass / population minority
+  share)|, capped at 30 per prompt.
+
+**sequence_diversity_best_of_n**
+- `best_of_128_success_hard` (higher, primary): probability that 128 samples contain a solution,
+  averaged over 6 hidden hard problems per prompt (coherent sequences matching a hidden pattern,
+  away from the most popular completion).
+- `population_kl` (lower): sequence-level KL(population distribution || policy), cap 60.
+- `coherence` (higher): probability that a sampled sequence contains no incoherent token.
+
+**calibration_multiple_choice** (expectations over the hidden correct answer)
+- `expected_calibration_error` (lower, primary): 10-bin ECE of top-answer confidence.
+- `brier_score` (lower).
+- `accuracy` (higher): accuracy of the most probable option (ties -> lowest index).
+
+## Task gates and failures
+
+A run **fails** if, in any experiment, an artifact is missing, malformed, not a probability
+distribution (non-finite, negative, > 1, rows not summing to 1 within 1e-4), misses a prompt, or
+violates a task gate:
+
+- two-outcome: the population-majority completion is the most probable one on < 75% of prompts;
+- sequence: expected population reward of the policy below that of the reference policy;
+- multiple choice: accuracy more than 0.02 below the reference policy's accuracy.
+
+A failed run receives the **worst value of every metric in every experiment** (KL 20 / 30 / 60,
+success 0, coherence 0, ECE 1, Brier 2, accuracy 0); the reason is recorded under
+`failed_methods`. Gate quantities are reported under `diagnostics`.
+
+## Baselines
+
+- `dpo_alpha_equals_beta`: standard KL-regularised preference learning (DPO, beta = 0.1).
+- `dpo_token_temperature_1.5`: the same policy with token-level temperature 1.5 applied to every
+  conditional distribution.
+
+Both stay coherent or nearly so but collapse onto the majority, so they lose on distribution fit,
+hard best-of-128 and calibration. Higher token temperatures recover some diversity but quickly
+produce incoherent tokens. A uniform policy fails the gates.

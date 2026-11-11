@@ -1,48 +1,38 @@
 #!/bin/bash
-# Run a baseline method from the paper.
+# Run a baseline from the paper.
 #
-# Baselines are simple reference methods the paper compares against. 
-# Implement this only if applicable, i.e. the paper has baselines.
-# You do not need to implement all baselines to begin — 
-# just enough to validate that the evaluation pipeline works 
-# and provide a reference point. You can decide to expand more baselines later.
-# Each baseline must be actually run and scored through evaluate.sh
-# so the numbers are verified, not self-reported.
-# You can decide what this baseline script should do yourself.
-#
-# Usage:
-#   bash scripts/baseline.sh <name>
+#   bash scripts/baseline.sh dpo                 # DPO (alpha == beta = 0.1)
+#   bash scripts/baseline.sh token_temperature   # DPO + token-level temperature 1.5 (needs dpo first)
+#   bash scripts/baseline.sh reference_policy    # the untrained reference policy
 
-set -e
+set -euo pipefail
 
 cd /home/user
 
 NAME="${1:-dpo}"
-BENCHMARK="${BENCHMARK:-data/two_outcome_benchmark.json}"
-OUTPUT_DIR="${OUTPUT_DIR:-checkpoints/dpo_two_outcome}"
 BETA="${BETA:-0.1}"
-STEPS="${STEPS:-3000}"
-LR="${LR:-0.8}"
-SAMPLES_PER_CONTEXT="${SAMPLES_PER_CONTEXT:-128}"
-SEED="${SEED:-11}"
+TEMPERATURE="${TEMPERATURE:-1.5}"
 
-if [ "$NAME" != "dpo" ]; then
-  echo "Unknown baseline '$NAME'. Available: dpo" >&2
-  exit 2
-fi
-
-if [ ! -f "$BENCHMARK" ]; then
-  python data/multi_outcome_benchmark.py --output "$BENCHMARK"
-fi
-python baseline/run_dpo.py \
-  --benchmark "$BENCHMARK" \
-  --output-dir "$OUTPUT_DIR" \
-  --beta "$BETA" \
-  --steps "$STEPS" \
-  --lr "$LR" \
-  --samples-per-context "$SAMPLES_PER_CONTEXT" \
-  --seed "$SEED"
+case "$NAME" in
+  dpo)
+    OUT="${OUTPUT_DIR:-checkpoints/dpo_alpha_equals_beta}"
+    python3 baseline/run_dpo.py --data-dir data --output-dir "$OUT" --beta "$BETA"
+    ;;
+  token_temperature)
+    OUT="${OUTPUT_DIR:-checkpoints/dpo_token_temperature_${TEMPERATURE}}"
+    python3 baseline/token_temperature.py --source-dir "${SOURCE_DIR:-checkpoints/dpo_alpha_equals_beta}" \
+      --output-dir "$OUT" --temperature "$TEMPERATURE"
+    ;;
+  reference_policy)
+    OUT="${OUTPUT_DIR:-checkpoints/reference_policy}"
+    python3 baseline/reference_policy.py --data-dir data --output-dir "$OUT"
+    ;;
+  *)
+    echo "Unknown baseline '$NAME'. Available: dpo, token_temperature, reference_policy" >&2
+    exit 2
+    ;;
+esac
 
 if [ "${RUN_EVAL:-1}" = "1" ]; then
-  bash scripts/evaluate.sh "$OUTPUT_DIR"
+  bash scripts/evaluate.sh "$OUT"
 fi

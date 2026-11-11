@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the DPO baseline as the alpha == beta special case of SPL."""
+"""DPO baseline: the alpha == beta special case of the SPL objective (paper Prop. 3.1)."""
 
 from __future__ import annotations
 
@@ -10,38 +10,21 @@ import sys
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--benchmark", default="data/two_outcome_benchmark.json")
-    parser.add_argument("--output-dir", default="checkpoints/dpo_tabular")
+    parser.add_argument("--data-dir", default="data")
+    parser.add_argument("--output-dir", default="checkpoints/dpo_alpha_equals_beta")
     parser.add_argument("--beta", type=float, default=0.1)
-    parser.add_argument("--steps", type=int, default=3000)
-    parser.add_argument("--lr", type=float, default=0.8)
-    parser.add_argument("--samples-per-context", type=int, default=128)
-    parser.add_argument("--seed", type=int, default=11)
-    args = parser.parse_args()
-
+    parser.add_argument("--experiments", default=None)
+    args, extra = parser.parse_known_args()
     cmd = [
-        sys.executable,
-        "method/train_tabular_spl.py",
-        "--benchmark",
-        args.benchmark,
-        "--output-dir",
-        args.output_dir,
-        "--method-name",
-        "dpo_alpha_equals_beta",
-        "--alpha",
-        str(args.beta),
-        "--beta",
-        str(args.beta),
-        "--steps",
-        str(args.steps),
-        "--lr",
-        str(args.lr),
-        "--samples-per-context",
-        str(args.samples_per_context),
-        "--seed",
-        str(args.seed),
+        sys.executable, "method/spl.py",
+        "--data-dir", args.data_dir,
+        "--output-dir", args.output_dir,
+        "--alpha", str(args.beta),
+        "--beta", str(args.beta),
     ]
-    subprocess.run(cmd, check=True)
+    if args.experiments:
+        cmd += ["--experiments", args.experiments]
+    subprocess.run(cmd + extra, check=True)
 
 
 if __name__ == "__main__":

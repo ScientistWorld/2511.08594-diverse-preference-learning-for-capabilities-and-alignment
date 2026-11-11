@@ -230,3 +230,6 @@ tmp/
 protocol.md
 *.egg-info
 core.[0-9]*
+
+# Hardening audit: method artifacts and per-context test values (can reveal hidden test answers)
+redteam/hardening/runs/
