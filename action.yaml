@@ -1,4 +1,2 @@
-action: submit
-gpus: 0
-test: false
-notes: "Finish honest quality comparison with near-zero-prior and train-selected SPL variants; verify uniform and exhaustive-enumeration shortcuts and summarize normalized test gains."
+action: done
+notes: "Audit complete: genuine fit improvements score higher, but uniform output, public answers, mutable labels/reference fields, and omitted experiments earn higher scores or paying ties; 26 hidden-test cases saved and gym restored."

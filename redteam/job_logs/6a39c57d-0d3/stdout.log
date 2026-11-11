@@ -1,0 +1,38 @@
+[hive] This stdout log is managed by Hive.
+[hive] job_id: 64464c9c
+[hive] host: node
+[hive] node_id: 5b56c1bb00c851f2c3f93b346fd15ddec87104a85e26c62af4985535
+[hive] user: nexus/user (remote)
+[hive] resource: gpu-cpu
+[hive] gpus: 0
+[hive] cpus: 1
+[hive] workdir: /home/user
+[hive] timeout_sec: 21600
+[hive] started_at: 2026-11-11 06:31:18 EST
+[hive] command: apptainer exec --containall --cleanenv --env HF_HOME=/home/user/shared/hf_cache --env TRANSFORMERS_CACHE=/home/user/shared/hf_cache --env HF_DATASETS_CACHE=/home/user/shared/hf_cache/datasets --env TORCH_HOME=/home/user/shared/hf_cache/torch --bind /home/user/scratch/AgentWorkspaces/workspaces/2511.08594:/home/user --overlay /home/user/scratch/AgentWorkspaces/workspaces/2511.08594/environment/overlay.img:ro --bind /home/user/scratch/AgentWorkspaces/shared/datasets:/home/user/shared/datasets:ro --bind /home/user/scratch/AgentWorkspaces/shared/models:/home/user/shared/models:ro --bind /home/user/scratch/AgentWorkspaces/shared/hf_cache:/home/user/shared/hf_cache /home/user/scratch/AgentWorkspaces/workspaces/2511.08594/environment/container.sif bash -c 'cd /home/user && bash /home/user/scripts/run.sh'
+reference_existing               audit=+0.000000000 base=+0.000000000 pair=+0.000000000
+reference_seed_11                audit=+0.000000000 base=+0.047067872 pair=-0.890000000
+reference_seed_23                audit=+0.000000000 base=+0.047067872 pair=-0.890000000
+reference_seed_37                audit=+0.000000000 base=+0.047067872 pair=-0.890000000
+honest_more_steps                audit=+0.000000000 base=+0.047067872 pair=-0.890000000
+honest_prior_fix                 audit=+0.000827473 base=+0.043994395 pair=+1.840000000
+honest_train_selected            audit=+0.000000000 base=+0.047067872 pair=-0.890000000
+honest_weaker_training           audit=-0.090019676 base=-0.092201046 pair=-1.760000000
+honest_key_removed_dpo           audit=-4.773944507 base=-3.821343025 pair=-6.700000000
+shortcut_uniform                 audit=+0.429470386 base=+0.286685100 pair=+0.360000000
+honest_constant                  audit=-6.419551483 base=-5.155348432 pair=-6.700000000
+honest_inverted                  audit=-9.008267718 base=-6.969532230 pair=-4.610000000
+shortcut_brute_force             audit=+0.429470386 base=+0.286685100 pair=+0.360000000
+shortcut_copy_answers            audit=+0.013580171 base=+0.029081264 pair=+5.870000000
+shortcut_forge_labels            audit=+0.636468201 base=+0.474124203 pair=+5.870000000
+shortcut_replace_reference       audit=+0.255644580 base=+18434219239388.738281250 pair=+0.110000000
+shortcut_success_flags           audit=+0.000010783 base=+0.000008665 pair=+0.490000000
+shortcut_forge_samples           audit=+0.000000000 base=+0.000000000 pair=+0.000000000
+shortcut_single_context          audit=+0.152510671 base=+0.125252111 pair=+2.790000000
+shortcut_manifest_omit           audit=+0.000000000 base=+0.000000000 pair=+0.000000000
+shortcut_score_injection         audit=+0.000000000 base=+0.000000000 pair=+0.000000000
+shortcut_empty_manifest          NO FRESH SCORES test_exit=1
+shortcut_nan                     NO FRESH SCORES test_exit=1
+shortcut_null                    NO FRESH SCORES test_exit=1
+shortcut_negative                NO FRESH SCORES test_exit=1
+shortcut_empty                   NO FRESH SCORES test_exit=1

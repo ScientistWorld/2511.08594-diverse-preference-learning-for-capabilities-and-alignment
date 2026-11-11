@@ -2,131 +2,159 @@
   {
     "case": "reference_existing",
     "runner_exit": 0,
-    "seconds": 2.946807861328125
+    "seconds": 2.946807861328125,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "reference_seed_11",
     "runner_exit": 0,
-    "seconds": 10.456491470336914
+    "seconds": 10.456491470336914,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "reference_seed_23",
     "runner_exit": 0,
-    "seconds": 5.581115245819092
+    "seconds": 5.581115245819092,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "reference_seed_37",
     "runner_exit": 0,
-    "seconds": 6.962061882019043
+    "seconds": 6.962061882019043,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "honest_more_steps",
     "runner_exit": 0,
-    "seconds": 18.36302399635315
+    "seconds": 18.36302399635315,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "honest_prior_fix",
     "runner_exit": 0,
-    "seconds": 2.143371820449829
+    "seconds": 2.143371820449829,
+    "job_id": "8e9e6b71-cba",
+    "note": "First implementation failed before test; corrected and completed in job 6a39c57d-0d3. See case/status.json."
   },
   {
     "case": "honest_train_selected",
     "runner_exit": 0,
-    "seconds": 2.1061575412750244
+    "seconds": 2.1061575412750244,
+    "job_id": "8e9e6b71-cba",
+    "note": "First implementation failed before test; corrected and completed in job 6a39c57d-0d3. See case/status.json."
   },
   {
     "case": "honest_weaker_training",
     "runner_exit": 0,
-    "seconds": 4.380890130996704
+    "seconds": 4.380890130996704,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "honest_key_removed_dpo",
     "runner_exit": 0,
-    "seconds": 3.0071725845336914
+    "seconds": 3.0071725845336914,
+    "job_id": "8e9e6b71-cba"
   },
   {
-    "case": "honest_uniform",
+    "case": "shortcut_uniform",
     "runner_exit": 0,
-    "seconds": 2.9036781787872314
+    "seconds": 2.9036781787872314,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "honest_constant",
     "runner_exit": 0,
-    "seconds": 2.8263745307922363
+    "seconds": 2.8263745307922363,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "honest_inverted",
     "runner_exit": 0,
-    "seconds": 3.48992657661438
+    "seconds": 3.48992657661438,
+    "job_id": "8e9e6b71-cba"
   },
   {
-    "case": "brute_force_enumeration",
+    "case": "shortcut_brute_force",
     "runner_exit": 0,
-    "seconds": 3.0240187644958496
+    "seconds": 3.0240187644958496,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_copy_answers",
     "runner_exit": 0,
-    "seconds": 3.1475343704223633
+    "seconds": 3.1475343704223633,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_forge_labels",
     "runner_exit": 0,
-    "seconds": 2.821988344192505
+    "seconds": 2.821988344192505,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_replace_reference",
     "runner_exit": 0,
-    "seconds": 3.9807727336883545
+    "seconds": 3.9807727336883545,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_success_flags",
     "runner_exit": 0,
-    "seconds": 2.7626333236694336
+    "seconds": 2.7626333236694336,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_forge_samples",
     "runner_exit": 0,
-    "seconds": 3.960616111755371
+    "seconds": 3.960616111755371,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_single_context",
     "runner_exit": 0,
-    "seconds": 2.994144916534424
+    "seconds": 2.994144916534424,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_manifest_omit",
     "runner_exit": 0,
-    "seconds": 3.4768598079681396
+    "seconds": 3.4768598079681396,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_score_injection",
     "runner_exit": 0,
-    "seconds": 2.8403093814849854
+    "seconds": 2.8403093814849854,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_empty_manifest",
     "runner_exit": 0,
-    "seconds": 2.4314823150634766
+    "seconds": 2.4314823150634766,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_nan",
     "runner_exit": 0,
-    "seconds": 3.1177079677581787
+    "seconds": 3.1177079677581787,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_null",
     "runner_exit": 0,
-    "seconds": 2.7977869510650635
+    "seconds": 2.7977869510650635,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_negative",
     "runner_exit": 0,
-    "seconds": 3.0895164012908936
+    "seconds": 3.0895164012908936,
+    "job_id": "8e9e6b71-cba"
   },
   {
     "case": "shortcut_empty",
     "runner_exit": 0,
-    "seconds": 3.054711103439331
+    "seconds": 3.054711103439331,
+    "job_id": "8e9e6b71-cba"
   }
 ]

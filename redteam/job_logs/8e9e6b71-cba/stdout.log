@@ -1,0 +1,91 @@
+[hive] This stdout log is managed by Hive.
+[hive] job_id: f327d6cd
+[hive] host: node
+[hive] node_id: 5b56c1bb00c851f2c3f93b346fd15ddec87104a85e26c62af4985535
+[hive] user: nexus/user (remote)
+[hive] resource: gpu-cpu
+[hive] gpus: 0
+[hive] cpus: 1
+[hive] workdir: /home/user
+[hive] timeout_sec: 21600
+[hive] started_at: 2026-11-11 06:26:27 EST
+[hive] command: apptainer exec --containall --cleanenv --env HF_HOME=/home/user/shared/hf_cache --env TRANSFORMERS_CACHE=/home/user/shared/hf_cache --env HF_DATASETS_CACHE=/home/user/shared/hf_cache/datasets --env TORCH_HOME=/home/user/shared/hf_cache/torch --bind /home/user/scratch/AgentWorkspaces/workspaces/2511.08594:/home/user --overlay /home/user/scratch/AgentWorkspaces/workspaces/2511.08594/environment/overlay.img:ro --bind /home/user/scratch/AgentWorkspaces/shared/datasets:/home/user/shared/datasets:ro --bind /home/user/scratch/AgentWorkspaces/shared/models:/home/user/shared/models:ro --bind /home/user/scratch/AgentWorkspaces/shared/hf_cache:/home/user/shared/hf_cache /home/user/scratch/AgentWorkspaces/workspaces/2511.08594/environment/container.sif bash -c 'cd /home/user && bash /home/user/scripts/run.sh'
+RUN reference_existing
+{'case': 'reference_existing', 'runner_exit': 0, 'seconds': 2.946807861328125}
+RUN reference_seed_11
+{'case': 'reference_seed_11', 'runner_exit': 0, 'seconds': 10.456491470336914}
+RUN reference_seed_23
+{'case': 'reference_seed_23', 'runner_exit': 0, 'seconds': 5.581115245819092}
+RUN reference_seed_37
+{'case': 'reference_seed_37', 'runner_exit': 0, 'seconds': 6.962061882019043}
+RUN honest_more_steps
+{'case': 'honest_more_steps', 'runner_exit': 0, 'seconds': 18.36302399635315}
+RUN honest_prior_fix
+{'case': 'honest_prior_fix', 'runner_exit': 0, 'seconds': 2.143371820449829}
+RUN honest_train_selected
+{'case': 'honest_train_selected', 'runner_exit': 0, 'seconds': 2.1061575412750244}
+RUN honest_weaker_training
+{'case': 'honest_weaker_training', 'runner_exit': 0, 'seconds': 4.380890130996704}
+RUN honest_key_removed_dpo
+{'case': 'honest_key_removed_dpo', 'runner_exit': 0, 'seconds': 3.0071725845336914}
+RUN honest_uniform
+{'case': 'honest_uniform', 'runner_exit': 0, 'seconds': 2.9036781787872314}
+RUN honest_constant
+{'case': 'honest_constant', 'runner_exit': 0, 'seconds': 2.8263745307922363}
+RUN honest_inverted
+{'case': 'honest_inverted', 'runner_exit': 0, 'seconds': 3.48992657661438}
+RUN brute_force_enumeration
+{'case': 'brute_force_enumeration', 'runner_exit': 0, 'seconds': 3.0240187644958496}
+RUN shortcut_copy_answers
+{'case': 'shortcut_copy_answers', 'runner_exit': 0, 'seconds': 3.1475343704223633}
+RUN shortcut_forge_labels
+{'case': 'shortcut_forge_labels', 'runner_exit': 0, 'seconds': 2.821988344192505}
+RUN shortcut_replace_reference
+{'case': 'shortcut_replace_reference', 'runner_exit': 0, 'seconds': 3.9807727336883545}
+RUN shortcut_success_flags
+{'case': 'shortcut_success_flags', 'runner_exit': 0, 'seconds': 2.7626333236694336}
+RUN shortcut_forge_samples
+{'case': 'shortcut_forge_samples', 'runner_exit': 0, 'seconds': 3.960616111755371}
+RUN shortcut_single_context
+{'case': 'shortcut_single_context', 'runner_exit': 0, 'seconds': 2.994144916534424}
+RUN shortcut_manifest_omit
+{'case': 'shortcut_manifest_omit', 'runner_exit': 0, 'seconds': 3.4768598079681396}
+RUN shortcut_score_injection
+{'case': 'shortcut_score_injection', 'runner_exit': 0, 'seconds': 2.8403093814849854}
+RUN shortcut_empty_manifest
+{'case': 'shortcut_empty_manifest', 'runner_exit': 0, 'seconds': 2.4314823150634766}
+RUN shortcut_nan
+{'case': 'shortcut_nan', 'runner_exit': 0, 'seconds': 3.1177079677581787}
+RUN shortcut_null
+{'case': 'shortcut_null', 'runner_exit': 0, 'seconds': 2.7977869510650635}
+RUN shortcut_negative
+{'case': 'shortcut_negative', 'runner_exit': 0, 'seconds': 3.0895164012908936}
+RUN shortcut_empty
+{'case': 'shortcut_empty', 'runner_exit': 0, 'seconds': 3.054711103439331}
+All cases completed
+reference_existing               audit=-0.000000000 base=-0.026678919 pair=-2.350000000
+reference_seed_11                audit=-0.000000000 base=+0.026678919 pair=-2.280000000
+reference_seed_23                audit=-0.000000000 base=+0.026678919 pair=-2.280000000
+reference_seed_37                audit=-0.000000000 base=+0.026678919 pair=-2.280000000
+honest_more_steps                audit=-0.000000000 base=+0.026678919 pair=-2.280000000
+honest_prior_fix                 NO FRESH SCORES test_exit=None
+honest_train_selected            NO FRESH SCORES test_exit=None
+honest_weaker_training           audit=-0.086601127 base=-0.112122513 pair=-1.800000000
+honest_key_removed_dpo           audit=-4.575590494 base=-3.689025659 pair=-6.700000000
+honest_uniform                   audit=+0.407855824 base=+0.243595065 pair=+0.320000000
+honest_constant                  audit=-6.151959818 base=-4.983560089 pair=-6.740000000
+honest_inverted                  audit=-8.636141666 base=-6.854765774 pair=-4.650000000
+brute_force_enumeration          audit=+0.407855824 base=+0.243595065 pair=+0.320000000
+shortcut_copy_answers            audit=+0.013032091 base=+0.006467073 pair=+4.930000000
+shortcut_forge_labels            audit=+0.609522524 base=+0.435768219 pair=+5.830000000
+shortcut_replace_reference       audit=+0.243690159 base=+20897695687407.992187500 pair=-2.130000000
+shortcut_success_flags           audit=+0.000010340 base=-0.026670505 pair=-1.860000000
+shortcut_forge_samples           audit=-0.000000000 base=-0.026678919 pair=-2.350000000
+shortcut_single_context          audit=+0.145953864 base=+0.089197528 pair=+1.340000000
+shortcut_manifest_omit           audit=-0.000000000 base=-0.000000000 pair=-0.900000000
+shortcut_score_injection         audit=-0.000000000 base=-0.026678919 pair=-2.350000000
+shortcut_empty_manifest          NO FRESH SCORES test_exit=1
+shortcut_nan                     NO FRESH SCORES test_exit=1
+shortcut_null                    NO FRESH SCORES test_exit=1
+shortcut_negative                NO FRESH SCORES test_exit=1
+shortcut_empty                   NO FRESH SCORES test_exit=1

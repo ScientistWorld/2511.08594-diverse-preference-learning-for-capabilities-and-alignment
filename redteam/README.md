@@ -21,7 +21,9 @@ The audit analyzer reads those scores and coefficients only after evaluation.
 All contexts in the shipped data are treated identically by each candidate,
 except `shortcut_single_context`, which retains a **visible training context**.
 The shortcut names describe scoring deficiencies even where direct attempts
-are rejected. A zero-gain successful shortcut is explicitly a paying tie.
+are rejected. A successful shortcut that preserves reference metrics is explicitly a paying tie.
+The direct score-injection attempt fails: the evaluator overwrites its forged
+scores, and its unchanged genuine reference artifacts explain the resulting tie.
 
 `summary.json` and each `rank.json` report raw metrics and the weighted,
 direction-correct, absolute-coefficient normalized improvements. Since the
@@ -31,3 +33,9 @@ the unchanged reference re-evaluated on the same node. The initial packaged
 reference is also retained, and `packaged_anchor_gain` reports its comparison.
 Invalid runs have no claimed numeric rank. This avoids treating cross-node
 floating-point differences as substantive gains in reference ties.
+
+The first CPU job ran all cases. Its two near-zero-prior training cases initially
+failed on an alpha/beta metadata division by zero. The second job used beta=1e-6
+and completed both, along with fresh uniform and enumeration checks. Each case
+folder contains the latest outcome; `batch_status.json` is timing history for the
+first job, not the final success ledger. See `summary.json` for final status.

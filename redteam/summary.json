@@ -4,7 +4,7 @@
     "packaged_reference": "initial scoring/scores_test.json also retained and scored below",
     "formula": "sum(weight * abs(coefficient) * direction * (value-reference) / population_std)",
     "audit_cohort": [
-      "initial_reference",
+      "reference_anchor",
       "reference_existing",
       "reference_seed_11",
       "reference_seed_23",
@@ -28,7 +28,7 @@
       "shortcut_score_injection"
     ],
     "base_cohort": [
-      "initial_reference",
+      "reference_anchor",
       "reference_existing",
       "reference_seed_11",
       "reference_seed_23",
