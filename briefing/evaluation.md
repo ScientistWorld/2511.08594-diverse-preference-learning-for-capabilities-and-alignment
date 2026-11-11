@@ -41,9 +41,12 @@ sequences); there is no sampling noise and the evaluation is deterministic.
 - `coherence` (higher): probability that a sampled sequence contains no incoherent token.
 
 **calibration_multiple_choice** (expectations over the hidden correct answer)
-- `expected_calibration_error` (lower, primary): 10-bin ECE of top-answer confidence.
-- `brier_score` (lower).
-- `accuracy` (higher): accuracy of the most probable option (ties -> lowest index).
+- `brier_score` (lower, primary): multi-class Brier score.
+- `expected_calibration_error` (lower): 10-bin ECE of top-answer confidence (weighted below Brier:
+  a constant, uninformative confidence can make ECE small but not Brier).
+- `accuracy` (higher): accuracy of the most probable option (ties -> lowest index). Reported and
+  enforced by the gate below; it carries no rank weight (coefficient 0), because methods that pass
+  the gate differ in it only by a handful of near-tie decisions.
 
 ## Task gates and failures
 
@@ -53,7 +56,8 @@ violates a task gate:
 
 - two-outcome: the population-majority completion is the most probable one on < 75% of prompts;
 - sequence: expected population reward of the policy below that of the reference policy;
-- multiple choice: accuracy more than 0.02 below the reference policy's accuracy.
+- multiple choice: accuracy below the accuracy of simply picking the option with the best
+  (wins - losses) count in the prompt's comparisons, minus 0.01 (floor about 0.472 on both slices).
 
 A failed run receives the **worst value of every metric in every experiment** (KL 20 / 30 / 60,
 success 0, coherence 0, ECE 1, Brier 2, accuracy 0); the reason is recorded under

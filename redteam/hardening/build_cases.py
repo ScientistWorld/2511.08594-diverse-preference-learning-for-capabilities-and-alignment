@@ -13,6 +13,7 @@ import argparse
 import copy
 import json
 import math
+import os
 import shutil
 from pathlib import Path
 
@@ -178,7 +179,145 @@ def main() -> None:
         pi0, pT = mod.chain_from_potentials(t["reward_initial"], t["reward_transitions"])
         seq_m[cid] = {"initial": pi0, "transitions": pT}
     write_case("shortcut_memorize_train_truth", two_m, seq_m, cal_m)
+
+    # ---- added in the final hardening pass ---------------------------------------------------
+    cases_extra(out, two, cal, seq, ref_two, ref_seq, ref_cal, write_case, mod, tt, V, L, ref_dir)
     print(f"built cases under {out}")
+
+
+def cases_extra(out, two, cal, seq, ref_two, ref_seq, ref_cal, write_case, trainev, tt, V, L, ref_dir):
+    import random
+
+    def top_index(row):
+        return max(range(len(row)), key=lambda k: (row[k], -k))
+
+    # 10. ECE gaming: keep the reference argmax, report one constant confidence everywhere
+    #     (the reference's visible-train accuracy).  Pure and half-way mixtures.
+    accs = [tt["calibration_multiple_choice"][cid]["correct_answer_distribution"][top_index(ref_cal["contexts"][cid]["initial"])]
+            for cid in tt["calibration_multiple_choice"]]
+    c = sum(accs) / len(accs)
+    for name, lam in (("shortcut_constant_confidence", 1.0), ("shortcut_constant_confidence_half", 0.5)):
+        cc = {}
+        for cid, v in ref_cal["contexts"].items():
+            pi = v["initial"]
+            t = top_index(pi)
+            const = [c if k == t else (1.0 - c) / 3.0 for k in range(4)]
+            cc[cid] = {"initial": norm([(1 - lam) * a + lam * b for a, b in zip(pi, const)])}
+        write_case(name, cal_ctx=cc)
+
+    # 11. counting estimators (no preference model): Laplace-smoothed win rates
+    lap2, lap4 = {}, {}
+    for ctx in two["contexts"]:
+        w0 = sum(n for w, l, n in ctx["comparisons"] if w == 0)
+        n = sum(x[2] for x in ctx["comparisons"])
+        lap2[ctx["id"]] = {"initial": [(w0 + 1) / (n + 2), (n - w0 + 1) / (n + 2)]}
+    for ctx in cal["contexts"]:
+        wins, games = [0.0] * 4, [0.0] * 4
+        for w, l, n in ctx["comparisons"]:
+            wins[w] += n
+            games[w] += n
+            games[l] += n
+        lap4[ctx["id"]] = {"initial": norm([(wins[k] + 1) / (games[k] + 2) for k in range(4)])}
+    write_case("shortcut_laplace_counts", two_ctx=lap2, cal_ctx=lap4)
+
+    # 12. "write down the generator": exact-prior Bayes posterior means for the categorical
+    #     experiments (prior/likelihood copied from the hidden generator's construction).
+    grid = [0.05 + 0.4 * (i + 0.5) / 400 for i in range(400)] + [0.55 + 0.4 * (i + 0.5) / 400 for i in range(400)]
+    bayes2 = {}
+    for ctx in two["contexts"]:
+        w0 = sum(n for w, l, n in ctx["comparisons"] if w == 0)
+        n = sum(x[2] for x in ctx["comparisons"])
+        lw = [w0 * math.log(p) + (n - w0) * math.log(1 - p) for p in grid]
+        m = max(lw)
+        ws = [math.exp(x - m) for x in lw]
+        e = sum(p * w for p, w in zip(grid, ws)) / sum(ws)
+        bayes2[ctx["id"]] = {"initial": [e, 1.0 - e]}
+    rng = random.Random(7)
+    S = int(os.environ.get("BAYES_SAMPLES", "20000"))
+    samples = []
+    for _ in range(S):
+        conc = math.exp(rng.uniform(math.log(0.4), math.log(4.0)))
+        g = [rng.gammavariate(conc, 1.0) for _ in range(4)]
+        sg = sum(g)
+        p = norm([max(x / sg, 1e-4) for x in g])
+        lp = [math.log(x) for x in p]
+        pair = [[(lp[w] - math.log(p[w] + p[l])) if w != l else 0.0 for l in range(4)] for w in range(4)]
+        samples.append((p, [0.5 * x for x in lp], pair))
+    bayes4, ess = {}, []
+    for ctx in cal["contexts"]:
+        lref = [math.log(x) for x in ctx["reference_probability"]]
+        comps = ctx["comparisons"]
+        lls = []
+        for p, hlp, pair in samples:
+            r = [a - b for a, b in zip(lref, hlp)]
+            mr = sum(r) / 4.0
+            ll = -sum((x - mr) ** 2 for x in r) / (2 * 0.25)
+            for w, l, n in comps:
+                ll += n * pair[w][l]
+            lls.append(ll)
+        m = max(lls)
+        ws = [math.exp(x - m) for x in lls]
+        sw = sum(ws)
+        ess.append(sw * sw / sum(x * x for x in ws))
+        bayes4[ctx["id"]] = {"initial": norm([sum(w * s[0][k] for w, s in zip(ws, samples)) / sw for k in range(4)])}
+    ess.sort()
+    print(f"[cases] exact-prior calibration posterior: importance-sampling ESS min {ess[0]:.0f}, median {ess[len(ess) // 2]:.0f}")
+    write_case("shortcut_bayes_exact_prior", two_ctx=bayes2, cal_ctx=bayes4)
+
+    # 13. invert the generator's reference for the sequence experiment: population potential
+    #     ~ 2 * log reference (content tokens), -8 for rare tokens; no comparisons used.
+    def chain_from_potentials(li, lp):
+        return trainev.chain_from_potentials(li, lp)
+    inv = {}
+    for ctx in seq["contexts"]:
+        rare = [x < 0.005 for x in ctx["reference_initial"]]
+        def pot(row):
+            cont = [k for k in range(V) if not rare[k]]
+            mr = sum(math.log(row[k]) for k in cont) / len(cont)
+            return [-8.0 if rare[k] else 2.0 * (math.log(row[k]) - mr) for k in range(V)]
+        i0, Tm = chain_from_potentials(pot(ctx["reference_initial"]),
+                                       [[pot(row) for row in Ti] for Ti in ctx["reference_transitions"]])
+        inv[ctx["id"]] = {"initial": i0, "transitions": Tm}
+    write_case("shortcut_generator_inverse_sequence", seq_ctx=inv)
+
+    # 14. honest post-hoc improvements of the reference run
+    #  (a) min-p-style truncation: tokens with < 0.5% reference mass get their probability x 1e-3
+    trunc = {}
+    for ctx in seq["contexts"]:
+        rare = [x < 0.005 for x in ctx["reference_initial"]]
+        def tr(row):
+            return norm([x * 1e-3 if r else x for x, r in zip(row, rare)])
+        s = ref_seq["contexts"][ctx["id"]]
+        trunc[ctx["id"]] = {"initial": tr(s["initial"]), "transitions": [[tr(r) for r in Ti] for Ti in s["transitions"]]}
+    write_case("variant_truncate_rare_tokens", seq_ctx=trunc)
+
+    #  (b) sequence-level (global) temperature 1.2 on the reference run (~ SPL with alpha = 1.2)
+    def gtemp_cat(row, t):
+        return norm([x ** (1.0 / t) for x in row])
+    def gtemp_chain(s, t):
+        li = [math.log(max(x, 1e-300)) / t for x in s["initial"]]
+        lp = [[[math.log(max(x, 1e-300)) / t for x in row] for row in Ti] for Ti in s["transitions"]]
+        i0, Tm = chain_from_potentials(li, lp)
+        return {"initial": i0, "transitions": Tm}
+    t = 1.2
+    write_case("variant_global_temperature_1.2",
+               two_ctx={k: {"initial": gtemp_cat(v["initial"], t)} for k, v in ref_two["contexts"].items()},
+               seq_ctx={k: gtemp_chain(v, t) for k, v in ref_seq["contexts"].items()},
+               cal_ctx={k: {"initial": gtemp_cat(v["initial"], t)} for k, v in ref_cal["contexts"].items()})
+
+    # 15. paper baseline: DPO + token temperature 3 + min-p 0.1 (sequence); token temperature 3 (categorical)
+    dpo_dir = Path("checkpoints/dpo_alpha_equals_beta")
+    if dpo_dir.is_dir():
+        d2, dS, d4 = (load(dpo_dir / f) for f in FILES)
+        def minp(row, temp=3.0, pbase=0.1):
+            r = norm([x ** (1.0 / temp) for x in row])
+            m = max(r)
+            return norm([max(x if x >= pbase * m else 0.0, 1e-9) for x in r])
+        write_case("baseline_dpo_minp_0.1_t3",
+                   two_ctx={k: {"initial": gtemp_cat(v["initial"], 3.0)} for k, v in d2["contexts"].items()},
+                   seq_ctx={k: {"initial": minp(v["initial"]), "transitions": [[minp(r) for r in Ti] for Ti in v["transitions"]]}
+                            for k, v in dS["contexts"].items()},
+                   cal_ctx={k: {"initial": gtemp_cat(v["initial"], 3.0)} for k, v in d4["contexts"].items()})
 
 
 if __name__ == "__main__":

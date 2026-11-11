@@ -52,7 +52,7 @@ LOWER_IS_BETTER = {"preference_kl", "minority_log_ratio_error", "population_kl",
 
 # task gates (fixed by the evaluator)
 GATE_TOP_CHOICE = 0.75          # two-outcome: majority must stay on top in >= 75% of contexts
-GATE_ACCURACY_SLACK = 0.02      # calibration: accuracy >= reference-policy accuracy - 0.02
+GATE_ACCURACY_SLACK = 0.01      # calibration: accuracy >= comparison-vote accuracy - 0.01
 SUM_TOL = 1e-4
 
 
@@ -301,7 +301,7 @@ def score_sequence(method_dir, truth):
 def score_calibration(method_dir, truth):
     ids = sorted(truth)
     ctx = load_contexts(method_dir, CAL, ids)
-    confs, accs, briers, ref_accs = [], [], [], []
+    confs, accs, briers, ref_accs, vote_accs = [], [], [], [], []
     for cid in ids:
         p = truth[cid]["correct_answer_distribution"]
         K = len(p)
@@ -313,6 +313,8 @@ def score_calibration(method_dir, truth):
         ref = truth[cid]["reference_probability"]
         rtop = max(range(K), key=lambda k: (ref[k], -k))
         ref_accs.append(p[rtop])
+        winners = truth[cid]["comparison_vote_winners"]
+        vote_accs.append(sum(p[k] for k in winners) / len(winners))
     n = len(ids)
     bins = 10
     ece = 0.0
@@ -328,10 +330,13 @@ def score_calibration(method_dir, truth):
         "accuracy": sum(accs) / n,
     }
     ref_acc = sum(ref_accs) / n
-    diag = {"mean_confidence": sum(confs) / n, "reference_policy_accuracy": ref_acc}
+    vote_acc = sum(vote_accs) / n
+    floor = vote_acc - GATE_ACCURACY_SLACK
+    diag = {"mean_confidence": sum(confs) / n, "reference_policy_accuracy": ref_acc,
+            "comparison_vote_accuracy": vote_acc, "accuracy_gate_floor": floor}
     gate = None
-    if res["accuracy"] < ref_acc - GATE_ACCURACY_SLACK:
-        gate = f"accuracy {res['accuracy']:.4f} below reference-policy accuracy {ref_acc:.4f} - {GATE_ACCURACY_SLACK}"
+    if not res["accuracy"] >= floor:
+        gate = f"accuracy {res['accuracy']:.4f} below comparison-vote accuracy {vote_acc:.4f} - {GATE_ACCURACY_SLACK}"
     return res, diag, gate, {"confidence": confs, "accuracy": accs, "brier_score": briers}
 
 

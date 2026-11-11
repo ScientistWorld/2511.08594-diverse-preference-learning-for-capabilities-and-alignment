@@ -36,6 +36,7 @@ run_bg train_variant variant_alpha_1.2 --alpha 1.2
 run_bg train_variant variant_beta_0.01 --beta 0.01
 run_bg train_variant variant_alpha_0.5 --alpha 0.5
 run_bg train_variant variant_undertrained --steps-categorical 300 --steps-sequence 150
+run_bg train_variant variant_alpha_1.5 --alpha 1.5
 wait
 
 # --- reference runs and post-hoc baselines into the same cohort ------------
@@ -60,6 +61,10 @@ grep "^\[test\]" "$H/logs/eval_test.log"
 
 python3 $H/analyze.py --scores "$H/scores_test_all.json" --per-context "$H/runs/per_context_test.json" \
   --train-scores "$H/scores_train_all.json" --bootstrap 400 --out "$H/summary.json"
+# same cohort ranked with the calibration coefficients in force before this pass (ECE 1.0, Brier 0.75, accuracy 0.5)
+python3 $H/analyze.py --scores "$H/scores_test_all.json" --per-context "$H/runs/per_context_test.json" \
+  --train-scores "$H/scores_train_all.json" --bootstrap 0 --reference-json "$H/reference_before_reweight.json" \
+  --out "$H/summary_old_coefficients.json" > /dev/null
 
 # --- score injection: a pre-written scores_test.json must be overwritten ----
 cat > scoring/scores_test.json <<'JSON'
@@ -73,13 +78,14 @@ v = s["experiments"]["two_outcome_mode_collapse"]["results"]["spl_alpha_1.0_beta
 print("injected value overwritten:", v != -1e9, "value now", v)
 PY
 
-# --- determinism: retrain the categorical experiments and compare bytes ------
+# --- determinism: retrain the categorical experiments and compare the policy tables ----------
 python3 method/spl.py --data-dir data --output-dir "$H/runs/determinism_check" \
   --experiments two_outcome_mode_collapse,calibration_multiple_choice > "$H/logs/determinism.log" 2>&1
-{
-  python3 -c "import sys; sys.exit(open(sys.argv[1],'rb').read() != open(sys.argv[2],'rb').read())" "$H/runs/determinism_check/two_outcome.json" checkpoints/spl_alpha_1.0_beta_0.1/two_outcome.json \
-    && echo "two_outcome.json bit-identical on retrain" || echo "two_outcome.json DIFFERS on retrain"
-  python3 -c "import sys; sys.exit(open(sys.argv[1],'rb').read() != open(sys.argv[2],'rb').read())" "$H/runs/determinism_check/calibration.json" checkpoints/spl_alpha_1.0_beta_0.1/calibration.json \
-    && echo "calibration.json bit-identical on retrain" || echo "calibration.json DIFFERS on retrain"
-} | tee "$H/determinism_check.txt"
+python3 - <<'PY' | tee "$H/determinism_check.txt"
+import json
+for f in ("two_outcome.json", "calibration.json"):
+    a = json.load(open(f"redteam/hardening/runs/determinism_check/{f}"))["contexts"]
+    b = json.load(open(f"checkpoints/spl_alpha_1.0_beta_0.1/{f}"))["contexts"]
+    print(f, "policy tables identical on retrain:", a == b)
+PY
 echo "[hardening] done"

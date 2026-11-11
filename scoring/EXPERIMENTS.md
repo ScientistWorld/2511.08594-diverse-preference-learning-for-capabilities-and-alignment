@@ -26,6 +26,7 @@ model's.
 ## calibration_multiple_choice (weight 0.25)
 
 Establishes whether learned answer probabilities are calibrated with respect to which answer is
-actually correct, rather than overconfident. The measurement is calibration error and Brier score
-against the hidden correct answer, plus accuracy, with the constraint that accuracy does not drop
-below the pre-alignment model's.
+actually correct, rather than overconfident. The measurement is the Brier score (primary) and
+calibration error against the hidden correct answer. Accuracy is reported as a constraint: it must
+not drop below what simply counting which option wins the most comparisons achieves (minus 0.01);
+it is not otherwise ranked.

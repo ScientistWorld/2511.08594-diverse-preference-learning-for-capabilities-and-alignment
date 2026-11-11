@@ -22,10 +22,11 @@ reference runs, then `bash scripts/evaluate_train.sh` (and, for the hidden slice
 
 ## Secondary: calibration_multiple_choice (weight 0.25)
 
-- **Primary metric**: `expected_calibration_error` (lower is better).
-- **Benefit metric**: `brier_score` (lower is better).
-- **Constraint metric (scored)**: `accuracy` (higher is better).
-- **Constraint gate**: accuracy >= reference-policy accuracy - 0.02.
+- **Primary metric**: `brier_score` (lower is better; coefficient 1.0).
+- **Benefit metric**: `expected_calibration_error` (lower is better; coefficient 0.5).
+- **Constraint metric (reported, coefficient 0)**: `accuracy` (higher is better).
+- **Constraint gate**: accuracy >= accuracy of the comparison-vote winner - 0.01 (evaluator-owned;
+  about 0.472 on both slices). Failing it fails the whole run.
 
 ## Ablation / baseline targets
 

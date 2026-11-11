@@ -48,4 +48,5 @@ A better solution, on held-out prompts:
 
 **without** giving up what the alignment step is for: the population's preferred completion must
 stay on top, generations must stay coherent and at least as preferred by the population as the
-reference policy's, and multiple-choice accuracy must not drop below the reference policy's.
+reference policy's, and multiple-choice accuracy must not drop below what simply counting which
+option wins the most comparisons achieves.

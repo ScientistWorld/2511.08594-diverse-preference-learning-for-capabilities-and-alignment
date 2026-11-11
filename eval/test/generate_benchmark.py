@@ -326,7 +326,18 @@ def gen_calibration(rng, n_train, n_test):
                     "comparisons": comps,
                 }
             )
-            truth[split][cid] = {"correct_answer_distribution": p, "reference_probability": ref}
+            # evaluator-owned accuracy floor: the option(s) with the best (wins - losses) count
+            net = [0] * K
+            for w, l, c in comps:
+                net[w] += c
+                net[l] -= c
+            top = max(net)
+            vote_winners = [k for k in range(K) if net[k] == top]
+            truth[split][cid] = {
+                "correct_answer_distribution": p,
+                "reference_probability": ref,
+                "comparison_vote_winners": vote_winners,
+            }
     return public, truth
 
 
