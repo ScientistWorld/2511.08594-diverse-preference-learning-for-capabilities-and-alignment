@@ -1,8 +1,6 @@
 # Once you set action to 'submit' or 'done', STOP immediately.
 # Do NOT sleep, poll, or wait for jobs. The system reads this file
 # only after your turn ends.
-action: submit
-gpus: 0
-test: false
+action: done
 milestone: core_claim_plus
-notes: "Final hardening check: reproduce reference/baselines end to end (determinism vs packaged artifacts), run hardening audit (variants incl. alpha=1.5, new shortcut cases) through the fixed hidden-test evaluator, rank under new and old coefficients, refresh scores_{train,test}.json, validate."
+notes: "Hardened gym: hidden truth, gates and worst-value failures, Brier-primary calibration with a gated accuracy floor; better variants beat the reference beyond paired noise, all major REDTEAM shortcuts fail or tie; one generator-aware calibration shortcut left (+0.099), see HARDENING.md."
