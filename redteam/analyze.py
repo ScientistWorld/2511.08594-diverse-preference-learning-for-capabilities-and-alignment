@@ -25,7 +25,11 @@ def unpack(score, name):
 
 def main():
     definitions = read(HERE / 'reference_coefficients.json')['experiments']
-    reference = unpack(read(HERE / 'reference_scores_test.json'), REF_NAME)
+    packaged_reference = unpack(read(HERE / 'reference_scores_test.json'), REF_NAME)
+    # Re-evaluate the unchanged reference on the same node/library as the
+    # candidates. Keep the packaged-anchor calculation too, so roundoff cannot
+    # silently decide a purported paying tie.
+    reference = unpack(read(HERE / 'reference_existing/scores_test.json'), NAME)
     cases = {}
     statuses = {}
     for name in read(HERE / 'cases.json'):
@@ -65,13 +69,16 @@ def main():
     base_names = [n for n in cases if n.startswith(('reference_', 'honest_'))]
     base_scales = sigmas([reference, *(cases[n] for n in base_names)])
     summary = {'normalization': {
-        'reference': 'initial scoring/scores_test.json proposed result',
+        'reference': 'unchanged original artifacts re-evaluated by the hidden test in this job',
+        'packaged_reference': 'initial scoring/scores_test.json also retained and scored below',
         'formula': 'sum(weight * abs(coefficient) * direction * (value-reference) / population_std)',
         'audit_cohort': ['initial_reference', *cases],
         'base_cohort': ['initial_reference', *base_names],
         'missing': 'skip, matching the stated ranking rule',
         'zero_variance': 'no contribution when both values are equal'},
-        'audit_cohort_std': all_scales, 'base_cohort_std': base_scales, 'cases': {}}
+        'audit_cohort_std': all_scales, 'base_cohort_std': base_scales,
+        'reference_metrics': reference, 'packaged_reference_metrics': packaged_reference, 'cases': {}}
+    original_anchor = reference
     for name, status in statuses.items():
         entry = {'status': status}
         if name in cases:
@@ -79,8 +86,11 @@ def main():
             audit, contributions = rank(candidate, all_scales)
             base, _ = rank(candidate, base_scales)
             pair, _ = rank(candidate, sigmas([reference, candidate]))
+            reference = packaged_reference
+            packaged, _ = rank(candidate, all_scales)
+            reference = original_anchor
             entry.update({'audit_cohort_gain': audit, 'base_cohort_gain': base,
-                          'two_attempt_gain': pair, 'metrics': candidate,
+                          'two_attempt_gain': pair, 'packaged_anchor_gain': packaged, 'metrics': candidate,
                           'contributions': contributions,
                           'missing_experiments': sorted(set(reference) - set(candidate))})
             print(f'{name:32s} audit={audit:+.9f} base={base:+.9f} pair={pair:+.9f}')

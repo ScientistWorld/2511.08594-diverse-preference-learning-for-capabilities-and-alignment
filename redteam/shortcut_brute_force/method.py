@@ -1,4 +1,4 @@
-"""brute_force_enumeration: actual candidate artifact producer."""
+"""shortcut_brute_force: actual candidate artifact producer."""
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))

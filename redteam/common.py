@@ -76,7 +76,7 @@ def produce(case_dir):
             spec.loader.exec_module(evaluator)
             candidates = []
             for alpha in [.98, 1., 1.02]:
-                for beta in [0., .1]:
+                for beta in [1e-6, .1]:
                     path = case_dir / 'training' / suffix / f'a{alpha}_b{beta}'
                     train(benchmark_path, path, alpha=alpha, beta=beta)
                     _, metrics, _ = evaluator.evaluate_run(path, experiment)
@@ -97,13 +97,13 @@ def produce(case_dir):
         policy = read(reference / 'policy.json')
         samples = read(reference / 'samples.json')
         policy['metadata']['method_name'] = NAME
-        if kind in {'uniform', 'constant', 'inverted', 'brute_force', 'shortcut_forge_labels'}:
+        if kind in {'shortcut_uniform', 'constant', 'inverted', 'shortcut_brute_force', 'shortcut_forge_labels'}:
             for context in policy['contexts']:
                 for idx, action in enumerate(context['actions']):
                     n = len(context['actions'])
-                    action['policy_probability'] = (1. / n if kind in {'uniform', 'brute_force', 'shortcut_forge_labels'}
+                    action['policy_probability'] = (1. / n if kind in {'shortcut_uniform', 'shortcut_brute_force', 'shortcut_forge_labels'}
                                                     else float(idx == (1 if kind == 'inverted' else 0)))
-            samples = sample(policy['contexts'], enumerate_actions=(kind == 'brute_force'))
+            samples = sample(policy['contexts'], enumerate_actions=(kind == 'shortcut_brute_force'))
         if kind == 'shortcut_copy_answers':
             for context in policy['contexts']:
                 for action in context['actions']:
@@ -151,4 +151,3 @@ def produce(case_dir):
             policy['contexts'] = []
         write(output / 'policy.json', policy)
         write(output / 'samples.json', samples)
-

@@ -27,4 +27,7 @@ are rejected. A zero-gain successful shortcut is explicitly a paying tie.
 direction-correct, absolute-coefficient normalized improvements. Since the
 variance of future attempts is not available, they declare the audit cohort,
 also use the honest-check cohort, and give two-attempt comparisons. Zero is
-the initial hidden-test reference. Invalid runs have no claimed numeric rank.
+the unchanged reference re-evaluated on the same node. The initial packaged
+reference is also retained, and `packaged_anchor_gain` reports its comparison.
+Invalid runs have no claimed numeric rank. This avoids treating cross-node
+floating-point differences as substantive gains in reference ties.
