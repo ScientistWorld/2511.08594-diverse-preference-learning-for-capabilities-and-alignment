@@ -108,15 +108,21 @@
       "diagnostics": {
         "dpo_alpha_equals_beta": {
           "mean_confidence": 0.9244261773553597,
-          "reference_policy_accuracy": 0.41389081079066664
+          "reference_policy_accuracy": 0.41389081079066664,
+          "comparison_vote_accuracy": 0.4811226411550005,
+          "accuracy_gate_floor": 0.47112264115500047
         },
         "dpo_token_temperature_1.5": {
           "mean_confidence": 0.8887807852166996,
-          "reference_policy_accuracy": 0.41389081079066664
+          "reference_policy_accuracy": 0.41389081079066664,
+          "comparison_vote_accuracy": 0.4811226411550005,
+          "accuracy_gate_floor": 0.47112264115500047
         },
         "spl_alpha_1.0_beta_0.1": {
           "mean_confidence": 0.5489567050886017,
-          "reference_policy_accuracy": 0.41389081079066664
+          "reference_policy_accuracy": 0.41389081079066664,
+          "comparison_vote_accuracy": 0.4811226411550005,
+          "accuracy_gate_floor": 0.47112264115500047
         }
       }
     }

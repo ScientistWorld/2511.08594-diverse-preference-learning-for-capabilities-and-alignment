@@ -1,0 +1,1362 @@
+{
+  "formula": "sum(weight*|coef|*dir*(value-ref)/pstdev_cohort)",
+  "reference_method": "spl_alpha_1.0_beta_0.1",
+  "failed": {
+    "control_reference_policy": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.503 < gate 0.75",
+    "dpo_token_temperature_3.0": "sequence_diversity_best_of_n: task gate failed: expected_population_reward -6.077 below the reference policy's 1.658",
+    "shortcut_brute_force_coherent": "sequence_diversity_best_of_n: task gate failed: expected_population_reward -0.376 below the reference policy's 1.658",
+    "shortcut_empty_dir": "two_outcome_mode_collapse: missing two_outcome.json",
+    "shortcut_nan": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: impossible probability nan",
+    "shortcut_negative": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: impossible probability -1.0",
+    "shortcut_null": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: non-numeric probability None",
+    "shortcut_omit_experiments": "sequence_diversity_best_of_n: missing sequence.json",
+    "shortcut_sharpened_reference": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.503 < gate 0.75",
+    "shortcut_single_context": "two_outcome_mode_collapse: two_outcome.json: missing 300 required contexts (e.g. two_outcome_test_000)",
+    "shortcut_tie_bias_option0": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.523 < gate 0.75",
+    "shortcut_uniform": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.000 < gate 0.75",
+    "shortcut_unnormalized": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: probabilities sum to 3.6, not 1"
+  },
+  "cohorts": {
+    "honest_cohort": {
+      "members": [
+        "baseline_dpo_minp_0.1_t3",
+        "dpo_alpha_equals_beta",
+        "dpo_token_temperature_1.5",
+        "dpo_token_temperature_2.0",
+        "spl_alpha_1.0_beta_0.1",
+        "variant_alpha_0.5",
+        "variant_alpha_1.2",
+        "variant_alpha_1.5",
+        "variant_beta_0.01",
+        "variant_global_temperature_1.2",
+        "variant_improved",
+        "variant_truncate_rare_tokens",
+        "variant_undertrained"
+      ],
+      "sigma": {
+        "two_outcome_mode_collapse": {
+          "preference_kl": 0.585639278596222,
+          "minority_log_ratio_error": 3.3498567748967103
+        },
+        "sequence_diversity_best_of_n": {
+          "best_of_128_success_hard": 0.09728657347675466,
+          "population_kl": 3.236507015507345,
+          "coherence": 0.0666677802685155
+        },
+        "calibration_multiple_choice": {
+          "expected_calibration_error": 0.15923954104593935,
+          "brier_score": 0.10917280731878279,
+          "accuracy": 0.0011417461692653594
+        }
+      },
+      "rows": {
+        "baseline_dpo_minp_0.1_t3": {
+          "gain": -2.2649334066111324,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -0.2519283543465145,
+            "sequence_diversity_best_of_n": -1.6362813725344698,
+            "calibration_multiple_choice": -0.37672367973014786
+          },
+          "failed": false,
+          "train_gain_same_sigma": -1.956420458610571
+        },
+        "control_reference_policy": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "dpo_alpha_equals_beta": {
+          "gain": -4.40047222897443,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -1.2465917262220414,
+            "sequence_diversity_best_of_n": -2.3060529487759527,
+            "calibration_multiple_choice": -0.8478275539764359
+          },
+          "failed": false,
+          "train_gain_same_sigma": -4.34277354704814
+        },
+        "dpo_token_temperature_1.5": {
+          "gain": -3.118275622913114,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -0.7458892277318787,
+            "sequence_diversity_best_of_n": -1.6565136663482358,
+            "calibration_multiple_choice": -0.7158727288329997
+          },
+          "failed": false,
+          "train_gain_same_sigma": -2.9449452102060127
+        },
+        "dpo_token_temperature_2.0": {
+          "gain": -3.098855968094428,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -0.4946747654842224,
+            "sequence_diversity_best_of_n": -2.0113726130913046,
+            "calibration_multiple_choice": -0.592808589518901
+          },
+          "failed": false,
+          "train_gain_same_sigma": -2.893945382637648
+        },
+        "dpo_token_temperature_3.0": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "shortcut_bayes_exact_prior": {
+          "gain": 0.3462000754404,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.01778137640558144,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.3284186990348186
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.5585982688093027
+        },
+        "shortcut_brute_force_coherent": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "shortcut_constant_confidence": {
+          "gain": 0.04459027059535327,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.04459027059535327
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.04388061419656239
+        },
+        "shortcut_constant_confidence_half": {
+          "gain": 0.029076279403896135,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.029076279403896135
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.024945791040555405
+        },
+        "shortcut_empty_dir": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "shortcut_forged_fields": {
+          "gain": 0.0,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.0
+        },
+        "shortcut_generator_inverse_sequence": {
+          "gain": -1.1570563594899748,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": -1.1570563594899748,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.8306197740451169
+        },
+        "shortcut_laplace_counts": {
+          "gain": 0.400229956285048,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.017286945190978727,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.38294301109406925
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.33005606266094617
+        },
+        "shortcut_majority_vote_onehot": {
+          "gain": -2.1641895311979207,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -1.041104670043649,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": -1.1230848611542714
+          },
+          "failed": false,
+          "train_gain_same_sigma": -2.2901640239104366
+        },
+        "shortcut_memorize_train_truth": {
+          "gain": 0.0,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": 3.179963556992959
+        },
+        "shortcut_mix_30pct_brute_force": {
+          "gain": -0.12267867317334542,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": -0.12267867317334542,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.18148451846871166
+        },
+        "shortcut_nan": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": 0.0
+        },
+        "shortcut_negative": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": 0.0
+        },
+        "shortcut_null": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": 0.0
+        },
+        "shortcut_omit_experiments": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "shortcut_sharpened_reference": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "shortcut_single_context": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "shortcut_tie_bias_option0": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "shortcut_uniform": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.77904354192074
+        },
+        "shortcut_unnormalized": {
+          "gain": -78.48131781897214,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.621883788367963,
+            "sequence_diversity_best_of_n": -12.544802251934188,
+            "calibration_multiple_choice": -56.314631778670005
+          },
+          "failed": true,
+          "train_gain_same_sigma": 0.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "gain": 0.0,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.0
+        },
+        "variant_alpha_0.5": {
+          "gain": -0.9693550593337642,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -0.09397327666377091,
+            "sequence_diversity_best_of_n": -0.5098925949143719,
+            "calibration_multiple_choice": -0.36548918775562134
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.926380596181378
+        },
+        "variant_alpha_1.2": {
+          "gain": 0.0700558799930369,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.005045595983323974,
+            "sequence_diversity_best_of_n": -0.0036462855894175868,
+            "calibration_multiple_choice": 0.06865656959913051
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.0639793196748582
+        },
+        "variant_alpha_1.5": {
+          "gain": -0.01597088135127034,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.003923373972724461,
+            "sequence_diversity_best_of_n": -0.11184443495002556,
+            "calibration_multiple_choice": 0.09195017962603076
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.027923264957604152
+        },
+        "variant_beta_0.01": {
+          "gain": -0.0689783082193123,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.00019961982545853567,
+            "sequence_diversity_best_of_n": -0.0003850467622570127,
+            "calibration_multiple_choice": -0.06879288128251383
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.028869397238506053
+        },
+        "variant_global_temperature_1.2": {
+          "gain": -0.19860511599351444,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.005825920889068062,
+            "sequence_diversity_best_of_n": -0.2735018037821495,
+            "calibration_multiple_choice": 0.06907076689956705
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.18953253889196983
+        },
+        "variant_improved": {
+          "gain": 0.18432507468005346,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.016617366334364236,
+            "sequence_diversity_best_of_n": 0.09805741393461027,
+            "calibration_multiple_choice": 0.06965029441107898
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.030083146660703858
+        },
+        "variant_truncate_rare_tokens": {
+          "gain": 0.15517926197735007,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.15517926197735007,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.14959407550767143
+        },
+        "variant_undertrained": {
+          "gain": -0.021680441380513046,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.005902282255051593,
+            "sequence_diversity_best_of_n": -0.11709446206884175,
+            "calibration_multiple_choice": 0.08951173843327713
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.05688067635579644
+        }
+      }
+    },
+    "all_successful_cohort": {
+      "members": [
+        "baseline_dpo_minp_0.1_t3",
+        "dpo_alpha_equals_beta",
+        "dpo_token_temperature_1.5",
+        "dpo_token_temperature_2.0",
+        "shortcut_bayes_exact_prior",
+        "shortcut_constant_confidence",
+        "shortcut_constant_confidence_half",
+        "shortcut_forged_fields",
+        "shortcut_generator_inverse_sequence",
+        "shortcut_laplace_counts",
+        "shortcut_majority_vote_onehot",
+        "shortcut_memorize_train_truth",
+        "shortcut_mix_30pct_brute_force",
+        "spl_alpha_1.0_beta_0.1",
+        "variant_alpha_0.5",
+        "variant_alpha_1.2",
+        "variant_alpha_1.5",
+        "variant_beta_0.01",
+        "variant_global_temperature_1.2",
+        "variant_improved",
+        "variant_truncate_rare_tokens",
+        "variant_undertrained"
+      ],
+      "sigma": {
+        "two_outcome_mode_collapse": {
+          "preference_kl": 0.5895361921276296,
+          "minority_log_ratio_error": 2.9710767027619274
+        },
+        "sequence_diversity_best_of_n": {
+          "best_of_128_success_hard": 0.08586509479567105,
+          "population_kl": 2.660453168301592,
+          "coherence": 0.053099661526070124
+        },
+        "calibration_multiple_choice": {
+          "expected_calibration_error": 0.15821221900318078,
+          "brier_score": 0.11567931293187732,
+          "accuracy": 0.0012129168138535025
+        }
+      },
+      "rows": {
+        "baseline_dpo_minp_0.1_t3": {
+          "gain": -2.602071397511818,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -0.26287152895949284,
+            "sequence_diversity_best_of_n": -1.95870043958289,
+            "calibration_multiple_choice": -0.380499428969435
+          },
+          "failed": false,
+          "train_gain_same_sigma": -2.22664255915958
+        },
+        "control_reference_policy": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "dpo_alpha_equals_beta": {
+          "gain": -4.804914855038837,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -1.2931010434014563,
+            "sequence_diversity_best_of_n": -2.6734414819927688,
+            "calibration_multiple_choice": -0.8383723296446122
+          },
+          "failed": false,
+          "train_gain_same_sigma": -4.706578075592484
+        },
+        "dpo_token_temperature_1.5": {
+          "gain": -3.415227426464133,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -0.775234869235072,
+            "sequence_diversity_best_of_n": -1.9296467705209848,
+            "calibration_multiple_choice": -0.7103457867080765
+          },
+          "failed": false,
+          "train_gain_same_sigma": -3.1907108063003555
+        },
+        "dpo_token_temperature_2.0": {
+          "gain": -3.511943941278283,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -0.5148043513923691,
+            "sequence_diversity_best_of_n": -2.4063438480427353,
+            "calibration_multiple_choice": -0.5907957418431786
+          },
+          "failed": false,
+          "train_gain_same_sigma": -3.2528922622168808
+        },
+        "dpo_token_temperature_3.0": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "shortcut_bayes_exact_prior": {
+          "gain": 0.3341327760702446,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.018897715180288835,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.3152350608899558
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.5358193104025921
+        },
+        "shortcut_brute_force_coherent": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "shortcut_constant_confidence": {
+          "gain": 0.04863204195055152,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.04863204195055152
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.04815806810496969
+        },
+        "shortcut_constant_confidence_half": {
+          "gain": 0.02928346337088695,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.02928346337088695
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.025161155938440646
+        },
+        "shortcut_empty_dir": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "shortcut_forged_fields": {
+          "gain": 0.0,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.0
+        },
+        "shortcut_generator_inverse_sequence": {
+          "gain": -1.3257147802992735,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": -1.3257147802992735,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.9559836389998472
+        },
+        "shortcut_laplace_counts": {
+          "gain": 0.37813267790808475,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.018359440843821902,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.35977323706426284
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.31337404322017387
+        },
+        "shortcut_majority_vote_onehot": {
+          "gain": -2.172116863879249,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -1.0672563580389633,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": -1.1048605058402856
+          },
+          "failed": false,
+          "train_gain_same_sigma": -2.290541449402156
+        },
+        "shortcut_memorize_train_truth": {
+          "gain": 0.0,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": 3.050933874454028
+        },
+        "shortcut_mix_30pct_brute_force": {
+          "gain": -0.14082148781345755,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": -0.14082148781345755,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.21213791085923936
+        },
+        "shortcut_nan": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": 0.0
+        },
+        "shortcut_negative": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": 0.0
+        },
+        "shortcut_null": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": 0.0
+        },
+        "shortcut_omit_experiments": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "shortcut_sharpened_reference": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "shortcut_single_context": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "shortcut_tie_bias_option0": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "shortcut_uniform": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": -78.36496293497632
+        },
+        "shortcut_unnormalized": {
+          "gain": -78.05420493464433,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -9.705834633941361,
+            "sequence_diversity_best_of_n": -15.237091609716096,
+            "calibration_multiple_choice": -53.111278690986865
+          },
+          "failed": true,
+          "train_gain_same_sigma": 0.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "gain": 0.0,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.0,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.0
+        },
+        "variant_alpha_0.5": {
+          "gain": -1.0362576900992606,
+          "by_experiment": {
+            "two_outcome_mode_collapse": -0.0987029672604604,
+            "sequence_diversity_best_of_n": -0.5774910669605371,
+            "calibration_multiple_choice": -0.3600636558782631
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.9886579827174016
+        },
+        "variant_alpha_1.2": {
+          "gain": 0.06599933011217245,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0053591690505651835,
+            "sequence_diversity_best_of_n": -0.007795839001728512,
+            "calibration_multiple_choice": 0.06843600006333578
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.05915077129029156
+        },
+        "variant_alpha_1.5": {
+          "gain": -0.0409683808178894,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.004191776487915612,
+            "sequence_diversity_best_of_n": -0.13691316717075075,
+            "calibration_multiple_choice": 0.09175300986494575
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.05541568526796411
+        },
+        "variant_beta_0.01": {
+          "gain": -0.06575255547609082,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.00021140413422937235,
+            "sequence_diversity_best_of_n": -0.001844030064025488,
+            "calibration_multiple_choice": -0.06411992954629471
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.03382728743693189
+        },
+        "variant_global_temperature_1.2": {
+          "gain": -0.2619151718094083,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.006185051316045123,
+            "sequence_diversity_best_of_n": -0.33694644694596676,
+            "calibration_multiple_choice": 0.06884622382051334
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.250863858982983
+        },
+        "variant_improved": {
+          "gain": 0.21064134538006896,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.017645617150836825,
+            "sequence_diversity_best_of_n": 0.12367665491843909,
+            "calibration_multiple_choice": 0.06931907331079304
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.06110922502457161
+        },
+        "variant_truncate_rare_tokens": {
+          "gain": 0.18970501033317036,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.0,
+            "sequence_diversity_best_of_n": 0.18970501033317036,
+            "calibration_multiple_choice": 0.0
+          },
+          "failed": false,
+          "train_gain_same_sigma": 0.18282171390523824
+        },
+        "variant_undertrained": {
+          "gain": -0.052876655536397435,
+          "by_experiment": {
+            "two_outcome_mode_collapse": 0.006246949531656158,
+            "sequence_diversity_best_of_n": -0.14358850237483986,
+            "calibration_multiple_choice": 0.08446489730678625
+          },
+          "failed": false,
+          "train_gain_same_sigma": -0.07656147696831363
+        }
+      }
+    }
+  },
+  "raw_test_metrics": {
+    "baseline_dpo_minp_0.1_t3": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.4076632522988268,
+        "minority_log_ratio_error": 3.0322696442715853
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.30931734602886873,
+        "population_kl": 10.702924012745138,
+        "coherence": 0.9618721398155704
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.31478323859418766,
+        "brier_score": 0.7913808973141803,
+        "accuracy": 0.4821492521416667
+      }
+    },
+    "control_reference_policy": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "dpo_alpha_equals_beta": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 2.0015652306263405,
+        "minority_log_ratio_error": 11.45386914080708
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0874552555913627,
+        "population_kl": 7.711865116129995,
+        "coherence": 0.9949174216241797
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.44947334287705065,
+        "brier_score": 0.9425608114364178,
+        "accuracy": 0.4821492521416667
+      }
+    },
+    "dpo_token_temperature_1.5": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 1.1862870390704636,
+        "minority_log_ratio_error": 7.362398680122577
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.17238152662259162,
+        "population_kl": 3.673824574893868,
+        "coherence": 0.9269680997441
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.41400417888546176,
+        "brier_score": 0.8981524623604319,
+        "accuracy": 0.4821492521416667
+      }
+    },
+    "dpo_token_temperature_2.0": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.7878045329088872,
+        "minority_log_ratio_error": 5.188778942001792
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.21150617811482028,
+        "population_kl": 2.2284788764140253,
+        "coherence": 0.7340570721640229
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.3794068896707057,
+        "brier_score": 0.8581237628216809,
+        "accuracy": 0.4821492521416667
+      }
+    },
+    "dpo_token_temperature_3.0": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_bayes_exact_prior": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.017662062538647147,
+        "minority_log_ratio_error": 0.2659716395589271
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38627518156589247,
+        "population_kl": 0.24948806168306095,
+        "coherence": 0.9697564920247952
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.008941153031303389,
+        "brier_score": 0.629578717529077,
+        "accuracy": 0.48166600218333344
+      }
+    },
+    "shortcut_brute_force_coherent": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_constant_confidence": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.037761587188767605,
+        "minority_log_ratio_error": 0.5125535843601814
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38627518156589247,
+        "population_kl": 0.24948806168306095,
+        "coherence": 0.9697564920247952
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.001316766719997228,
+        "brier_score": 0.679622694148495,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "shortcut_constant_confidence_half": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.037761587188767605,
+        "minority_log_ratio_error": 0.5125535843601814
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38627518156589247,
+        "population_kl": 0.24948806168306095,
+        "coherence": 0.9697564920247952
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.0491062434926021,
+        "brier_score": 0.644970568038231,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "shortcut_empty_dir": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_forged_fields": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.037761587188767605,
+        "minority_log_ratio_error": 0.5125535843601814
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38627518156589247,
+        "population_kl": 0.24948806168306095,
+        "coherence": 0.9697564920247952
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.0678132441514696,
+        "brier_score": 0.6447999688246656,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "shortcut_generator_inverse_sequence": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.037761587188767605,
+        "minority_log_ratio_error": 0.5125535843601814
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.2047948128682348,
+        "population_kl": 3.0674632019067087,
+        "coherence": 0.9969997263267062
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.0678132441514696,
+        "brier_score": 0.6447999688246656,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "shortcut_laplace_counts": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.017997315463827032,
+        "minority_log_ratio_error": 0.27538653601051793
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38627518156589247,
+        "population_kl": 0.24948806168306095,
+        "coherence": 0.9697564920247952
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.07458392509959666,
+        "brier_score": 0.6464716239934838,
+        "accuracy": 0.4833703447833335
+      }
+    },
+    "shortcut_majority_vote_onehot": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 1.899551782824814,
+        "minority_log_ratio_error": 7.114085360614783
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38627518156589247,
+        "population_kl": 0.24948806168306095,
+        "coherence": 0.9697564920247952
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.5178235610100133,
+        "brier_score": 1.0357090224037306,
+        "accuracy": 0.48207643898999997
+      }
+    },
+    "shortcut_memorize_train_truth": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.037761587188767605,
+        "minority_log_ratio_error": 0.5125535843601814
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38627518156589247,
+        "population_kl": 0.24948806168306095,
+        "coherence": 0.9697564920247952
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.0678132441514696,
+        "brier_score": 0.6447999688246656,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "shortcut_mix_30pct_brute_force": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.037761587188767605,
+        "minority_log_ratio_error": 0.5125535843601814
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.3662640983252768,
+        "population_kl": 0.38340140835431363,
+        "coherence": 0.9686053669150169
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.0678132441514696,
+        "brier_score": 0.6447999688246656,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "shortcut_nan": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_negative": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_null": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_omit_experiments": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_sharpened_reference": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_single_context": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_tie_bias_option0": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_uniform": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "shortcut_unnormalized": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 20.0,
+        "minority_log_ratio_error": 30.0
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.0,
+        "population_kl": 60.0,
+        "coherence": 0.0
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 1.0,
+        "brier_score": 2.0,
+        "accuracy": 0.0
+      }
+    },
+    "spl_alpha_1.0_beta_0.1": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.037761587188767605,
+        "minority_log_ratio_error": 0.5125535843601814
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38627518156589247,
+        "population_kl": 0.24948806168306095,
+        "coherence": 0.9697564920247952
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.0678132441514696,
+        "brier_score": 0.6447999688246656,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "variant_alpha_0.5": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.1644260023630622,
+        "minority_log_ratio_error": 1.5818887708667313
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.29289613311269236,
+        "population_kl": 1.1121335453512633,
+        "coherence": 0.988417027009598
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.22143798251926253,
+        "brier_score": 0.7171767152785733,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "variant_alpha_1.2": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.032002364930469,
+        "minority_log_ratio_error": 0.44322289788298375
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.3911479985158351,
+        "population_kl": 0.2163185630398451,
+        "coherence": 0.9610808494189662
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.03084725247907929,
+        "brier_score": 0.6386156210231286,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "variant_alpha_1.5": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.03371257319634872,
+        "minority_log_ratio_error": 0.45373237877068495
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38098128071974174,
+        "population_kl": 0.2886303151421521,
+        "coherence": 0.9483957551719759
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.017308218255658668,
+        "brier_score": 0.6374290766934603,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "variant_beta_0.01": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.03752287473264947,
+        "minority_log_ratio_error": 0.5099348723430484
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38845621914458855,
+        "population_kl": 0.25227834495126744,
+        "coherence": 0.9667508167497901
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.061561329254960995,
+        "brier_score": 0.6455886898541547,
+        "accuracy": 0.47904360838750004
+      }
+    },
+    "variant_global_temperature_1.2": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.03106034793818872,
+        "minority_log_ratio_error": 0.43308775922362275
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.3761640483693912,
+        "population_kl": 0.26607506530932523,
+        "coherence": 0.911191721180485
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.0306510724613545,
+        "brier_score": 0.6385537842860166,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "variant_improved": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.0187156197403716,
+        "minority_log_ratio_error": 0.28511308099154964
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.38571321074376924,
+        "population_kl": 0.2958795039122179,
+        "coherence": 0.9981091823262442
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.03140318479837885,
+        "brier_score": 0.637528832027378,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "variant_truncate_rare_tokens": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.037761587188767605,
+        "minority_log_ratio_error": 0.5125535843601814
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.39438794511505937,
+        "population_kl": 0.24549290589278533,
+        "coherence": 0.9998959753765425
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.0678132441514696,
+        "brier_score": 0.6447999688246656,
+        "accuracy": 0.4797492399608334
+      }
+    },
+    "variant_undertrained": {
+      "two_outcome_mode_collapse": {
+        "preference_kl": 0.03063763037791956,
+        "minority_log_ratio_error": 0.43587725114593534
+      },
+      "sequence_diversity_best_of_n": {
+        "best_of_128_success_hard": 0.3807272713060344,
+        "population_kl": 0.2346869226671761,
+        "coherence": 0.9456771114952899
+      },
+      "calibration_multiple_choice": {
+        "expected_calibration_error": 0.06584474741060552,
+        "brier_score": 0.6438286559962438,
+        "accuracy": 0.4805233720158333
+      }
+    }
+  }
+}

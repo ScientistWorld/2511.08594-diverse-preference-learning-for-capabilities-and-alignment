@@ -1,2 +1,2 @@
-two_outcome.json DIFFERS on retrain
-calibration.json DIFFERS on retrain
+two_outcome.json policy tables identical on retrain: True
+calibration.json policy tables identical on retrain: True
