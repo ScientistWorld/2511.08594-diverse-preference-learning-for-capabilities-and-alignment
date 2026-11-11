@@ -27,7 +27,7 @@
 
 ## Compute
 
-- The reference runs are pure Python on one CPU (~11 minutes per method). There is no limit on a
+- The reference runs are pure Python on one CPU (~20 minutes per method). There is no limit on a
   method's training compute, but the hidden test only scores saved artifacts.
 
 ## Compliance Checklist

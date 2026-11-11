@@ -4,6 +4,11 @@
 
 ## Progress Log
 
+### [2026-11-11 08:55] - core_claim_plus (hardening, final)
+- Hidden-test gym hardened (see HARDENING.md): evaluator-owned truth/reference/verifiers, sequence-level best-of-N experiment, task gates with worst-value failures, disk-discovered methods.
+- Calibration: accuracy is a gate-enforced constraint (comparison-vote floor - 0.01), Brier primary (1.0), ECE 0.5; closes accuracy-noise amplification and constant-confidence ECE gaming.
+- Job fe21a55a-560: retrained reference/baselines bit-identical; better variants +0.160/+0.155/+0.045 over the reference, weaker variants and baselines below; validate.py passes.
+
 ### [2026-06-01 09:35] - core_claim_plus
 - Final verifier reran `scripts/reproduce.sh`, both split evaluators, and `python validate.py --compare`; all checks passed.
 - Renamed the problem-facing multi-outcome benchmark files to method-agnostic names and removed stale paper-method wording from `data/`, `eval/`, and standard scripts.

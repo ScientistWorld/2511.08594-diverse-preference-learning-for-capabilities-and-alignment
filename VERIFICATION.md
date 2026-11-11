@@ -1,3 +1,5 @@
+> **Superseded.** This file describes the gym before the iteration-11 hardening (old tabular benchmark, `method/train_tabular_spl.py`, `eval/evaluate_tabular.py`). The current gym is described in `briefing/`, `scoring/` and `HARDENING.md`.
+
 # Verification Report
 
 ## Initial Assessment
