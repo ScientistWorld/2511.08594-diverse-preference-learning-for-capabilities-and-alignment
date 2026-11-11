@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "slice": "train"
+  },
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "slice": "train",
+      "context_ids": [
+        "paper_80_20_example",
+        "train_70_30_example",
+        "train_85_15_example"
+      ],
+      "results": {
+        "audit_candidate": {
+          "minority_probability": 0.2166666666666667,
+          "majority_overweight": 1.0,
+          "top_choice_preserved": 1.0,
+          "preference_kl": 1.1102230246251564e-17,
+          "brier_score": 2.5679065925163146e-33,
+          "expected_calibration_error": 1.850371707708594e-17,
+          "population_l1_error": 3.700743415417188e-17
+        }
+      }
+    }
+  }
+}

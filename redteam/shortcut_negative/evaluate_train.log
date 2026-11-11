@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/user/eval/train/evaluate.py", line 286, in <module>
+    main()
+  File "/home/user/eval/train/evaluate.py", line 270, in main
+    method_name, result, selected_ids = evaluate_run(run_dir, experiment)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/eval/train/evaluate.py", line 142, in evaluate_run
+    validate_distribution(pred, f"{run_dir}:{prompt['id']} policy")
+  File "/home/user/eval/train/evaluate.py", line 73, in validate_distribution
+    raise ValueError(f"{label} distribution contains invalid probabilities: {probs}")
+ValueError: checkpoints/audit_two_outcome:paper_80_20_example policy distribution contains invalid probabilities: [-1.0, 0.2000000000000001]

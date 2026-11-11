@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "slice": "test"
+  },
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "slice": "test",
+      "context_ids": [
+        "test_65_35_example",
+        "test_75_25_example",
+        "test_90_10_example"
+      ],
+      "results": {
+        "audit_candidate": {
+          "minority_probability": 0.0,
+          "majority_overweight": 1.3276353276353274,
+          "top_choice_preserved": 1.0,
+          "preference_kl": 5.935616674701698,
+          "brier_score": 0.13,
+          "expected_calibration_error": 0.2333333333333333,
+          "population_l1_error": 0.4666666666666666
+        }
+      }
+    },
+    "tabular_preference_learning": {
+      "slice": "test",
+      "context_ids": [
+        "prompt_2",
+        "prompt_3",
+        "prompt_5",
+        "prompt_7"
+      ],
+      "results": {
+        "audit_candidate": {
+          "normalized_entropy": 0.0,
+          "effective_actions": 1.0,
+          "preference_kl": 12.225992132585004,
+          "brier_score": 0.33575000000000005,
+          "expected_calibration_error": 0.48500000000000004,
+          "expected_population_preference": 0.515,
+          "reference_cross_entropy": 1.385336235498111,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 0.0,
+          "empirical_best_of_128_success": 0.0
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "slice": "test",
+      "context_ids": [
+        "calibration_prompt_2",
+        "calibration_prompt_3",
+        "calibration_prompt_5",
+        "calibration_prompt_7",
+        "calibration_prompt_9"
+      ],
+      "results": {
+        "audit_candidate": {
+          "normalized_entropy": 0.0,
+          "effective_actions": 1.0,
+          "preference_kl": 13.208539782810993,
+          "brier_score": 0.3834800000000001,
+          "expected_calibration_error": 0.522,
+          "expected_population_preference": 0.4779999999999999,
+          "reference_cross_entropy": 1.3862943611198906,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/user/method/train_tabular_spl.py", line 167, in <module>
+    main()
+  File "/home/user/method/train_tabular_spl.py", line 148, in main
+    "global_temperature": args.alpha / args.beta,
+                          ~~~~~~~~~~~^~~~~~~~~~~
+ZeroDivisionError: float division by zero
+Traceback (most recent call last):
+  File "/home/user/redteam/honest_train_selected/method.py", line 6, in <module>
+    produce(Path(__file__).resolve().parent)
+  File "/home/user/redteam/common.py", line 81, in produce
+    train(benchmark_path, path, alpha=alpha, beta=beta)
+  File "/home/user/redteam/common.py", line 54, in train
+    subprocess.run([sys.executable, 'method/train_tabular_spl.py',
+  File "/usr/local/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/local/bin/python', 'method/train_tabular_spl.py', '--benchmark', '/home/user/data/two_outcome_split_benchmark.json', '--output-dir', '/home/user/redteam/honest_train_selected/training/two_outcome/a0.98_b0.0', '--method-name', 'audit_candidate', '--alpha', '0.98', '--beta', '0.0', '--steps', '6000', '--lr', '.8', '--seed', '11']' returned non-zero exit status 1.

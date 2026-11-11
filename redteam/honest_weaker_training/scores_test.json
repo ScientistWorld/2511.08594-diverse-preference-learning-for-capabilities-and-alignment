@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "slice": "test"
+  },
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "slice": "test",
+      "context_ids": [
+        "test_65_35_example",
+        "test_75_25_example",
+        "test_90_10_example"
+      ],
+      "results": {
+        "audit_candidate": {
+          "minority_probability": 0.2427842285810462,
+          "majority_overweight": 0.9889863252460347,
+          "top_choice_preserved": 1.0,
+          "preference_kl": 0.0008614686174068809,
+          "brier_score": 0.0003567325682430995,
+          "expected_calibration_error": 0.009450895247712907,
+          "population_l1_error": 0.018901790495425813
+        }
+      }
+    },
+    "tabular_preference_learning": {
+      "slice": "test",
+      "context_ids": [
+        "prompt_2",
+        "prompt_3",
+        "prompt_5",
+        "prompt_7"
+      ],
+      "results": {
+        "audit_candidate": {
+          "normalized_entropy": 0.9266344529312329,
+          "effective_actions": 3.615894867244995,
+          "preference_kl": 0.021145834400712896,
+          "brier_score": 0.012367631408020123,
+          "expected_calibration_error": 0.08952065278013666,
+          "expected_population_preference": 0.3287235321665969,
+          "reference_cross_entropy": 1.379850493003806,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 0.9999999866997528,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "slice": "test",
+      "context_ids": [
+        "calibration_prompt_2",
+        "calibration_prompt_3",
+        "calibration_prompt_5",
+        "calibration_prompt_7",
+        "calibration_prompt_9"
+      ],
+      "results": {
+        "audit_candidate": {
+          "normalized_entropy": 0.9393071402572284,
+          "effective_actions": 3.6777199141888497,
+          "preference_kl": 0.016258879632055086,
+          "brier_score": 0.008700159100401984,
+          "expected_calibration_error": 0.07757489312503471,
+          "expected_population_preference": 0.311972696799076,
+          "reference_cross_entropy": 1.3862943611198908,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    }
+  }
+}

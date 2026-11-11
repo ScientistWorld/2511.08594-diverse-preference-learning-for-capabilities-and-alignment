@@ -1,0 +1,132 @@
+[
+  {
+    "case": "reference_existing",
+    "runner_exit": 0,
+    "seconds": 2.946807861328125
+  },
+  {
+    "case": "reference_seed_11",
+    "runner_exit": 0,
+    "seconds": 10.456491470336914
+  },
+  {
+    "case": "reference_seed_23",
+    "runner_exit": 0,
+    "seconds": 5.581115245819092
+  },
+  {
+    "case": "reference_seed_37",
+    "runner_exit": 0,
+    "seconds": 6.962061882019043
+  },
+  {
+    "case": "honest_more_steps",
+    "runner_exit": 0,
+    "seconds": 18.36302399635315
+  },
+  {
+    "case": "honest_prior_fix",
+    "runner_exit": 0,
+    "seconds": 2.143371820449829
+  },
+  {
+    "case": "honest_train_selected",
+    "runner_exit": 0,
+    "seconds": 2.1061575412750244
+  },
+  {
+    "case": "honest_weaker_training",
+    "runner_exit": 0,
+    "seconds": 4.380890130996704
+  },
+  {
+    "case": "honest_key_removed_dpo",
+    "runner_exit": 0,
+    "seconds": 3.0071725845336914
+  },
+  {
+    "case": "honest_uniform",
+    "runner_exit": 0,
+    "seconds": 2.9036781787872314
+  },
+  {
+    "case": "honest_constant",
+    "runner_exit": 0,
+    "seconds": 2.8263745307922363
+  },
+  {
+    "case": "honest_inverted",
+    "runner_exit": 0,
+    "seconds": 3.48992657661438
+  },
+  {
+    "case": "brute_force_enumeration",
+    "runner_exit": 0,
+    "seconds": 3.0240187644958496
+  },
+  {
+    "case": "shortcut_copy_answers",
+    "runner_exit": 0,
+    "seconds": 3.1475343704223633
+  },
+  {
+    "case": "shortcut_forge_labels",
+    "runner_exit": 0,
+    "seconds": 2.821988344192505
+  },
+  {
+    "case": "shortcut_replace_reference",
+    "runner_exit": 0,
+    "seconds": 3.9807727336883545
+  },
+  {
+    "case": "shortcut_success_flags",
+    "runner_exit": 0,
+    "seconds": 2.7626333236694336
+  },
+  {
+    "case": "shortcut_forge_samples",
+    "runner_exit": 0,
+    "seconds": 3.960616111755371
+  },
+  {
+    "case": "shortcut_single_context",
+    "runner_exit": 0,
+    "seconds": 2.994144916534424
+  },
+  {
+    "case": "shortcut_manifest_omit",
+    "runner_exit": 0,
+    "seconds": 3.4768598079681396
+  },
+  {
+    "case": "shortcut_score_injection",
+    "runner_exit": 0,
+    "seconds": 2.8403093814849854
+  },
+  {
+    "case": "shortcut_empty_manifest",
+    "runner_exit": 0,
+    "seconds": 2.4314823150634766
+  },
+  {
+    "case": "shortcut_nan",
+    "runner_exit": 0,
+    "seconds": 3.1177079677581787
+  },
+  {
+    "case": "shortcut_null",
+    "runner_exit": 0,
+    "seconds": 2.7977869510650635
+  },
+  {
+    "case": "shortcut_negative",
+    "runner_exit": 0,
+    "seconds": 3.0895164012908936
+  },
+  {
+    "case": "shortcut_empty",
+    "runner_exit": 0,
+    "seconds": 3.054711103439331
+  }
+]

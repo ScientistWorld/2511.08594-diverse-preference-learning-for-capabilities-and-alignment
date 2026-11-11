@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "slice": "train"
+  },
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "slice": "train",
+      "context_ids": [
+        "paper_80_20_example",
+        "train_70_30_example",
+        "train_85_15_example"
+      ],
+      "results": {
+        "audit_candidate": {
+          "minority_probability": 0.21666666666666667,
+          "majority_overweight": 1.0,
+          "top_choice_preserved": 1.0,
+          "preference_kl": 0.0,
+          "brier_score": 0.0,
+          "expected_calibration_error": 0.0,
+          "population_l1_error": 0.0
+        }
+      }
+    },
+    "tabular_preference_learning": {
+      "slice": "train",
+      "context_ids": [
+        "prompt_0",
+        "prompt_1",
+        "prompt_4",
+        "prompt_6"
+      ],
+      "results": {
+        "audit_candidate": {
+          "normalized_entropy": 0.8765494007918605,
+          "effective_actions": 3.372508151984084,
+          "preference_kl": 0.0,
+          "brier_score": 0.0,
+          "expected_calibration_error": 0.0,
+          "expected_population_preference": 0.3421,
+          "reference_cross_entropy": 1.38948112784812,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 0.9999999801930141,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "slice": "train",
+      "context_ids": [
+        "calibration_prompt_0",
+        "calibration_prompt_1",
+        "calibration_prompt_4",
+        "calibration_prompt_6",
+        "calibration_prompt_8"
+      ],
+      "results": {
+        "audit_candidate": {
+          "normalized_entropy": 0.8162322377961571,
+          "effective_actions": 3.1062935496698736,
+          "preference_kl": 0.0,
+          "brier_score": 0.0,
+          "expected_calibration_error": 0.0,
+          "expected_population_preference": 0.39136000000000004,
+          "reference_cross_entropy": 1.3862943611198908,
+          "argmax_population_mode_accuracy": 1.0,
+          "best_of_128_success_probability": 1.0,
+          "empirical_best_of_128_success": 1.0
+        }
+      }
+    }
+  }
+}

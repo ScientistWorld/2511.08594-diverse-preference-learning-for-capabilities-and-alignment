@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "slice": "train"
+  },
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "slice": "train",
+      "context_ids": [
+        "paper_80_20_example",
+        "train_70_30_example",
+        "train_85_15_example"
+      ],
+      "results": {
+        "audit_candidate": {
+          "minority_probability": 1.0,
+          "majority_overweight": 0.0,
+          "top_choice_preserved": 0.0,
+          "preference_kl": 21.132974603011004,
+          "brier_score": 1.235,
+          "expected_calibration_error": 0.7833333333333333,
+          "population_l1_error": 1.5666666666666667
+        }
+      }
+    },
+    "tabular_preference_learning": {
+      "slice": "train",
+      "context_ids": [
+        "prompt_0",
+        "prompt_1",
+        "prompt_4",
+        "prompt_6"
+      ],
+      "results": {
+        "audit_candidate": {
+          "normalized_entropy": 0.0,
+          "effective_actions": 1.0,
+          "preference_kl": 20.12980832049403,
+          "brier_score": 0.8871000000000001,
+          "expected_calibration_error": 0.7725,
+          "expected_population_preference": 0.22749999999999998,
+          "reference_cross_entropy": 1.39578424619834,
+          "argmax_population_mode_accuracy": 0.0,
+          "best_of_128_success_probability": 0.25,
+          "empirical_best_of_128_success": 0.25
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "slice": "train",
+      "context_ids": [
+        "calibration_prompt_0",
+        "calibration_prompt_1",
+        "calibration_prompt_4",
+        "calibration_prompt_6",
+        "calibration_prompt_8"
+      ],
+      "results": {
+        "audit_candidate": {
+          "normalized_entropy": 0.0,
+          "effective_actions": 1.0,
+          "preference_kl": 20.31013423733947,
+          "brier_score": 0.94336,
+          "expected_calibration_error": 0.776,
+          "expected_population_preference": 0.22400000000000003,
+          "reference_cross_entropy": 1.3862943611198906,
+          "argmax_population_mode_accuracy": 0.0,
+          "best_of_128_success_probability": 0.0,
+          "empirical_best_of_128_success": 0.0
+        }
+      }
+    }
+  }
+}

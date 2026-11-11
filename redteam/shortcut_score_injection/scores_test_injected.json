@@ -1,0 +1,28 @@
+{
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "results": {
+        "audit_candidate": {
+          "preference_kl": -1e+50,
+          "normalized_entropy": 1e+50
+        }
+      }
+    },
+    "tabular_preference_learning": {
+      "results": {
+        "audit_candidate": {
+          "preference_kl": -1e+50,
+          "normalized_entropy": 1e+50
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "results": {
+        "audit_candidate": {
+          "preference_kl": -1e+50,
+          "normalized_entropy": 1e+50
+        }
+      }
+    }
+  }
+}

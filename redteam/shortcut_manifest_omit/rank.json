@@ -1,0 +1,65 @@
+{
+  "status": {
+    "method_exit": 0,
+    "train_exit": 0,
+    "test_exit": 0,
+    "fresh_test_scores": true,
+    "test_command": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "checkpoint_inventory": [
+      {
+        "path": "checkpoints/audit_calibration/policy.json",
+        "method_name": "audit_candidate",
+        "benchmark_name": "calibration_multiple_choice_benchmark"
+      },
+      {
+        "path": "checkpoints/audit_tabular/policy.json",
+        "method_name": "audit_candidate",
+        "benchmark_name": "multi_outcome_preference_benchmark"
+      },
+      {
+        "path": "checkpoints/audit_two_outcome/policy.json",
+        "method_name": "audit_candidate",
+        "benchmark_name": "two_outcome_split_benchmark"
+      },
+      {
+        "path": "checkpoints/unlisted_failed/policy.json",
+        "method_name": "shortcut_unlisted_failed",
+        "benchmark_name": "multi_outcome_preference_benchmark"
+      }
+    ]
+  },
+  "audit_cohort_gain": -6.076550275031005e-17,
+  "base_cohort_gain": -4.8243262373292755e-17,
+  "two_attempt_gain": -0.9,
+  "metrics": {
+    "two_outcome_mode_collapse": {
+      "minority_probability": 0.23333333333333328,
+      "majority_overweight": 1.0,
+      "top_choice_preserved": 1.0,
+      "preference_kl": 5.227300074276779e-17,
+      "brier_score": 5.3926038442842604e-33,
+      "expected_calibration_error": 3.23815048849004e-17,
+      "population_l1_error": 6.47630097698008e-17
+    }
+  },
+  "contributions": {
+    "two_outcome_mode_collapse": {
+      "minority_probability": -6.076550275031005e-17,
+      "majority_overweight": -0.0,
+      "top_choice_preserved": 0.0,
+      "preference_kl": -0.0,
+      "brier_score": -0.0,
+      "expected_calibration_error": -0.0,
+      "population_l1_error": -0.0
+    },
+    "tabular_preference_learning": {},
+    "calibration_multiple_choice": {}
+  },
+  "missing_experiments": [
+    "calibration_multiple_choice",
+    "tabular_preference_learning"
+  ]
+}

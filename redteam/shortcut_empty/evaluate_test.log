@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/user/eval/test/evaluate.py", line 332, in <module>
+    main()
+  File "/home/user/eval/test/evaluate.py", line 316, in main
+    method_name, result, selected_ids = evaluate_run(run_dir, experiment)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/eval/test/evaluate.py", line 133, in evaluate_run
+    contexts, selected_ids = select_contexts(policy, experiment)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/eval/test/evaluate.py", line 121, in select_contexts
+    ids = context_ids_for(policy, experiment)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/eval/test/evaluate.py", line 116, in context_ids_for
+    raise ValueError(f"missing {SLICE} contexts for {TABULAR_EXPERIMENT}: {missing}")
+ValueError: missing test contexts for tabular_preference_learning: ['prompt_2', 'prompt_3', 'prompt_5', 'prompt_7']
