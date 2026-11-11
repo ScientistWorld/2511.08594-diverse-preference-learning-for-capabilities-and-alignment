@@ -26,9 +26,10 @@
       }
     ]
   },
-  "audit_cohort_gain": -0.08660112747187695,
-  "base_cohort_gain": -0.11212251301115762,
-  "two_attempt_gain": -1.8000000000000003,
+  "audit_cohort_gain": -0.09001967551044512,
+  "base_cohort_gain": -0.09220104552497117,
+  "two_attempt_gain": -1.7600000000000002,
+  "packaged_anchor_gain": -0.09001967551044562,
   "metrics": {
     "two_outcome_mode_collapse": {
       "minority_probability": 0.2427842285810462,
@@ -66,35 +67,35 @@
   },
   "contributions": {
     "two_outcome_mode_collapse": {
-      "minority_probability": 0.020690920236019657,
-      "majority_overweight": 0.013173115896927028,
+      "minority_probability": 0.021620435643739465,
+      "majority_overweight": 0.01379216751459003,
       "top_choice_preserved": 0.0,
-      "preference_kl": -6.731349252593022e-05,
-      "brier_score": -0.0002462401628984719,
-      "expected_calibration_error": -0.009667440154235206,
-      "population_l1_error": -0.011523406013385362
+      "preference_kl": -7.028690860384446e-05,
+      "brier_score": -0.00025689807725903693,
+      "expected_calibration_error": -0.010082372319696371,
+      "population_l1_error": -0.011960690273186464
     },
     "tabular_preference_learning": {
-      "preference_kl": -0.0014493197348821763,
-      "best_of_128_success_probability": 1.0328847072277823e-05,
-      "normalized_entropy": 0.03733867876758022,
-      "effective_actions": 0.030002280617835574,
-      "brier_score": -0.008112724014343741,
-      "expected_calibration_error": -0.05348861586183004,
+      "preference_kl": -0.0015134434848574887,
+      "best_of_128_success_probability": 1.077072753921195e-05,
+      "normalized_entropy": 0.039069337872771344,
+      "effective_actions": 0.03146574220207539,
+      "brier_score": -0.008450777742839718,
+      "expected_calibration_error": -0.055733436115185345,
       "argmax_population_mode_accuracy": 0.0,
-      "expected_population_preference": -0.03830546491792631,
-      "reference_cross_entropy": -0.001834900997184067,
+      "expected_population_preference": -0.040218227843730615,
+      "reference_cross_entropy": -0.001925458598056799,
       "empirical_best_of_128_success": 0.0
     },
     "calibration_multiple_choice": {
-      "expected_calibration_error": -0.06681139470911504,
-      "brier_score": -0.005082261087141948,
-      "preference_kl": -0.0005108503427489894,
+      "expected_calibration_error": -0.0696094742890008,
+      "brier_score": -0.005293215258212528,
+      "preference_kl": -0.0005334590417833833,
       "argmax_population_mode_accuracy": 0.0,
-      "normalized_entropy": 0.011987565268400885,
-      "effective_actions": 0.006726938159958816,
-      "expected_population_preference": -0.009431023777454016,
-      "reference_cross_entropy": -1.1434499711016406e-16,
+      "normalized_entropy": 0.01253268501467315,
+      "effective_actions": 0.00704773316428748,
+      "expected_population_preference": -0.009910807697708798,
+      "reference_cross_entropy": -0.0,
       "best_of_128_success_probability": 0.0,
       "empirical_best_of_128_success": 0.0
     }

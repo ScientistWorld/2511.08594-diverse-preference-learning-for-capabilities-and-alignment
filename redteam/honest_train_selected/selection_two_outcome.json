@@ -1,0 +1,39 @@
+{
+  "criterion": "visible train preference_kl",
+  "candidates": [
+    {
+      "train_kl": 1.1102230246251564e-17,
+      "alpha": 1.0,
+      "beta": 1e-06
+    },
+    {
+      "train_kl": 1.1102230246251564e-17,
+      "alpha": 1.0,
+      "beta": 0.1
+    },
+    {
+      "train_kl": 5.426999248487729e-05,
+      "alpha": 1.02,
+      "beta": 1e-06
+    },
+    {
+      "train_kl": 5.426999248487729e-05,
+      "alpha": 1.02,
+      "beta": 0.1
+    },
+    {
+      "train_kl": 5.807526015779305e-05,
+      "alpha": 0.98,
+      "beta": 1e-06
+    },
+    {
+      "train_kl": 5.807526015779305e-05,
+      "alpha": 0.98,
+      "beta": 0.1
+    }
+  ],
+  "selected": {
+    "alpha": 1.0,
+    "beta": 1e-06
+  }
+}

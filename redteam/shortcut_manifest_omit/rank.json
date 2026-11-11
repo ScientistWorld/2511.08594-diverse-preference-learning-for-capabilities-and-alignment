@@ -31,9 +31,10 @@
       }
     ]
   },
-  "audit_cohort_gain": -6.076550275031005e-17,
-  "base_cohort_gain": -4.8243262373292755e-17,
-  "two_attempt_gain": -0.9,
+  "audit_cohort_gain": 0.0,
+  "base_cohort_gain": 0.0,
+  "two_attempt_gain": 0.0,
+  "packaged_anchor_gain": -6.349532193766175e-17,
   "metrics": {
     "two_outcome_mode_collapse": {
       "minority_probability": 0.23333333333333328,
@@ -47,7 +48,7 @@
   },
   "contributions": {
     "two_outcome_mode_collapse": {
-      "minority_probability": -6.076550275031005e-17,
+      "minority_probability": 0.0,
       "majority_overweight": -0.0,
       "top_choice_preserved": 0.0,
       "preference_kl": -0.0,

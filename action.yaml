@@ -1,4 +1,4 @@
 action: submit
 gpus: 0
 test: false
-notes: "Run 26 isolated CPU audit cases: honest quality controls, three seeds, exhaustive enumeration, and artifact/manifest shortcuts; preserve scores under redteam."
+notes: "Finish honest quality comparison with near-zero-prior and train-selected SPL variants; verify uniform and exhaustive-enumeration shortcuts and summarize normalized test gains."

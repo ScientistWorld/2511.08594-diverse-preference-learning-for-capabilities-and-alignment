@@ -26,9 +26,10 @@
       }
     ]
   },
-  "audit_cohort_gain": 1.0340168932012387e-05,
-  "base_cohort_gain": -0.02667050539522886,
-  "two_attempt_gain": -1.86,
+  "audit_cohort_gain": 1.07825337621803e-05,
+  "base_cohort_gain": 8.665277834984853e-06,
+  "two_attempt_gain": 0.4899999999999999,
+  "packaged_anchor_gain": 1.0782533761683615e-05,
   "metrics": {
     "two_outcome_mode_collapse": {
       "minority_probability": 0.23333333333333328,
@@ -66,7 +67,7 @@
   },
   "contributions": {
     "two_outcome_mode_collapse": {
-      "minority_probability": -6.076550275031005e-17,
+      "minority_probability": 0.0,
       "majority_overweight": -0.0,
       "top_choice_preserved": 0.0,
       "preference_kl": -0.0,
@@ -75,26 +76,26 @@
       "population_l1_error": -0.0
     },
     "tabular_preference_learning": {
-      "preference_kl": -3.753820907522301e-21,
-      "best_of_128_success_probability": 1.0340168932486183e-05,
-      "normalized_entropy": -4.8583481105939677e-17,
-      "effective_actions": -3.414255631501014e-17,
+      "preference_kl": -0.0,
+      "best_of_128_success_probability": 1.07825337621803e-05,
+      "normalized_entropy": 0.0,
+      "effective_actions": 0.0,
       "brier_score": -0.0,
       "expected_calibration_error": -0.0,
       "argmax_population_mode_accuracy": 0.0,
-      "expected_population_preference": -5.380125920602787e-17,
-      "reference_cross_entropy": -1.6216259937630153e-16,
+      "expected_population_preference": 0.0,
+      "reference_cross_entropy": -0.0,
       "empirical_best_of_128_success": 0.0
     },
     "calibration_multiple_choice": {
       "expected_calibration_error": -0.0,
-      "brier_score": 7.965740034731724e-21,
-      "preference_kl": -8.563097636358909e-22,
+      "brier_score": -0.0,
+      "preference_kl": -0.0,
       "argmax_population_mode_accuracy": 0.0,
       "normalized_entropy": 0.0,
       "effective_actions": 0.0,
       "expected_population_preference": 0.0,
-      "reference_cross_entropy": -1.1434499711016406e-16,
+      "reference_cross_entropy": -0.0,
       "best_of_128_success_probability": 0.0,
       "empirical_best_of_128_success": 0.0
     }
