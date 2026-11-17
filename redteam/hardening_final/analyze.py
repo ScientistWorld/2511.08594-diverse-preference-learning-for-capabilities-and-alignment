@@ -3,8 +3,8 @@
 
 gain(method) = sum_exp sum_metric weight_exp * |coef| * dir * (value - value_ref) / sigma_metric
 
-dir = +1 if higher_is_better else -1; sigma_metric = population std of the
-metric over the cohort of non-failed methods.  Paired bootstrap: contexts of
+dir = +1 if higher_is_better else -1; sigma_metric = population std over the
+declared cohort (all attempts, successful methods, or honest methods). Paired bootstrap: contexts of
 each experiment are resampled jointly for the method and the reference
 (sigma held fixed), giving a 95% interval for the gain difference.
 """

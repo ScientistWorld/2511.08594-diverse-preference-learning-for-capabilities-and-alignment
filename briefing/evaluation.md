@@ -61,7 +61,8 @@ violates a task gate:
 
 Hidden-named method directories are also scored. An empty checkpoint tree produces a failed `missing_submission` record.
 
-A failed run receives the **worst value of every metric in every experiment** (KL 20 / 30 / 60,
+A failed run receives the **worst value of every metric in every experiment** (categorical KL 20,
+minority log-ratio error 30, sequence KL 60,
 success 0, coherence 0, ECE 1, Brier 2, accuracy 0); the reason is recorded under
 `failed_methods`. Gate quantities are reported under `diagnostics`.
 

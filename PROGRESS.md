@@ -54,3 +54,11 @@
 Current changes and verification plan are in HARDENING.md. All fixes were decided from REDTEAM.md
 and REVIEW.md and applied before one combined verification job. The actual Eq. 5 SPL computation
 and sequence benchmark are preserved; categorical target data and coherence measurement change.
+
+The combined job `2e18944d-0e8` completed with exit 0. Final reference/baseline results are packaged
+in all three score files; structural and score validation passed. The trained improvement gains
++0.02518 [0.01314, 0.03576] under variance across all 33 audited attempts. DPO gains -1.24768.
+Population coherence is now a per-prompt ceiling, and invalid methods have complete worst values.
+The reviewed old-prior estimator still gains +0.00854 [0.00296, 0.01329], so its strict non-paying
+requirement is not achieved. Final details and limitations are in HARDENING.md. The standard job
+script has been restored to end-to-end reference reproduction; the audit is separately replayable.
