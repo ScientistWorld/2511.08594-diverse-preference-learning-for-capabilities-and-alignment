@@ -17,8 +17,9 @@ from the provided comparisons and reference policies.
 
 ## Where the reference method leaves room
 
-- Few comparisons per prompt (two-outcome, multiple choice): the reference over-fits noisy or
+- Finite comparisons per prompt with real survey response targets (two-outcome, multiple choice): the reference over-fits noisy or
   unanimous comparisons and becomes overconfident.
+- Sequence coherence is credited only up to the population's own value, so further suppression alone cannot raise that metric.
 - Sequence prompts: incoherent tokens are rarely seen in the comparisons, so they keep their
   pre-alignment probability; hard problems reward keeping mass on valid minority solutions; the
   population distribution itself is far from fully recovered.

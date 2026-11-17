@@ -16,7 +16,7 @@
   `calibration.json` covering every prompt id (train and test) in the format described in
   `briefing/evaluation.md`. Policies must be genuine probability distributions; the reference
   policies, population answers and verifier sets are fixed by the evaluator and cannot be supplied
-  by a method.
+  by a method. Extra fields inside a context are rejected; supply probability tables only.
 - The sequence policy format is a first-order chain over tokens (initial distribution plus
   position-dependent transition matrices).
 

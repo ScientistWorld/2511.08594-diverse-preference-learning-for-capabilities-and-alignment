@@ -1,9 +1,9 @@
 {
-  "notes": "Scaled, synthetic reproduction. The gym's experiments are finite preference-learning problems with hidden ground truth (see scoring/EXPERIMENTS.md). The paper's LLM numbers (Mistral-7B, HH-RLHF/UltraFeedback, GSM8K/MATH, MMLU/TruthfulQA) are not on this scale; they are kept unchanged under each experiment's `_paper_reported` key. `results` holds the gym's reference runs on the hidden test slice (scripts/reproduce.sh then scripts/evaluate_test.sh; training and evaluation are deterministic). Metrics with coefficient 0 are reported constraints enforced by a task gate, not ranked.",
+  "notes": "Scaled finite reproduction: empirical GlobalOpinionQA response distributions for the categorical experiments, and synthetic sequence preferences. The paper's LLM numbers remain unchanged under _paper_reported; gym reference results come from isolated deterministic SPL and baseline runs on the hidden test slice. Coherence receives no credit above each prompt's population level. Accuracy is gate-enforced, coefficient zero. Rank contributions use coefficient magnitudes, better directions and standard deviations over the ranked attempts.",
   "experiments": {
     "two_outcome_mode_collapse": {
-      "description": "Two-outcome social-choice prompts (paper Sec. 3, Prop. 3.1/3.2): a population prefers one of two completions with probability p in [0.55, 0.95]; the learner sees 8-40 sampled pairwise comparisons and a fixed non-uniform reference policy per prompt and must represent the population split. 300 visible train prompts (+ the paper's exact 80/20 example), 300 hidden test prompts.",
-      "notes": "Scaled from the paper's single analytic 80/20 example to many prompts with finite, noisy comparisons; scored only on hidden-test prompts whose population preference lives in eval/test/. Task gate: the population-majority completion must remain the most probable one on >= 75% of prompts.",
+      "description": "Two-outcome human response representation (paper Sec. 3, Prop. 3.1/3.2): empirical GlobalOpinionQA country response distributions conditioned on two selected positive-response options; 32-128 sampled pairwise comparisons and an independent fixed reference policy per prompt. 300 visible train prompts (+ the paper's exact 80/20 example), 300 hidden test prompts.",
+      "notes": "Scaled from the analytic 80/20 example to finite noisy comparisons of real human response frequencies. Source questions are disjoint across both categorical experiments and splits. Population-majority completion must stay on top on >=75% of prompts. Test targets and survey lookup keys live only in eval/test/.",
       "weight": 0.25,
       "primary_metric": "preference_kl",
       "metrics": {
@@ -69,7 +69,7 @@
         "coherence": {
           "higher_is_better": true,
           "coefficient": 0.5,
-          "description": "Probability that a sampled sequence contains no incoherent token (the paper's lexical-integrity / non-word statistic)."
+          "description": "Probability that a sampled sequence contains no incoherent token, capped per prompt at the population policy's own coherence (paper's lexical-integrity/non-word statistic, with a population-level quality operating point). Raw coherence is diagnostic only; suppressing variation past the population level earns no further credit."
         }
       },
       "results": {
@@ -112,25 +112,25 @@
       }
     },
     "calibration_multiple_choice": {
-      "description": "Four-option multiple-choice prompts (paper Sec. 4.3): each prompt has a hidden distribution over which option is correct; the learner sees 20-80 sampled pairwise comparisons and a fixed reference answer distribution, and outputs answer probabilities. 600 visible train prompts, 600 hidden test prompts. Metrics are expectations over the hidden correct answer.",
-      "notes": "Synthetic substitute for MMLU/TruthfulQA logit calibration; correct options are placed at random positions. Task gate (evaluator-owned): expected accuracy must be at least the accuracy of picking the option with the best (wins - losses) comparison count, minus 0.01 (test floor 0.4717; DPO-level accuracy, the paper's 'without sacrificing accuracy' constraint). Hardening (iteration 11): accuracy coefficient 0.5 -> 0 (gate-enforced constraint), Brier 0.75 -> 1.0 and primary, ECE 1.0 -> 0.5; see HARDENING.md.",
+      "description": "Four-option human response calibration: empirical GlobalOpinionQA country response distributions conditioned on four selected positive-response options. 40-120 sampled pairwise comparisons and an independent fixed reference distribution per prompt. 600 visible train prompts, 600 hidden test prompts. Expected Brier/ECE/accuracy against a random human response; this finite setting does not reproduce factual MMLU/TruthfulQA answering.",
+      "notes": "Replaces the earlier known-Dirichlet targets and noisy-square-root references with real human survey distributions and independent references. Original questions are disjoint across experiments and splits. Accuracy must be at least comparison-vote accuracy minus 0.01; the evaluator computes the floor from fixed truth. Brier primary (1.0), ECE 0.5, gate-enforced accuracy coefficient zero; experiment weights unchanged.",
       "weight": 0.25,
       "primary_metric": "brier_score",
       "metrics": {
         "brier_score": {
           "higher_is_better": false,
           "coefficient": 1.0,
-          "description": "Expected multi-class Brier score against the hidden correct answer (a proper scoring rule: rewards both calibration and putting mass on the right option). Primary calibration metric of the rank."
+          "description": "Expected multiclass Brier score against a randomly drawn hidden human response (proper scoring rule; primary calibration metric)."
         },
         "expected_calibration_error": {
           "higher_is_better": false,
           "coefficient": 0.5,
-          "description": "10-bin ECE of top-answer confidence against expected top-answer accuracy (the paper's headline calibration statistic). Weighted below Brier because ECE alone is minimised by uninformative constant-confidence answers."
+          "description": "10-bin ECE of top-response confidence against expected agreement with a hidden human response. Weighted below Brier because constant confidence alone is not informative."
         },
         "accuracy": {
           "higher_is_better": true,
           "coefficient": 0.0,
-          "description": "Expected accuracy of the most probable answer (ties broken toward the lowest option index). Constraint, enforced by the task gate (accuracy >= comparison-vote accuracy - 0.01); reported but not ranked, because honest methods differ here only by a few near-tie argmax flips, which normalisation by the cohort spread would amplify into noise."
+          "description": "Expected agreement of the most probable option with a randomly drawn human response, ties toward lowest index. Reported constraint enforced at comparison-vote accuracy minus 0.01, coefficient zero to avoid amplifying near-tie argmax flips."
         }
       },
       "results": {

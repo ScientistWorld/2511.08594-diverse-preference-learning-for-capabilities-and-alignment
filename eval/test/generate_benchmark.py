@@ -16,6 +16,9 @@ script with the default seed reproduces every file byte-for-byte.
 from __future__ import annotations
 
 import argparse
+import ast
+import csv
+import hashlib
 import json
 import math
 import random
@@ -23,6 +26,8 @@ from pathlib import Path
 
 SEED = 81_594_2511
 TOKEN_CHARS = "0123456789abcdefghijklmnopqrstuvwxyz"
+SURVEY_PATH = Path(__file__).resolve().parent / "assets" / "global_opinions.csv"
+SURVEY_SHA256 = "789e99ebb0eb1d0768de565ec80fab7a25bfef5baa1cccebdda75777eea86051"
 
 # ---------------------------------------------------------------------------
 # small chain utilities (exact dynamic programming on first-order chains)
@@ -97,7 +102,12 @@ def normalize6(row):
 # ---------------------------------------------------------------------------
 
 
-def gen_two_outcome(rng, n_train, n_test):
+def legacy_two_outcome(rng, n_train, n_test):
+    """Advance the original RNG identically, preserving the sequence benchmark.
+
+    These synthetic categorical targets are discarded. The scored categorical
+    targets below come from empirical survey responses instead.
+    """
     public, truth = [], {"train": {}, "test": {}}
 
     def make(cid, split, p_maj, ref0, n, majority_index, exact=False):
@@ -283,62 +293,102 @@ def gen_sequence(rng, n_train, n_test):
 
 
 # ---------------------------------------------------------------------------
-# experiment 3: multiple-choice calibration contexts
+# empirical categorical contexts: real human response distributions
 # ---------------------------------------------------------------------------
 
 
-def dirichlet(rng, conc, k):
-    g = [rng.gammavariate(conc, 1.0) for _ in range(k)]
-    s = sum(g)
-    return [x / s for x in g]
+def empirical_questions():
+    """Read GlobalOpinionQA without exposing question/country lookup keys.
+
+    Keep full survey question groups together. Each context uses a real country
+    distribution conditioned on a subset of positive-response options; no
+    parametric prior generates its probability vector. Reference probabilities
+    are independent of the survey answers.
+    """
+    if hashlib.sha256(SURVEY_PATH.read_bytes()).hexdigest() != SURVEY_SHA256:
+        raise ValueError("GlobalOpinionQA checksum mismatch; run scripts/download.sh")
+    questions = {}
+    with SURVEY_PATH.open() as f:
+        for row in csv.DictReader(f):
+            key = (row["source"], row["question"].strip())
+            s = row["selections"]
+            # The upstream field is defaultdict(<class 'list'>, {...}), not JSON.
+            selections = ast.literal_eval(s[s.index("{"):s.rindex("}") + 1])
+            for country, p in selections.items():
+                if not isinstance(p, list) or any(not math.isfinite(x) or x < 0 for x in p):
+                    continue
+                active = [i for i, x in enumerate(p) if x >= 0.002]
+                if len(active) >= 2:
+                    questions.setdefault(key, []).append((country, p, active))
+    return questions
 
 
-def gen_calibration(rng, n_train, n_test):
-    public, truth = [], {"train": {}, "test": {}}
-    K = 4
-    for split, count in (("train", n_train), ("test", n_test)):
-        for k in range(count):
-            cid = f"calibration_{split}_{k:03d}"
-            conc = math.exp(rng.uniform(math.log(0.4), math.log(4.0)))
-            p = dirichlet(rng, conc, K)
-            p = normalize6([max(x, 1e-4) for x in p])
-            ref = [x ** 0.5 * math.exp(rng.gauss(0.0, 0.5)) for x in p]
-            ref = normalize6(ref)
-            n = rng.randint(20, 80)
+def gen_empirical_categorical(rng):
+    questions = empirical_questions()
+    # Disjoint original questions across experiments AND splits, including
+    # duplicate source rows and countries. No train question supplies test truth.
+    keys = sorted(questions)
+    rng.shuffle(keys)
+    four_keys = [key for key in keys if any(len(a) >= 4 for _, _, a in questions[key])]
+    if len(four_keys) < 1200:
+        raise ValueError("not enough distinct four-option survey questions")
+    four_keys = four_keys[:1200]
+    used = set(four_keys)
+    two_keys = [key for key in keys if key not in used][:600]
+    if len(two_keys) < 600:
+        raise ValueError("not enough disjoint two-option survey questions")
+    provenance = {}
+
+    def build(selected, K, prefix):
+        public, truth = [], {"train": {}, "test": {}}
+        half = len(selected) // 2
+        for idx, key in enumerate(selected):
+            split = "train" if idx < half else "test"
+            cid = f"{prefix}_{split}_{idx % half:03d}"
+            rows = [r for r in questions[key] if len(r[2]) >= K]
+            country, full_p, active = rng.choice(rows)
+            options = rng.sample(active, K)
+            p = [full_p[i] for i in options]
+            sp = sum(p)
+            p = [x / sp for x in p]
+            # Independent, mildly non-uniform pre-alignment policy. In
+            # particular, it is NOT a noisy square root of the target vector.
+            ref = normalize6([math.exp(rng.gauss(0.0, 0.45)) for _ in range(K)])
+            n = rng.randint(32, 128) if K == 2 else rng.randint(40, 120)
             counts = {}
             for _ in range(n):
                 i = random_choice(rng, ref)
                 j = i
                 while j == i:
                     j = random_choice(rng, ref)
-                if rng.random() < p[i] / (p[i] + p[j]):
-                    w, l = i, j
-                else:
-                    w, l = j, i
+                w, l = (i, j) if rng.random() < p[i] / (p[i] + p[j]) else (j, i)
                 counts[(w, l)] = counts.get((w, l), 0) + 1
             comps = [[w, l, c] for (w, l), c in sorted(counts.items())]
-            public.append(
-                {
-                    "id": cid,
-                    "split": split,
-                    "num_actions": K,
-                    "reference_probability": ref,
-                    "comparisons": comps,
-                }
-            )
-            # evaluator-owned accuracy floor: the option(s) with the best (wins - losses) count
-            net = [0] * K
-            for w, l, c in comps:
-                net[w] += c
-                net[l] -= c
-            top = max(net)
-            vote_winners = [k for k in range(K) if net[k] == top]
-            truth[split][cid] = {
-                "correct_answer_distribution": p,
-                "reference_probability": ref,
-                "comparison_vote_winners": vote_winners,
-            }
-    return public, truth
+            public.append({"id": cid, "split": split, "num_actions": K,
+                           "reference_probability": ref, "comparisons": comps})
+            t = {"reference_probability": ref}
+            if K == 2:
+                t["population_preference"] = p
+            else:
+                t["correct_answer_distribution"] = p
+                net = [0] * K
+                for w, l, c in comps:
+                    net[w] += c
+                    net[l] -= c
+                t["comparison_vote_winners"] = [k for k in range(K) if net[k] == max(net)]
+            truth[split][cid] = t
+            provenance[cid] = {"source": key[0], "question": key[1],
+                               "country": country, "option_indices": options}
+        return public, truth
+
+    two_pub, two_truth = build(two_keys, 2, "two_outcome")
+    # The paper's exact analytic example remains a visible prompt with extra unscored diagnostics.
+    two_pub.insert(0, {"id": "two_outcome_paper_80_20", "split": "train", "num_actions": 2,
+                       "reference_probability": [0.5, 0.5], "comparisons": [[0, 1, 80], [1, 0, 20]]})
+    two_truth["train"]["two_outcome_paper_80_20"] = {
+        "population_preference": [0.8, 0.2], "reference_probability": [0.5, 0.5]}
+    cal_pub, cal_truth = build(four_keys, 4, "calibration")
+    return two_pub, two_truth, cal_pub, cal_truth, provenance
 
 
 def random_choice(rng, probs):
@@ -361,10 +411,12 @@ def main() -> None:
     args = parser.parse_args()
     root = Path(args.root)
     rng = random.Random(args.seed)
-
-    two_pub, two_truth = gen_two_outcome(rng, 300, 300)
+    legacy_two_outcome(rng, 300, 300)
     seq_pub, seq_truth = gen_sequence(rng, 32, 32)
-    cal_pub, cal_truth = gen_calibration(rng, 600, 600)
+    two_pub, two_truth, cal_pub, cal_truth, provenance = gen_empirical_categorical(random.Random(args.seed + 1))
+    provenance_out = root / "eval" / "test" / "survey_provenance.json"
+    provenance_out.parent.mkdir(parents=True, exist_ok=True)
+    provenance_out.write_text(json.dumps(provenance, separators=(",", ":")) + "\n")
 
     data = root / "data"
     data.mkdir(parents=True, exist_ok=True)

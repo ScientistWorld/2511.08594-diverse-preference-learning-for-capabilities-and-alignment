@@ -93,6 +93,10 @@ def load_contexts(method_dir: Path, experiment: str, ids):
     if not isinstance(payload, dict) or not isinstance(payload.get("contexts"), dict):
         raise Invalid(f"{FILES[experiment]}: missing 'contexts' mapping")
     ctx = payload["contexts"]
+    allowed = {"initial", "transitions"} if experiment == SEQ else {"initial"}
+    for cid in ids:
+        if cid in ctx and isinstance(ctx[cid], dict) and set(ctx[cid]) - allowed:
+            raise Invalid(f"{FILES[experiment]}:{cid}: unexpected policy fields")
     missing = [cid for cid in ids if cid not in ctx or not isinstance(ctx[cid], dict)]
     if missing:
         raise Invalid(f"{FILES[experiment]}: missing {len(missing)} required contexts (e.g. {missing[0]})")
@@ -219,7 +223,7 @@ def score_two_outcome(method_dir, truth):
         for pk, qk in zip(p, pi):
             if pk > 0.0:
                 kl = math.inf if qk <= 0.0 else kl + pk * math.log(pk / qk)
-        kls.append(min(kl, WORST[TWO]["preference_kl"]))
+        kls.append(min(max(kl, 0.0), WORST[TWO]["preference_kl"]))
         lr = math.inf if pi[mino] <= 0.0 else abs(math.log(pi[mino] / p[mino]))
         lrs.append(min(lr, WORST[TWO]["minority_log_ratio_error"]))
         tops.append(1.0 if pi[maj] > pi[mino] else 0.0)
@@ -250,6 +254,7 @@ def score_sequence(method_dir, truth):
     ids = sorted(contexts)
     ctx = load_contexts(method_dir, SEQ, ids)
     kls, bons, cohs, rews, refrews, ents = [], [], [], [], [], []
+    measured_cohs, population_cohs = [], []
     for cid in ids:
         t = contexts[cid]
         art = ctx[cid]
@@ -270,7 +275,13 @@ def score_sequence(method_dir, truth):
         kls.append(min(max(kl, 0.0), WORST[SEQ]["population_kl"]))
         bad = set(t["incoherent_tokens"])
         coherent = [[v not in bad for v in range(V)] for _ in range(L)]
-        cohs.append(mask_prob(init, T, coherent))
+        # Coherence is a quality constraint, not an incentive to suppress real
+        # population variation. Beyond the population's own value credit is flat.
+        measured_coh = min(max(mask_prob(init, T, coherent), 0.0), 1.0)
+        population_coh = min(max(mask_prob(p_init, p_T, coherent), 0.0), 1.0)
+        cohs.append(min(measured_coh, population_coh))
+        measured_cohs.append(measured_coh)
+        population_cohs.append(population_coh)
         succ = []
         for prob in t["hard_problems"]:
             masks = [row[:] for row in coherent]
@@ -290,7 +301,8 @@ def score_sequence(method_dir, truth):
     }
     reward = sum(rews) / n
     ref_reward = sum(refrews) / n
-    diag = {"expected_population_reward": reward, "reference_policy_reward": ref_reward, "sequence_entropy": sum(ents) / n}
+    diag = {"expected_population_reward": reward, "reference_policy_reward": ref_reward, "sequence_entropy": sum(ents) / n,
+            "measured_coherence": sum(measured_cohs) / n, "population_coherence": sum(population_cohs) / n}
     gate = None
     if not reward >= ref_reward:
         gate = f"expected_population_reward {reward:.3f} below the reference policy's {ref_reward:.3f}"
@@ -373,7 +385,7 @@ def evaluate_method(method_dir: Path, truth: dict):
 def discover_methods(checkpoints: Path):
     if not checkpoints.is_dir():
         return []
-    return sorted(p for p in checkpoints.iterdir() if p.is_dir() and not p.name.startswith("."))
+    return sorted(p for p in checkpoints.iterdir() if p.is_dir())
 
 
 def main() -> None:
@@ -387,6 +399,9 @@ def main() -> None:
 
     truth = json.loads(TRUTH_PATH.read_text())
     dirs = [Path(d) for d in args.method_dirs] if args.method_dirs else discover_methods(Path(args.checkpoints))
+    if not dirs:
+        # An empty submission is a failed attempt, never an empty rank record.
+        dirs = [Path(args.checkpoints) / "missing_submission"]
     scores = {
         "metadata": {"slice": SLICE, "methods": [d.name for d in dirs], "best_of_n": BEST_OF_N},
         "experiments": {

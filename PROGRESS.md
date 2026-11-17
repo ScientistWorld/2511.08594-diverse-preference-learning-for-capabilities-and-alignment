@@ -48,3 +48,9 @@
 - The multi-outcome reference values are closed-form/theory-derived targets for this generated finite benchmark, not a reported LLM table from the paper.
 - The calibration benchmark is a finite synthetic substitute for the paper's full multiple-choice logit calibration experiments. It preserves the SPL/DPO objective and distributional calibration phenomenon but does not use an LLM or MMLU-style data.
 - The algorithm is not substituted: the implemented objective is the paper's SPL pairwise objective, with DPO recovered by `alpha == beta`.
+
+## Final review hardening (2026-11-17)
+
+Current changes and verification plan are in HARDENING.md. All fixes were decided from REDTEAM.md
+and REVIEW.md and applied before one combined verification job. The actual Eq. 5 SPL computation
+and sequence benchmark are preserved; categorical target data and coherence measurement change.

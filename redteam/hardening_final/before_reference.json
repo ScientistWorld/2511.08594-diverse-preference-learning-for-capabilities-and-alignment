@@ -1,0 +1,162 @@
+{
+  "notes": "Scaled, synthetic reproduction. The gym's experiments are finite preference-learning problems with hidden ground truth (see scoring/EXPERIMENTS.md). The paper's LLM numbers (Mistral-7B, HH-RLHF/UltraFeedback, GSM8K/MATH, MMLU/TruthfulQA) are not on this scale; they are kept unchanged under each experiment's `_paper_reported` key. `results` holds the gym's reference runs on the hidden test slice (scripts/reproduce.sh then scripts/evaluate_test.sh; training and evaluation are deterministic). Metrics with coefficient 0 are reported constraints enforced by a task gate, not ranked.",
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "description": "Two-outcome social-choice prompts (paper Sec. 3, Prop. 3.1/3.2): a population prefers one of two completions with probability p in [0.55, 0.95]; the learner sees 8-40 sampled pairwise comparisons and a fixed non-uniform reference policy per prompt and must represent the population split. 300 visible train prompts (+ the paper's exact 80/20 example), 300 hidden test prompts.",
+      "notes": "Scaled from the paper's single analytic 80/20 example to many prompts with finite, noisy comparisons; scored only on hidden-test prompts whose population preference lives in eval/test/. Task gate: the population-majority completion must remain the most probable one on >= 75% of prompts.",
+      "weight": 0.25,
+      "primary_metric": "preference_kl",
+      "metrics": {
+        "preference_kl": {
+          "higher_is_better": false,
+          "coefficient": 1.0,
+          "description": "Mean KL(population preference || learned policy) over test prompts (per-prompt cap 20 nats). Penalises both majority collapse and over-flattening."
+        },
+        "minority_log_ratio_error": {
+          "higher_is_better": false,
+          "coefficient": 0.5,
+          "description": "Mean |log(policy minority probability / population minority share)| (per-prompt cap 30): how many e-folds the minority view is under- or over-represented (paper Prop. 3.1 quantity)."
+        }
+      },
+      "results": {
+        "spl_alpha_1.0_beta_0.1": {
+          "type": "proposed",
+          "preference_kl": 0.0377616,
+          "minority_log_ratio_error": 0.512554
+        },
+        "dpo_alpha_equals_beta": {
+          "type": "baseline",
+          "preference_kl": 2.00157,
+          "minority_log_ratio_error": 11.4539
+        },
+        "dpo_token_temperature_1.5": {
+          "type": "baseline",
+          "preference_kl": 1.18629,
+          "minority_log_ratio_error": 7.3624
+        }
+      },
+      "_paper_reported": {
+        "source": "Paper Sec. 3.1 / Prop. 3.1-3.2, 80% vs 20% example with beta = 0.1 (analytic; uniform reference)",
+        "dpo_alpha_equals_beta": {
+          "minority_probability": 1e-06,
+          "majority_overweight": 1.249999,
+          "top_choice_preserved": 1
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "minority_probability": 0.2,
+          "majority_overweight": 1.0,
+          "top_choice_preserved": 1
+        },
+        "gym_check": "The visible train context `two_outcome_paper_80_20` reproduces this example; eval/train/evaluate.py reports it under diagnostics (paper_80_20_minority_probability, paper_80_20_majority_overweight)."
+      }
+    },
+    "sequence_diversity_best_of_n": {
+      "description": "Sequence-level preference learning (paper Sec. 4.1-4.2): 7-token sequences over a 21-token vocabulary (about 1.8e9 sequences; ~16 tokens per position are rarely-produced incoherent tokens). Per prompt the learner sees a fixed reference chain policy and 2000 Bradley-Terry comparisons between reference samples, and outputs a full chain policy. Scored on 32 hidden-test prompts against the hidden population distribution, hidden verifier sets for hard best-of-N problems, and hidden token-coherence labels.",
+      "notes": "Synthetic stand-in for LLM generation: the output space cannot be enumerated, token-level temperature and sequence-level (global) temperature differ, and incoherent tokens play the role of non-word tokens. Task gate: expected population reward of the policy must not fall below that of the fixed reference policy.",
+      "weight": 0.5,
+      "primary_metric": "best_of_128_success_hard",
+      "metrics": {
+        "best_of_128_success_hard": {
+          "higher_is_better": true,
+          "coefficient": 1.0,
+          "description": "Mean probability that 128 independent samples contain a verified solution, over 6 hard problems per prompt (solutions are coherent sequences matching a hidden 4-position pattern, away from the population mode, with population mass 0.2-2%). Computed exactly from the policy."
+        },
+        "population_kl": {
+          "higher_is_better": false,
+          "coefficient": 0.75,
+          "description": "Exact sequence-level KL(population distribution || policy) (per-prompt cap 60 nats): proportional representation of the population over whole sequences."
+        },
+        "coherence": {
+          "higher_is_better": true,
+          "coefficient": 0.5,
+          "description": "Probability that a sampled sequence contains no incoherent token (the paper's lexical-integrity / non-word statistic)."
+        }
+      },
+      "results": {
+        "spl_alpha_1.0_beta_0.1": {
+          "type": "proposed",
+          "best_of_128_success_hard": 0.386275,
+          "population_kl": 0.249488,
+          "coherence": 0.969756
+        },
+        "dpo_alpha_equals_beta": {
+          "type": "baseline",
+          "best_of_128_success_hard": 0.0874553,
+          "population_kl": 7.71187,
+          "coherence": 0.994917
+        },
+        "dpo_token_temperature_1.5": {
+          "type": "baseline",
+          "best_of_128_success_hard": 0.172382,
+          "population_kl": 3.67382,
+          "coherence": 0.926968
+        }
+      },
+      "_paper_reported": {
+        "source": "Paper Table 1, hard splits, best-of-128 accuracy (Mistral-7B, UltraFeedback)",
+        "GSM8K_hard_best_of_128": {
+          "dpo_t1.0": 0.4875,
+          "dpo_t1.1": 0.5407,
+          "dpo_t1.2": 0.2166,
+          "spl_global_temp_1.1": 0.5834,
+          "spl_global_temp_1.2": 0.4307
+        },
+        "MATH_hard_best_of_128": {
+          "dpo_t1.0": 0.2799,
+          "dpo_t1.1": 0.3062,
+          "dpo_t1.2": 0.2131,
+          "spl_global_temp_1.1": 0.2916,
+          "spl_global_temp_1.2": 0.3191
+        },
+        "diversity_quality": "Fig. 1-2: SPL Pareto-dominates DPO with token-level temperature on diversity vs quality; token temperature above ~1.5 yields mostly non-word tokens (no single table value)."
+      }
+    },
+    "calibration_multiple_choice": {
+      "description": "Four-option multiple-choice prompts (paper Sec. 4.3): each prompt has a hidden distribution over which option is correct; the learner sees 20-80 sampled pairwise comparisons and a fixed reference answer distribution, and outputs answer probabilities. 600 visible train prompts, 600 hidden test prompts. Metrics are expectations over the hidden correct answer.",
+      "notes": "Synthetic substitute for MMLU/TruthfulQA logit calibration; correct options are placed at random positions. Task gate (evaluator-owned): expected accuracy must be at least the accuracy of picking the option with the best (wins - losses) comparison count, minus 0.01 (test floor 0.4717; DPO-level accuracy, the paper's 'without sacrificing accuracy' constraint). Hardening (iteration 11): accuracy coefficient 0.5 -> 0 (gate-enforced constraint), Brier 0.75 -> 1.0 and primary, ECE 1.0 -> 0.5; see HARDENING.md.",
+      "weight": 0.25,
+      "primary_metric": "brier_score",
+      "metrics": {
+        "brier_score": {
+          "higher_is_better": false,
+          "coefficient": 1.0,
+          "description": "Expected multi-class Brier score against the hidden correct answer (a proper scoring rule: rewards both calibration and putting mass on the right option). Primary calibration metric of the rank."
+        },
+        "expected_calibration_error": {
+          "higher_is_better": false,
+          "coefficient": 0.5,
+          "description": "10-bin ECE of top-answer confidence against expected top-answer accuracy (the paper's headline calibration statistic). Weighted below Brier because ECE alone is minimised by uninformative constant-confidence answers."
+        },
+        "accuracy": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Expected accuracy of the most probable answer (ties broken toward the lowest option index). Constraint, enforced by the task gate (accuracy >= comparison-vote accuracy - 0.01); reported but not ranked, because honest methods differ here only by a few near-tie argmax flips, which normalisation by the cohort spread would amplify into noise."
+        }
+      },
+      "results": {
+        "spl_alpha_1.0_beta_0.1": {
+          "type": "proposed",
+          "expected_calibration_error": 0.0678132,
+          "brier_score": 0.6448,
+          "accuracy": 0.479749
+        },
+        "dpo_alpha_equals_beta": {
+          "type": "baseline",
+          "expected_calibration_error": 0.449473,
+          "brier_score": 0.942561,
+          "accuracy": 0.482149
+        },
+        "dpo_token_temperature_1.5": {
+          "type": "baseline",
+          "expected_calibration_error": 0.414004,
+          "brier_score": 0.898152,
+          "accuracy": 0.482149
+        }
+      },
+      "_paper_reported": {
+        "source": "Paper Sec. 4.3 / Fig. 4 (MMLU, TruthfulQA; values reported only in figures)",
+        "claim": "DPO (global temperature 1) is less calibrated than the SFT base; increasing SPL global temperature lowers ECE and Brier below the base model while keeping accuracy similar."
+      }
+    }
+  }
+}

@@ -10,7 +10,7 @@ cd /home/user
 
 H=redteam/hardening
 RUNS=$H/runs/checkpoints
-mkdir -p "$RUNS" "$H/logs"
+mkdir -p "$RUNS" "$H/logs" eval/test/runtime/hardening_v1
 MAXJ="${MAXJ:-$(nproc)}"
 echo "[hardening] parallel slots: $MAXJ"
 
@@ -54,15 +54,15 @@ python3 $H/build_cases.py --ref-dir checkpoints/spl_alpha_1.0_beta_0.1 --out "$R
 
 # --- score everything with the hidden-test and train evaluators -------------
 python3 eval/test/evaluate.py --checkpoints "$RUNS" --scores-out "$H/scores_test_all.json" \
-  --per-context-out "$H/runs/per_context_test.json" > "$H/logs/eval_test.log" 2>&1
+  --per-context-out "eval/test/runtime/hardening_v1/per_context_test.json" > "$H/logs/eval_test.log" 2>&1
 python3 eval/train/evaluate.py --checkpoints "$RUNS" --scores-out "$H/scores_train_all.json" \
   --per-context-out "$H/runs/per_context_train.json" > "$H/logs/eval_train.log" 2>&1
 grep "^\[test\]" "$H/logs/eval_test.log"
 
-python3 $H/analyze.py --scores "$H/scores_test_all.json" --per-context "$H/runs/per_context_test.json" \
+python3 $H/analyze.py --scores "$H/scores_test_all.json" --per-context "eval/test/runtime/hardening_v1/per_context_test.json" \
   --train-scores "$H/scores_train_all.json" --bootstrap 400 --out "$H/summary.json"
 # same cohort ranked with the calibration coefficients in force before this pass (ECE 1.0, Brier 0.75, accuracy 0.5)
-python3 $H/analyze.py --scores "$H/scores_test_all.json" --per-context "$H/runs/per_context_test.json" \
+python3 $H/analyze.py --scores "$H/scores_test_all.json" --per-context "eval/test/runtime/hardening_v1/per_context_test.json" \
   --train-scores "$H/scores_train_all.json" --bootstrap 0 --reference-json "$H/reference_before_reweight.json" \
   --out "$H/summary_old_coefficients.json" > /dev/null
 

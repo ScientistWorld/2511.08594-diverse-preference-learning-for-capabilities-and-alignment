@@ -9,7 +9,7 @@ reference runs, then `bash scripts/evaluate_train.sh` (and, for the hidden slice
 
 - **Primary metric**: `best_of_128_success_hard` (higher is better).
 - **Benefit / fit metric**: `population_kl` (lower is better).
-- **Constraint metric (scored)**: `coherence` (higher is better).
+- **Constraint metric (scored)**: `coherence` (higher is better), capped per prompt at the population's own coherence.
 - **Constraint gate**: expected population reward >= reference policy's (else the run fails).
 
 ## Core claim: two_outcome_mode_collapse (weight 0.25)
@@ -26,7 +26,7 @@ reference runs, then `bash scripts/evaluate_train.sh` (and, for the hidden slice
 - **Benefit metric**: `expected_calibration_error` (lower is better; coefficient 0.5).
 - **Constraint metric (reported, coefficient 0)**: `accuracy` (higher is better).
 - **Constraint gate**: accuracy >= accuracy of the comparison-vote winner - 0.01 (evaluator-owned;
-  about 0.472 on both slices). Failing it fails the whole run.
+  computed separately on each split). Failing it fails the whole run.
 
 ## Ablation / baseline targets
 

@@ -16,7 +16,7 @@ best-of-N problem solving and improves calibration.
 
 ## This Gym
 
-A scaled synthetic reproduction with hidden ground truth: two-outcome social-choice prompts,
+A scaled finite reproduction with hidden ground truth, empirical survey categorical targets and synthetic sequences: two-outcome social-choice prompts,
 7-token sequence generation over a 21-token vocabulary with hidden verifier sets and incoherent
 tokens, and four-option multiple-choice calibration. All training is pure-Python, CPU-only, and
 deterministic. See `scoring/EXPERIMENTS.md` and `briefing/evaluation.md`.

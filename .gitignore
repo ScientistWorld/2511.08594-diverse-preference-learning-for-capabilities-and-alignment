@@ -233,3 +233,9 @@ core.[0-9]*
 
 # Hardening audit: method artifacts and per-context test values (can reveal hidden test answers)
 redteam/hardening/runs/
+
+# Public upstream surveys contain hidden target distributions. Fetch only here.
+eval/test/assets/
+eval/test/runtime/
+redteam/hardening_final/runs/
+redteam/hardening_final/logs/

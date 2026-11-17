@@ -48,3 +48,9 @@
 
 ## Stop Justification
 - Completed at milestone `core_claim_plus`.
+
+### [2026-11-17] - core_claim_plus (final review fixes, verification pending)
+- Read the paper and both audit reports. Replaced parametric categorical targets with empirical
+  GlobalOpinionQA response distributions and independent references; disjoint source questions.
+- Capped per-prompt coherence credit at the population level and tightened complete failure records.
+- Prepared one combined CPU verification job; no new reproduction claim before its results.
