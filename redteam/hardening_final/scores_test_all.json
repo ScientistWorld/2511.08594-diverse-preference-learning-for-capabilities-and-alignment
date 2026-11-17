@@ -1,0 +1,881 @@
+{
+  "metadata": {
+    "slice": "test",
+    "methods": [
+      ".hidden_missing_experiment",
+      "baseline_dpo_minp_0.1_t3",
+      "control_reference_policy",
+      "dpo_alpha_equals_beta",
+      "dpo_token_temperature_1.5",
+      "shortcut_bayes_exact_prior",
+      "shortcut_brute_force_coherent",
+      "shortcut_constant_confidence",
+      "shortcut_constant_confidence_half",
+      "shortcut_empty_dir",
+      "shortcut_forged_fields",
+      "shortcut_generator_inverse_sequence",
+      "shortcut_laplace_counts",
+      "shortcut_majority_vote_onehot",
+      "shortcut_memorize_train_truth",
+      "shortcut_mix_30pct_brute_force",
+      "shortcut_nan",
+      "shortcut_negative",
+      "shortcut_null",
+      "shortcut_old_prior_calibration_only",
+      "shortcut_old_prior_two_only",
+      "shortcut_omit_experiments",
+      "shortcut_sharpened_reference",
+      "shortcut_single_context",
+      "shortcut_tie_bias_option0",
+      "shortcut_uniform",
+      "shortcut_unnormalized",
+      "spl_alpha_1.0_beta_0.1",
+      "variant_alpha_1.2",
+      "variant_global_temperature_1.2",
+      "variant_improved",
+      "variant_truncate_rare_tokens",
+      "variant_undertrained"
+    ],
+    "best_of_n": 128
+  },
+  "experiments": {
+    "two_outcome_mode_collapse": {
+      "slice": "test",
+      "num_contexts": 300,
+      "results": {
+        ".hidden_missing_experiment": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "baseline_dpo_minp_0.1_t3": {
+          "preference_kl": 0.3019198862541491,
+          "minority_log_ratio_error": 2.6024864701631216
+        },
+        "control_reference_policy": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "dpo_alpha_equals_beta": {
+          "preference_kl": 1.639501806237127,
+          "minority_log_ratio_error": 10.334946701353973
+        },
+        "dpo_token_temperature_1.5": {
+          "preference_kl": 0.9513051126982656,
+          "minority_log_ratio_error": 6.502335179464708
+        },
+        "shortcut_bayes_exact_prior": {
+          "preference_kl": 0.007393150806448431,
+          "minority_log_ratio_error": 0.20834831737629791
+        },
+        "shortcut_brute_force_coherent": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_constant_confidence": {
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
+        },
+        "shortcut_constant_confidence_half": {
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
+        },
+        "shortcut_empty_dir": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_forged_fields": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_generator_inverse_sequence": {
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
+        },
+        "shortcut_laplace_counts": {
+          "preference_kl": 0.005805751069640881,
+          "minority_log_ratio_error": 0.16439928990013405
+        },
+        "shortcut_majority_vote_onehot": {
+          "preference_kl": 2.012140442881125,
+          "minority_log_ratio_error": 7.237814880563254
+        },
+        "shortcut_memorize_train_truth": {
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
+        },
+        "shortcut_mix_30pct_brute_force": {
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
+        },
+        "shortcut_nan": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_negative": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_null": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_old_prior_calibration_only": {
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
+        },
+        "shortcut_old_prior_two_only": {
+          "preference_kl": 0.007393150806448431,
+          "minority_log_ratio_error": 0.20834831737629791
+        },
+        "shortcut_omit_experiments": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_sharpened_reference": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_single_context": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_tie_bias_option0": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_uniform": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "shortcut_unnormalized": {
+          "preference_kl": 20.0,
+          "minority_log_ratio_error": 30.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
+        },
+        "variant_alpha_1.2": {
+          "preference_kl": 0.007810380789927531,
+          "minority_log_ratio_error": 0.23340979584469726
+        },
+        "variant_global_temperature_1.2": {
+          "preference_kl": 0.00774827999140141,
+          "minority_log_ratio_error": 0.22935577310186314
+        },
+        "variant_improved": {
+          "preference_kl": 0.00806501113711818,
+          "minority_log_ratio_error": 0.22525182122173096
+        },
+        "variant_truncate_rare_tokens": {
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
+        },
+        "variant_undertrained": {
+          "preference_kl": 0.006826856088089208,
+          "minority_log_ratio_error": 0.19511803441749967
+        }
+      },
+      "failed_methods": {
+        ".hidden_missing_experiment": "two_outcome_mode_collapse: two_outcome.json: missing 300 required contexts (e.g. two_outcome_test_000)",
+        "control_reference_policy": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.467 < gate 0.75",
+        "shortcut_brute_force_coherent": "sequence_diversity_best_of_n: task gate failed: expected_population_reward -0.376 below the reference policy's 1.658",
+        "shortcut_empty_dir": "two_outcome_mode_collapse: missing two_outcome.json",
+        "shortcut_forged_fields": "two_outcome_mode_collapse: two_outcome.json:two_outcome_test_000: unexpected policy fields",
+        "shortcut_nan": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: impossible probability nan",
+        "shortcut_negative": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: impossible probability -1.0",
+        "shortcut_null": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: non-numeric probability None",
+        "shortcut_omit_experiments": "sequence_diversity_best_of_n: missing sequence.json",
+        "shortcut_sharpened_reference": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.467 < gate 0.75",
+        "shortcut_single_context": "two_outcome_mode_collapse: two_outcome.json: missing 300 required contexts (e.g. two_outcome_test_000)",
+        "shortcut_tie_bias_option0": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.483 < gate 0.75",
+        "shortcut_uniform": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.000 < gate 0.75",
+        "shortcut_unnormalized": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: probabilities sum to 3.6, not 1"
+      },
+      "diagnostics": {
+        "baseline_dpo_minp_0.1_t3": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "dpo_alpha_equals_beta": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "dpo_token_temperature_1.5": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "shortcut_bayes_exact_prior": {
+          "top_choice_preserved": 0.9466666666666667
+        },
+        "shortcut_constant_confidence": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "shortcut_constant_confidence_half": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "shortcut_generator_inverse_sequence": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "shortcut_laplace_counts": {
+          "top_choice_preserved": 0.93
+        },
+        "shortcut_majority_vote_onehot": {
+          "top_choice_preserved": 0.94
+        },
+        "shortcut_memorize_train_truth": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "shortcut_mix_30pct_brute_force": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "shortcut_old_prior_calibration_only": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "shortcut_old_prior_two_only": {
+          "top_choice_preserved": 0.9466666666666667
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "variant_alpha_1.2": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "variant_global_temperature_1.2": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "variant_improved": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "variant_truncate_rare_tokens": {
+          "top_choice_preserved": 0.9366666666666666
+        },
+        "variant_undertrained": {
+          "top_choice_preserved": 0.9366666666666666
+        }
+      }
+    },
+    "sequence_diversity_best_of_n": {
+      "slice": "test",
+      "num_contexts": 32,
+      "results": {
+        ".hidden_missing_experiment": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "baseline_dpo_minp_0.1_t3": {
+          "best_of_128_success_hard": 0.30931734602886873,
+          "population_kl": 10.702924012745138,
+          "coherence": 0.9614069671467756
+        },
+        "control_reference_policy": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "dpo_alpha_equals_beta": {
+          "best_of_128_success_hard": 0.0874552555913627,
+          "population_kl": 7.711865116129995,
+          "coherence": 0.9945594944918289
+        },
+        "dpo_token_temperature_1.5": {
+          "best_of_128_success_hard": 0.17238152662259162,
+          "population_kl": 3.673824574893868,
+          "coherence": 0.9269680997441
+        },
+        "shortcut_bayes_exact_prior": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "shortcut_brute_force_coherent": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_constant_confidence": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "shortcut_constant_confidence_half": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "shortcut_empty_dir": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_forged_fields": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_generator_inverse_sequence": {
+          "best_of_128_success_hard": 0.2047948128682348,
+          "population_kl": 3.0674632019067087,
+          "coherence": 0.9959490267702839
+        },
+        "shortcut_laplace_counts": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "shortcut_majority_vote_onehot": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "shortcut_memorize_train_truth": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "shortcut_mix_30pct_brute_force": {
+          "best_of_128_success_hard": 0.3662640983252768,
+          "population_kl": 0.38340140835431363,
+          "coherence": 0.9686053669150169
+        },
+        "shortcut_nan": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_negative": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_null": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_old_prior_calibration_only": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "shortcut_old_prior_two_only": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "shortcut_omit_experiments": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_sharpened_reference": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_single_context": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_tie_bias_option0": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_uniform": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "shortcut_unnormalized": {
+          "best_of_128_success_hard": 0.0,
+          "population_kl": 60.0,
+          "coherence": 0.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
+        },
+        "variant_alpha_1.2": {
+          "best_of_128_success_hard": 0.3911479985158351,
+          "population_kl": 0.2163185630398451,
+          "coherence": 0.9610808494189662
+        },
+        "variant_global_temperature_1.2": {
+          "best_of_128_success_hard": 0.3761640483693912,
+          "population_kl": 0.26607506530932523,
+          "coherence": 0.911191721180485
+        },
+        "variant_improved": {
+          "best_of_128_success_hard": 0.38571321074376924,
+          "population_kl": 0.2958795039122179,
+          "coherence": 0.9960492160437486
+        },
+        "variant_truncate_rare_tokens": {
+          "best_of_128_success_hard": 0.39438794511505937,
+          "population_kl": 0.24549290589278533,
+          "coherence": 0.9960830257524319
+        },
+        "variant_undertrained": {
+          "best_of_128_success_hard": 0.3807272713060344,
+          "population_kl": 0.2346869226671761,
+          "coherence": 0.9456771114952899
+        }
+      },
+      "failed_methods": {
+        ".hidden_missing_experiment": "two_outcome_mode_collapse: two_outcome.json: missing 300 required contexts (e.g. two_outcome_test_000)",
+        "control_reference_policy": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.467 < gate 0.75",
+        "shortcut_brute_force_coherent": "sequence_diversity_best_of_n: task gate failed: expected_population_reward -0.376 below the reference policy's 1.658",
+        "shortcut_empty_dir": "two_outcome_mode_collapse: missing two_outcome.json",
+        "shortcut_forged_fields": "two_outcome_mode_collapse: two_outcome.json:two_outcome_test_000: unexpected policy fields",
+        "shortcut_nan": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: impossible probability nan",
+        "shortcut_negative": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: impossible probability -1.0",
+        "shortcut_null": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: non-numeric probability None",
+        "shortcut_omit_experiments": "sequence_diversity_best_of_n: missing sequence.json",
+        "shortcut_sharpened_reference": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.467 < gate 0.75",
+        "shortcut_single_context": "two_outcome_mode_collapse: two_outcome.json: missing 300 required contexts (e.g. two_outcome_test_000)",
+        "shortcut_tie_bias_option0": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.483 < gate 0.75",
+        "shortcut_uniform": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.000 < gate 0.75",
+        "shortcut_unnormalized": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: probabilities sum to 3.6, not 1"
+      },
+      "diagnostics": {
+        "baseline_dpo_minp_0.1_t3": {
+          "expected_population_reward": 5.5977162741267925,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 6.929287537139112,
+          "measured_coherence": 0.9618721398155704,
+          "population_coherence": 0.9960830257524319
+        },
+        "dpo_alpha_equals_beta": {
+          "expected_population_reward": 7.647184421459182,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 3.374006904503556,
+          "measured_coherence": 0.9949174216241797,
+          "population_coherence": 0.9960830257524319
+        },
+        "dpo_token_temperature_1.5": {
+          "expected_population_reward": 6.405749367507916,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 5.383166159329293,
+          "measured_coherence": 0.9269680997441,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_bayes_exact_prior": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_constant_confidence": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_constant_confidence_half": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_generator_inverse_sequence": {
+          "expected_population_reward": 4.066580176994011,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 7.246360182035358,
+          "measured_coherence": 0.9969997263267062,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_laplace_counts": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_majority_vote_onehot": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_memorize_train_truth": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_mix_30pct_brute_force": {
+          "expected_population_reward": 3.399445409523223,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 10.106955281788093,
+          "measured_coherence": 0.9686053669150169,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_old_prior_calibration_only": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "shortcut_old_prior_two_only": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "expected_population_reward": 5.211099932859271,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.56180514046431,
+          "measured_coherence": 0.9697564920247952,
+          "population_coherence": 0.9960830257524319
+        },
+        "variant_alpha_1.2": {
+          "expected_population_reward": 4.577621929360523,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 9.194273412024621,
+          "measured_coherence": 0.9610808494189662,
+          "population_coherence": 0.9960830257524319
+        },
+        "variant_global_temperature_1.2": {
+          "expected_population_reward": 3.9118628059246054,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 9.672059886771113,
+          "measured_coherence": 0.911191721180485,
+          "population_coherence": 0.9960830257524319
+        },
+        "variant_improved": {
+          "expected_population_reward": 5.774013301280486,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.009334901955972,
+          "measured_coherence": 0.9981091823262442,
+          "population_coherence": 0.9960830257524319
+        },
+        "variant_truncate_rare_tokens": {
+          "expected_population_reward": 5.502745421819993,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 8.331932841834057,
+          "measured_coherence": 0.9998959753765425,
+          "population_coherence": 0.9960830257524319
+        },
+        "variant_undertrained": {
+          "expected_population_reward": 4.177904879061006,
+          "reference_policy_reward": 1.6582210980121594,
+          "sequence_entropy": 9.540179459582017,
+          "measured_coherence": 0.9456771114952899,
+          "population_coherence": 0.9960830257524319
+        }
+      }
+    },
+    "calibration_multiple_choice": {
+      "slice": "test",
+      "num_contexts": 600,
+      "results": {
+        ".hidden_missing_experiment": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "baseline_dpo_minp_0.1_t3": {
+          "expected_calibration_error": 0.2893166523487066,
+          "brier_score": 0.7539067772065745,
+          "accuracy": 0.49135264280644797
+        },
+        "control_reference_policy": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "dpo_alpha_equals_beta": {
+          "expected_calibration_error": 0.4320798181745219,
+          "brier_score": 0.9101387011653185,
+          "accuracy": 0.49135264280644797
+        },
+        "dpo_token_temperature_1.5": {
+          "expected_calibration_error": 0.3933472382223949,
+          "brier_score": 0.8624453954386068,
+          "accuracy": 0.49135264280644797
+        },
+        "shortcut_bayes_exact_prior": {
+          "expected_calibration_error": 0.024009596931225282,
+          "brier_score": 0.6222923246819899,
+          "accuracy": 0.48819438013137234
+        },
+        "shortcut_brute_force_coherent": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_constant_confidence": {
+          "expected_calibration_error": 0.01831850904882657,
+          "brier_score": 0.6714311402508519,
+          "accuracy": 0.4934383137175271
+        },
+        "shortcut_constant_confidence_half": {
+          "expected_calibration_error": 0.045704886652087516,
+          "brier_score": 0.6309295256408918,
+          "accuracy": 0.4934383137175271
+        },
+        "shortcut_empty_dir": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_forged_fields": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_generator_inverse_sequence": {
+          "expected_calibration_error": 0.053180210000056474,
+          "brier_score": 0.6230874144169662,
+          "accuracy": 0.4934383137175271
+        },
+        "shortcut_laplace_counts": {
+          "expected_calibration_error": 0.10098238488007355,
+          "brier_score": 0.64282268646581,
+          "accuracy": 0.48969630060858055
+        },
+        "shortcut_majority_vote_onehot": {
+          "expected_calibration_error": 0.5305467550947423,
+          "brier_score": 1.0611520177214329,
+          "accuracy": 0.4693532449052709
+        },
+        "shortcut_memorize_train_truth": {
+          "expected_calibration_error": 0.053180210000056474,
+          "brier_score": 0.6230874144169662,
+          "accuracy": 0.4934383137175271
+        },
+        "shortcut_mix_30pct_brute_force": {
+          "expected_calibration_error": 0.053180210000056474,
+          "brier_score": 0.6230874144169662,
+          "accuracy": 0.4934383137175271
+        },
+        "shortcut_nan": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_negative": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_null": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_old_prior_calibration_only": {
+          "expected_calibration_error": 0.024009596931225282,
+          "brier_score": 0.6222923246819899,
+          "accuracy": 0.48819438013137234
+        },
+        "shortcut_old_prior_two_only": {
+          "expected_calibration_error": 0.053180210000056474,
+          "brier_score": 0.6230874144169662,
+          "accuracy": 0.4934383137175271
+        },
+        "shortcut_omit_experiments": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_sharpened_reference": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_single_context": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_tie_bias_option0": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_uniform": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "shortcut_unnormalized": {
+          "expected_calibration_error": 1.0,
+          "brier_score": 2.0,
+          "accuracy": 0.0
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "expected_calibration_error": 0.053180210000056474,
+          "brier_score": 0.6230874144169662,
+          "accuracy": 0.4934383137175271
+        },
+        "variant_alpha_1.2": {
+          "expected_calibration_error": 0.016700896242279713,
+          "brier_score": 0.6187693136507837,
+          "accuracy": 0.4934383137175271
+        },
+        "variant_global_temperature_1.2": {
+          "expected_calibration_error": 0.016647820213029636,
+          "brier_score": 0.6187462022024275,
+          "accuracy": 0.4934383137175271
+        },
+        "variant_improved": {
+          "expected_calibration_error": 0.011729253031663932,
+          "brier_score": 0.6175292407895697,
+          "accuracy": 0.4932108760106062
+        },
+        "variant_truncate_rare_tokens": {
+          "expected_calibration_error": 0.053180210000056474,
+          "brier_score": 0.6230874144169662,
+          "accuracy": 0.4934383137175271
+        },
+        "variant_undertrained": {
+          "expected_calibration_error": 0.05239176842884427,
+          "brier_score": 0.6227622834849385,
+          "accuracy": 0.4934383137175271
+        }
+      },
+      "failed_methods": {
+        ".hidden_missing_experiment": "two_outcome_mode_collapse: two_outcome.json: missing 300 required contexts (e.g. two_outcome_test_000)",
+        "control_reference_policy": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.467 < gate 0.75",
+        "shortcut_brute_force_coherent": "sequence_diversity_best_of_n: task gate failed: expected_population_reward -0.376 below the reference policy's 1.658",
+        "shortcut_empty_dir": "two_outcome_mode_collapse: missing two_outcome.json",
+        "shortcut_forged_fields": "two_outcome_mode_collapse: two_outcome.json:two_outcome_test_000: unexpected policy fields",
+        "shortcut_nan": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: impossible probability nan",
+        "shortcut_negative": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: impossible probability -1.0",
+        "shortcut_null": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: non-numeric probability None",
+        "shortcut_omit_experiments": "sequence_diversity_best_of_n: missing sequence.json",
+        "shortcut_sharpened_reference": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.467 < gate 0.75",
+        "shortcut_single_context": "two_outcome_mode_collapse: two_outcome.json: missing 300 required contexts (e.g. two_outcome_test_000)",
+        "shortcut_tie_bias_option0": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.483 < gate 0.75",
+        "shortcut_uniform": "two_outcome_mode_collapse: task gate failed: top_choice_preserved 0.000 < gate 0.75",
+        "shortcut_unnormalized": "calibration_multiple_choice: calibration_multiple_choice:calibration_test_000: probabilities sum to 3.6, not 1"
+      },
+      "diagnostics": {
+        "baseline_dpo_minp_0.1_t3": {
+          "mean_confidence": 0.780669295155154,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "dpo_alpha_equals_beta": {
+          "mean_confidence": 0.9234324609809693,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "dpo_token_temperature_1.5": {
+          "mean_confidence": 0.8846998810288417,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_bayes_exact_prior": {
+          "mean_confidence": 0.46418478320014683,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_constant_confidence": {
+          "mean_confidence": 0.5117568227663537,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_constant_confidence_half": {
+          "mean_confidence": 0.5291876732419668,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_generator_inverse_sequence": {
+          "mean_confidence": 0.5466185237175829,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_laplace_counts": {
+          "mean_confidence": 0.388713915728507,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_majority_vote_onehot": {
+          "mean_confidence": 0.9999000000000131,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_memorize_train_truth": {
+          "mean_confidence": 0.5466185237175829,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_mix_30pct_brute_force": {
+          "mean_confidence": 0.5466185237175829,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_old_prior_calibration_only": {
+          "mean_confidence": 0.46418478320014683,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "shortcut_old_prior_two_only": {
+          "mean_confidence": 0.5466185237175829,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "spl_alpha_1.0_beta_0.1": {
+          "mean_confidence": 0.5466185237175829,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "variant_alpha_1.2": {
+          "mean_confidence": 0.5092724656689965,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "variant_global_temperature_1.2": {
+          "mean_confidence": 0.5092189654574961,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "variant_improved": {
+          "mean_confidence": 0.5023799673038921,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "variant_truncate_rare_tokens": {
+          "mean_confidence": 0.5466185237175829,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        },
+        "variant_undertrained": {
+          "mean_confidence": 0.5458300821463707,
+          "reference_policy_accuracy": 0.24163480243208293,
+          "comparison_vote_accuracy": 0.46923688065552294,
+          "accuracy_gate_floor": 0.4592368806555229
+        }
+      }
+    }
+  }
+}

@@ -21,18 +21,18 @@
       "results": {
         "spl_alpha_1.0_beta_0.1": {
           "type": "proposed",
-          "preference_kl": 0.0377616,
-          "minority_log_ratio_error": 0.512554
+          "preference_kl": 0.007295526988364512,
+          "minority_log_ratio_error": 0.22579951520464273
         },
         "dpo_alpha_equals_beta": {
           "type": "baseline",
-          "preference_kl": 2.00157,
-          "minority_log_ratio_error": 11.4539
+          "preference_kl": 1.639501806237127,
+          "minority_log_ratio_error": 10.334946701353973
         },
         "dpo_token_temperature_1.5": {
           "type": "baseline",
-          "preference_kl": 1.18629,
-          "minority_log_ratio_error": 7.3624
+          "preference_kl": 0.9513051126982656,
+          "minority_log_ratio_error": 6.502335179464708
         }
       },
       "_paper_reported": {
@@ -75,21 +75,21 @@
       "results": {
         "spl_alpha_1.0_beta_0.1": {
           "type": "proposed",
-          "best_of_128_success_hard": 0.386275,
-          "population_kl": 0.249488,
-          "coherence": 0.969756
+          "best_of_128_success_hard": 0.38627518156589247,
+          "population_kl": 0.24948806168306095,
+          "coherence": 0.9697564920247952
         },
         "dpo_alpha_equals_beta": {
           "type": "baseline",
-          "best_of_128_success_hard": 0.0874553,
-          "population_kl": 7.71187,
-          "coherence": 0.994917
+          "best_of_128_success_hard": 0.0874552555913627,
+          "population_kl": 7.711865116129995,
+          "coherence": 0.9945594944918289
         },
         "dpo_token_temperature_1.5": {
           "type": "baseline",
-          "best_of_128_success_hard": 0.172382,
-          "population_kl": 3.67382,
-          "coherence": 0.926968
+          "best_of_128_success_hard": 0.17238152662259162,
+          "population_kl": 3.673824574893868,
+          "coherence": 0.9269680997441
         }
       },
       "_paper_reported": {
@@ -136,21 +136,21 @@
       "results": {
         "spl_alpha_1.0_beta_0.1": {
           "type": "proposed",
-          "expected_calibration_error": 0.0678132,
-          "brier_score": 0.6448,
-          "accuracy": 0.479749
+          "expected_calibration_error": 0.053180210000056474,
+          "brier_score": 0.6230874144169662,
+          "accuracy": 0.4934383137175271
         },
         "dpo_alpha_equals_beta": {
           "type": "baseline",
-          "expected_calibration_error": 0.449473,
-          "brier_score": 0.942561,
-          "accuracy": 0.482149
+          "expected_calibration_error": 0.4320798181745219,
+          "brier_score": 0.9101387011653185,
+          "accuracy": 0.49135264280644797
         },
         "dpo_token_temperature_1.5": {
           "type": "baseline",
-          "expected_calibration_error": 0.414004,
-          "brier_score": 0.898152,
-          "accuracy": 0.482149
+          "expected_calibration_error": 0.3933472382223949,
+          "brier_score": 0.8624453954386068,
+          "accuracy": 0.49135264280644797
         }
       },
       "_paper_reported": {
