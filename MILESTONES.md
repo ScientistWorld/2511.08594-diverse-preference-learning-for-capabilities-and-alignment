@@ -48,17 +48,3 @@
 
 ## Stop Justification
 - Completed at milestone `core_claim_plus`.
-
-### [2026-11-17] - core_claim_plus (final review fixes, verification pending)
-- Read the paper and both audit reports. Replaced parametric categorical targets with empirical
-  GlobalOpinionQA response distributions and independent references; disjoint source questions.
-- Capped per-prompt coherence credit at the population level and tightened complete failure records.
-- Prepared one combined CPU verification job; no new reproduction claim before its results.
-
-### [2026-11-17] - core_claim_plus (final verification complete)
-- CPU job `2e18944d-0e8` exited 0 and passed `python validate.py --compare`.
-- Reran SPL and both baselines sequentially on final empirical targets, then audited 33 attempts.
-- The trained improvement beats SPL with a positive paired interval under all-attempt variance.
-- Coherence credit, malformed fields, empty inventories and complete failure records were checked.
-- HARDENING.md records a remaining positive old-prior estimator (+0.00854); strict shortcut
-  closure remains incomplete. No higher milestone or complete hardening claim is made.

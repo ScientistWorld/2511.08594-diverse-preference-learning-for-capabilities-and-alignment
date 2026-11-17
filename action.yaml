@@ -1,5 +1,3 @@
-action: submit
-gpus: 0
-test: false
+action: done
 milestone: core_claim_plus
-notes: "Final hardening: regenerate real-survey categorical targets, isolated end-to-end SPL/DPO baselines, combined paired variant/shortcut audit, coherence cap and failure-integrity checks, reference-only score packaging and validation."
+notes: "Verified and packaged final references, empirical survey targets, coherence cap and complete failure scoring; validation passes, but the old-prior estimator still gains +0.00854 as documented in HARDENING.md."

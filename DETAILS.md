@@ -16,7 +16,7 @@ best-of-N problem solving and improves calibration.
 
 ## This Gym
 
-A scaled synthetic reproduction with hidden ground truth: two-outcome social-choice prompts,
+A scaled finite reproduction with hidden ground truth, empirical survey categorical targets and synthetic sequences: two-outcome social-choice prompts,
 7-token sequence generation over a 21-token vocabulary with hidden verifier sets and incoherent
 tokens, and four-option multiple-choice calibration. All training is pure-Python, CPU-only, and
 deterministic. See `scoring/EXPERIMENTS.md` and `briefing/evaluation.md`.
@@ -43,14 +43,20 @@ raters. Nothing else about the population is observed. Three families of prompts
 are hidden):
 
 1. **Two-outcome prompts** (601 prompts). Two possible completions; the population prefers one
-   of them with probability between 0.55 and 0.95; 8-40 sampled comparisons per prompt.
+   of them according to an empirical human response distribution; 32-128 sampled comparisons per prompt. The visible 80/20 example has 100 exact comparisons.
 2. **Sequence prompts** (64 prompts). Completions are 7-token sequences over a 21-token
    vocabulary (about 1.8 billion possible completions, far too many to enumerate). Most tokens at
    each position are rare "incoherent" tokens (the analogue of non-words). Each prompt has 2000
    comparisons between pairs of reference-policy samples, judged by raters with
    sequence-level preferences.
-3. **Multiple-choice prompts** (1200 prompts). Four answer options with hidden uncertainty about
-   which one is correct; 20-80 sampled comparisons per prompt.
+3. **Multiple-choice prompts** (1200 prompts). Four survey response options with a hidden human response distribution; 40-120 sampled comparisons per prompt. Calibration measures probabilities of a randomly drawn human response, not factual correctness.
+
+Categorical targets are empirical response frequencies from GlobalOpinionQA (Pew Global Attitudes
+and World Values Survey), conditioned on a subset of two or four positive-response options.
+Original questions are disjoint across both experiments and both splits. Question text, country,
+source row and option mapping are withheld; only the preference observations are inputs.
+Reference probabilities are independent of the empirical targets. The sequence task remains
+synthetic. This is a finite preference-learning benchmark, not a reproduction of full LLM tasks.
 
 A solution outputs, for every prompt (train and test), a full probability distribution over its
 completions (a first-order chain over tokens for the sequence prompts).
@@ -74,7 +80,7 @@ A better solution, on held-out prompts:
 **without** giving up what the alignment step is for: the population's preferred completion must
 stay on top, generations must stay coherent and at least as preferred by the population as the
 reference policy's, and multiple-choice accuracy must not drop below what simply counting which
-option wins the most comparisons achieves.
+option wins the most comparisons achieves (with evaluator-defined slack).
 
 ---
 
@@ -132,8 +138,8 @@ A method writes one directory per run under `checkpoints/<run_name>/` containing
 
 `initial` is the distribution of the first token, `transitions[i][a]` the distribution of token
 `i+1` given token `i` = `a`. Every prompt id in `data/*_contexts.json` (train and test split) must be
-present. Only these probability tables are read; any other field is ignored. Ground truth
-(population preferences, rewards, verifier sets, correct-answer distributions), the reference
+present. Only these probability tables are read; extra fields inside a context are rejected. Top-level descriptive metadata and unrelated files never enter a score. Ground truth
+(population preferences, rewards, verifier sets, human response distributions), the reference
 policies used for gates, and all thresholds are owned by the evaluator.
 
 - `bash scripts/evaluate_train.sh` scores every `checkpoints/*` directory on the visible train
@@ -158,9 +164,9 @@ sequences); there is no sampling noise and the evaluation is deterministic.
   averaged over 6 hidden hard problems per prompt (coherent sequences matching a hidden pattern,
   away from the most popular completion).
 - `population_kl` (lower): sequence-level KL(population distribution || policy), cap 60.
-- `coherence` (higher): probability that a sampled sequence contains no incoherent token.
+- `coherence` (higher): probability that a sampled sequence contains no incoherent token, capped per prompt at the hidden population policy's own coherence. Increasing coherence beyond that level receives no extra credit. Raw and population coherence are diagnostic only.
 
-**calibration_multiple_choice** (expectations over the hidden correct answer)
+**calibration_multiple_choice** (expectations over a hidden randomly drawn human response)
 - `brier_score` (lower, primary): multi-class Brier score.
 - `expected_calibration_error` (lower): 10-bin ECE of top-answer confidence (weighted below Brier:
   a constant, uninformative confidence can make ECE small but not Brier).
@@ -176,10 +182,13 @@ violates a task gate:
 
 - two-outcome: the population-majority completion is the most probable one on < 75% of prompts;
 - sequence: expected population reward of the policy below that of the reference policy;
-- multiple choice: accuracy below the accuracy of simply picking the option with the best
-  (wins - losses) count in the prompt's comparisons, minus 0.01 (floor about 0.472 on both slices).
+- multiple choice: expected agreement with a human response below that of simply picking the option with the best
+  (wins - losses) count in the prompt's comparisons, minus 0.01. Floors are recomputed from evaluator-owned truth for each split and are reported in diagnostics.
 
-A failed run receives the **worst value of every metric in every experiment** (KL 20 / 30 / 60,
+Hidden-named method directories are also scored. An empty checkpoint tree produces a failed `missing_submission` record.
+
+A failed run receives the **worst value of every metric in every experiment** (categorical KL 20,
+minority log-ratio error 30, sequence KL 60,
 success 0, coherence 0, ECE 1, Brier 2, accuracy 0); the reason is recorded under
 `failed_methods`. Gate quantities are reported under `diagnostics`.
 
@@ -192,6 +201,12 @@ success 0, coherence 0, ECE 1, Brier 2, accuracy 0); the reason is recorded unde
 Both stay coherent or nearly so but collapse onto the majority, so they lose on distribution fit,
 hard best-of-128 and calibration. Higher token temperatures recover some diversity but quickly
 produce incoherent tokens. A uniform policy fails the gates.
+
+Rank contributions use experiment weight times the magnitude of each coefficient times the
+direction-correct improvement over the reference, divided by the metric's standard deviation
+across the attempts being ranked. Coefficient signs and measurement units do not change priority.
+Every failed attempt has every metric, so no task failure can buy a higher rank through another
+metric. Metrics, operating points and test sizes are fixed by the evaluator.
 
 ---
 
@@ -603,6 +618,58 @@ produce incoherent tokens. A uniform policy fails the gates.
 - **Milestone**: `core_claim_plus` | **Status**: done
 - **Working time**: 14m | **GPU**: 0.0h
 - **Jobs**: 6 total (6 completed, 0 failed)
+
+<details>
+<summary>Progress Log</summary>
+
+### [2026-11-11 08:55] - core_claim_plus (hardening, final)
+- Hidden-test gym hardened (see HARDENING.md): evaluator-owned truth/reference/verifiers, sequence-level best-of-N experiment, task gates with worst-value failures, disk-discovered methods.
+- Calibration: accuracy is a gate-enforced constraint (comparison-vote floor - 0.01), Brier primary (1.0), ECE 0.5; closes accuracy-noise amplification and constant-confidence ECE gaming.
+- Job fe21a55a-560: retrained reference/baselines bit-identical; better variants +0.160/+0.155/+0.045 over the reference, weaker variants and baselines below; validate.py passes.
+
+### [2026-06-01 09:35] - core_claim_plus
+- Final verifier reran `scripts/reproduce.sh`, both split evaluators, and `python validate.py --compare`; all checks passed.
+- Renamed the problem-facing multi-outcome benchmark files to method-agnostic names and removed stale paper-method wording from `data/`, `eval/`, and standard scripts.
+- Confirmed no `shared/` references, no `eval/` or `data/` imports from `method/`, and no external download URLs requiring verification.
+
+### [2026-06-01 09:25] - core_claim_plus
+- Final verification passed `python validate.py --compare`.
+- Cleaned method-agnostic documentation and added notes explaining which reference targets are generated finite-benchmark targets rather than published LLM table values.
+- Kept milestone at `core_claim_plus` because the verified package is a finite-action reproduction rather than the paper's full LLM experiment suite.
+
+### [2026-06-01 09:23] - core_claim_plus
+- Added a finite multiple-choice calibration benchmark that uses the same pairwise SPL/DPO objective and artifact format.
+- Local `scripts/reproduce.sh`, split evaluators, and `python validate.py --compare` pass for the expanded three-experiment package.
+- Submitting a managed CPU verification job before claiming `secondary_claims`.
+
+### [2026-06-01 09:10] - core_claim_plus
+- Added a deterministic multi-context two-outcome split benchmark that keeps the paper's original 80/20 example as the first reported context while adding real held-out two-action contexts for anti-shortcut train/test scoring.
+- Updated the standard evaluator to report the same two-outcome distribution-fit constraints used by the split evaluators.
+- Submitting a full CPU reproduction run that regenerates DPO/SPL artifacts, refreshes `scores.json`, refreshes train/test scores, and runs validation.
+
+### [2026-06-01 08:52] - core_claim_plus
+- Managed CPU verification job `9b0d9378-ef7` completed with exit code 0.
+- The job reran `scripts/reproduce.sh`, regenerated DPO and SPL artifacts for both experiments, and ran `python validate.py --compare`.
+- Container validation passed import separation, artifact-based evaluation, and reproduced-score comparison checks.
+
+### [2026-06-01 08:51] - core_claim_plus
+- Continuation audit confirmed `method/train_tabular_spl.py` directly optimizes the paper's DPO-style SPL objective rather than a surrogate.
+- Confirmed `eval/evaluate_tabular.py` reads saved `policy.json` and `samples.json` artifacts only and does not import from `method/`.
+- Local `python validate.py --compare` passes for both the two-outcome core claim and the multi-outcome tabular extension.
+- Submitting a fresh CPU container verification because the only managed job log on disk predates the current two-experiment package.
+
+### [2026-06-01 08:49] - core_claim_plus
+- Implemented and packaged the paper's actual DPO-style Soft Preference Learning objective for finite policies.
+- Reproduced the paper's two-outcome 80/20 mode-collapse example with DPO as the `alpha == beta` baseline and SPL with separate `alpha` and `beta`.
+- Added and scored a finite multi-outcome Plackett-Luce extension that tests distributional representation, repeated-sampling coverage, and preference-order preservation.
+- Verified `eval/` reads saved artifacts and does not import `method/`.
+
+</details>
+
+### Iteration 11: gpt-6.1-sol (hardener)
+- **Milestone**: `core_claim_plus` | **Status**: done
+- **Working time**: 14m | **GPU**: 0.0h
+- **Jobs**: 7 total (7 completed, 0 failed)
 
 <details>
 <summary>Progress Log</summary>
