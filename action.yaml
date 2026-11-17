@@ -1,6 +1,8 @@
 # Once you set action to 'submit' or 'done', STOP immediately.
 # Do NOT sleep, poll, or wait for jobs. The system reads this file
 # only after your turn ends.
-action: done
+action: pending
+gpus: 0
+test: false
 milestone: core_claim_plus
-notes: "Hardened gym: hidden truth, gates and worst-value failures, Brier-primary calibration with a gated accuracy floor; better variants beat the reference beyond paired noise, all major REDTEAM shortcuts fail or tie; one generator-aware calibration shortcut left (+0.099), see HARDENING.md."
+notes: ""
